@@ -25,23 +25,38 @@ interface MenuItemProps extends MenuItemData {
 const SERVICES = [
   {
     link: "/contact",
-    text: "Brand Identity",
+    text: "Web Design / Development",
     image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&h=200&fit=crop&crop=center",
   },
   {
     link: "/work",
-    text: "Websites",
+    text: "App Design / Development",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center",
   },
   {
     link: "/contact",
-    text: "SEO",
+    text: "Video Production / Editing",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center",
   },
   {
     link: "/work",
-    text: "Craft CMS",
+    text: "3D Modeling / Animation",
     image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop&crop=center",
+  },
+  {
+    link: "/contact",
+    text: "SEO / Digital Marketing",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center",
+  },
+  {
+    link: "/work",
+    text: "E-commerce Solutions",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop&crop=center",
+  },
+  {
+    link: "/contact",
+    text: "Graphics Design / Branding",
+    image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=400&h=200&fit=crop&crop=center",
   },
 ];
 

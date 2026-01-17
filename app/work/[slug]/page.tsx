@@ -23,7 +23,7 @@ const CASE_STUDIES: Record<
     }>;
   }
 > = {
-  "electric-adventures": {
+  "model-management": {
     title: "An app for electric adventures",
     client: "Electric Co",
     year: "2021",

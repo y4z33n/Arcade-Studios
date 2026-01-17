@@ -1,52 +1,58 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import CardSwap, { Card } from "@/components/CardSwap";
 
 const CASE_STUDIES = [
   {
-    slug: "electric-adventures",
-    title: "An app for electric adventures",
-    subtitle: "Strategic repositioning of a next-gen mobility brand",
-    client: "Rivian",
-    tags: ["Strategy", "Brand", "Website", "Content"],
+    slug: "model-management",
+    title: "Model Management dot Mu",
+    subtitle: "Premier platform for models, casting professionals, and talent management",
+    client: "ModelManagement.mu",
+    tags: ["Platform", "Brand", "Website", "Talent"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1617886322207-5baae5fc7c5a?w=1600&h=900&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&h=900&fit=crop&q=80",
   },
   {
-    slug: "automotive-icons",
-    title: "Launching next gen automotive icons",
-    subtitle: "Digital transformation for sustainable transportation",
-    client: "Tesla",
-    tags: ["Strategy", "Brand", "Website", "Product"],
+    slug: "flash-communication",
+    title: "Flash Communications",
+    subtitle: "Integrated marketing agency - Creative, Digital, OOH, Video & Events",
+    client: "theflashgroups.com",
+    tags: ["Agency", "Brand", "Website", "Marketing"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=1600&h=900&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=900&fit=crop&q=80",
   },
   {
-    slug: "outdoor-gear",
-    title: "Redesigning the future of outdoor gear",
-    subtitle: "E-commerce platform for adventure enthusiasts",
-    client: "Black Diamond",
-    tags: ["Brand", "Website", "Content", "Product"],
+    slug: "tdultee",
+    title: "TD Ultee",
+    subtitle: "Digital presence for business solutions",
+    client: "tdultee.com",
+    tags: ["Brand", "Website", "Business"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&h=900&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=900&fit=crop&q=80",
   },
   {
-    slug: "solar-innovation",
-    title: "Solar energy platform",
-    subtitle: "Empowering sustainable energy solutions",
-    client: "SolarCity",
-    tags: ["Website", "Product", "Content"],
+    slug: "my-experience-shop",
+    title: "My Experience Shop",
+    subtitle: "E-commerce platform for unique experiences",
+    client: "myexperienceshop.com",
+    tags: ["E-commerce", "Website", "Product"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&h=900&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&h=900&fit=crop&q=80",
   },
 ];
+
 
 export default function FeaturedWork() {
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const swapDelay = 4000;
+
+  const currentCard = CASE_STUDIES[currentCardIndex];
 
   return (
     <section
@@ -69,7 +75,7 @@ export default function FeaturedWork() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl 3xl:text-[10rem] font-bold text-white leading-[0.95] tracking-tighter mb-8"
+            className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl 3xl:text-[10rem] font-bold text-white leading-[0.95] tracking-tighter mb-4"
           >
             Work we're proud of
           </motion.h2>
@@ -80,53 +86,45 @@ export default function FeaturedWork() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
           >
-            Scroll to explore our latest projects
+            Watch as our best projects cycle through
           </motion.p>
         </div>
 
-        {/* Stacking Cards */}
-        <div className="relative min-h-[400vh]">
-          {CASE_STUDIES.map((study, index) => {
-            const cardRef = useRef<HTMLDivElement>(null);
-            const { scrollYProgress: cardProgress } = useScroll({
-              target: cardRef,
-              offset: ["start end", "start start"],
-            });
+        {/* Card Swap Animation */}
+        <div className="relative min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
+          {/* Left side content for top card */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 max-w-md z-10">
+            <motion.div
+              key={currentCardIndex}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-4"
+            >
+              <p className="text-white/70 text-sm md:text-base">
+                i want to write a para here, a long para that describes the current featured work in detail, highlighting its unique aspects and the impact it has made for the client. This paragraph should entice viewers to learn more about the project and explore our portfolio further.
+                I want to hghlight the key features, the challenges we overcame, and the innovative solutions we implemented to deliver exceptional results.
+                This can be used inside the ase study page.
+              </p>
+            </motion.div>
+          </div>
 
-            // Calculate stacking position - each card stacks on top of previous
-            const stackOffset = index * 40; // 40px offset for each card
-            const isLast = index === CASE_STUDIES.length - 1;
-            
-            // Scale: starts at 0.9, grows to 1 as it enters
-            const scale = useTransform(
-              cardProgress, 
-              [0, 0.5, 1], 
-              [0.9, 1, 1]
-            );
-            
-            // Y position: moves up and sticks
-            const y = useTransform(
-              cardProgress,
-              [0, 0.5, 1],
-              [200, stackOffset, stackOffset]
-            );
-
-            return (
-              <motion.div
-                key={study.slug}
-                ref={cardRef}
-                style={{ 
-                  scale,
-                  y,
-                  zIndex: CASE_STUDIES.length - index,
-                }}
-                className="sticky top-24 will-change-transform"
-              >
-                <Link
-                  href={`/work/${study.slug}`}
-                  className="block group"
-                >
-                  <div className="relative h-[500px] md:h-[600px] lg:h-[700px] 3xl:h-[800px] rounded-3xl overflow-hidden shadow-2xl">
+          <CardSwap
+            width={800}
+            height={450}
+            cardDistance={35}
+            verticalDistance={45}
+            delay={swapDelay}
+            pauseOnHover={true}
+            skewAmount={4}
+            easing="elastic"
+            onCardChange={(idx) => setCurrentCardIndex(idx)}
+          >
+            {CASE_STUDIES.map((study) => (
+              <Card key={study.slug} customClass="cursor-pointer">
+                <Link href={`/work/${study.slug}`} className="block w-full h-full group">
+                  <div className="relative w-full h-full rounded-xl overflow-hidden">
                     {/* Image */}
                     <div className="absolute inset-0">
                       <Image
@@ -141,28 +139,28 @@ export default function FeaturedWork() {
                     <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-transparent" />
 
                     {/* Content */}
-                    <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12 lg:p-16 3xl:p-20">
+                    <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-10">
                       {/* Top: Client badge */}
                       <div>
-                        <span className="inline-block px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium text-black uppercase tracking-wider shadow-lg">
+                        <span className="inline-block px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-black uppercase tracking-wider shadow-lg">
                           {study.client}
                         </span>
                       </div>
 
                       {/* Bottom: Title and tags */}
                       <div>
-                        <h3 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 3xl:text-8xl font-bold text-white mb-4 leading-[0.95] tracking-tighter">
+                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight tracking-tighter">
                           {study.title}
                         </h3>
-                        <p className="text-white/90 text-lg md:text-xl 3xl:text-2xl mb-6">
+                        <p className="text-white/90 text-base md:text-lg mb-4">
                           {study.subtitle}
                         </p>
                         
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-2">
                           {study.tags.map((tag, i) => (
                             <span
                               key={i}
-                              className="px-4 py-2 text-sm 3xl:text-base text-white/80 border border-white/30 rounded-full backdrop-blur-sm"
+                              className="px-3 py-1.5 text-xs text-white/80 border border-white/30 rounded-full backdrop-blur-sm"
                             >
                               {tag}
                             </span>
@@ -172,13 +170,10 @@ export default function FeaturedWork() {
                     </div>
 
                     {/* View button */}
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      className="absolute top-8 right-8 md:top-12 md:right-12 3xl:top-16 3xl:right-16 w-16 h-16 3xl:w-20 3xl:h-20 bg-red-600 rounded-full flex items-center justify-center shadow-elegant-xl"
-                    >
+                    <div className="absolute top-6 right-6 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                       <svg
-                        width="24"
-                        height="24"
+                        width="20"
+                        height="20"
                         viewBox="0 0 24 24"
                         fill="none"
                         className="text-white -rotate-45"
@@ -191,17 +186,18 @@ export default function FeaturedWork() {
                           strokeLinejoin="round"
                         />
                       </svg>
-                    </motion.div>
+                    </div>
                   </div>
                 </Link>
-              </motion.div>
-            );
-          })}
+              </Card>
+            ))}
+          </CardSwap>
         </div>
+      </div>
 
-        {/* View All CTA - Styled like main CTA */}
-        <div className="-mt-[40vh]">
-          <Link href="/work" className="block group">
+      {/* View All CTA */}
+      <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24 mt-12">
+        <Link href="/work" className="block group">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -247,7 +243,6 @@ export default function FeaturedWork() {
               </motion.div>
             </motion.div>
           </Link>
-        </div>
       </div>
     </section>
   );
