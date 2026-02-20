@@ -39,7 +39,7 @@ const SERVICES = [
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center",
   },
   {
-    link: "/work",
+    link: "/work/3d",
     text: "3D Modeling / Animation",
     image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop&crop=center",
   },

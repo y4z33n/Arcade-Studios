@@ -21,7 +21,7 @@ const SERVICES = [
     description: "Professional video production, editing, and motion graphics",
   },
   {
-    link: "/work",
+    link: "/work/3d",
     text: "3D Modeling / Animation",
     description: "High-quality 3D modeling, animation, and rendering services",
   },
