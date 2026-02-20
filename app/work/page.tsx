@@ -6,7 +6,7 @@ import Link from "next/link";
 // Service types from homepage
 const SERVICES = [
   {
-    link: "/contact",
+    link: "/work/web-dev",
     text: "Web Design / Development",
     description: "Custom websites and web applications built with modern technologies",
   },
@@ -16,7 +16,7 @@ const SERVICES = [
     description: "Native and cross-platform mobile applications for iOS and Android",
   },
   {
-    link: "/contact",
+    link: "/work/video-production",
     text: "Video Production / Editing",
     description: "Professional video production, editing, and motion graphics",
   },

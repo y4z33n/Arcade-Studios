@@ -24,7 +24,7 @@ interface MenuItemProps extends MenuItemData {
 
 const SERVICES = [
   {
-    link: "/contact",
+    link: "/work/web-dev",
     text: "Web Design / Development",
     image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&h=200&fit=crop&crop=center",
   },
@@ -34,7 +34,7 @@ const SERVICES = [
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center",
   },
   {
-    link: "/contact",
+    link: "/work/video-production",
     text: "Video Production / Editing",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center",
   },
