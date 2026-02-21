@@ -212,6 +212,7 @@ export default function Designs() {
         <h1 className="homepage-title mb-1">NOUFAL SALIH</h1>
         <nav className="flex gap-8">
           <Link href="/designs" className="nav-link-home active">WORKS</Link>
+          <Link href="/work/app-dev" className="nav-link-home">APP DEVELOPMENT</Link>
           <Link href="/" className="nav-link-home">35MM</Link>
           <Link href="/films" className="nav-link-home">FILMS</Link>
         </nav>

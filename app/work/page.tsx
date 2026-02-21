@@ -11,7 +11,7 @@ const SERVICES = [
     description: "Custom websites and web applications built with modern technologies",
   },
   {
-    link: "/work",
+    link: "/work/app-dev",
     text: "App Design / Development",
     description: "Native and cross-platform mobile applications for iOS and Android",
   },
@@ -26,18 +26,18 @@ const SERVICES = [
     description: "High-quality 3D modeling, animation, and rendering services",
   },
   {
-    link: "/contact",
-    text: "SEO / Digital Marketing",
-    description: "SEO optimization and digital marketing strategies to grow your business",
-  },
-  {
-    link: "/work",
+    link: "/work/ecommerce",
     text: "E-commerce Solutions",
     description: "End-to-end e-commerce platforms that convert visitors into customers",
   },
   {
-    link: "/contact",
-    text: "Graphics Design / Branding",
+    link: "/work/seo-graphics",
+    text: "SEO & Graphics Design",
+    description: "SEO optimization, digital marketing, and stunning graphic design services",
+  },
+  {
+    link: "/work/branding",
+    text: "Branding & Identity",
     description: "Comprehensive brand strategies and visual identities that stand out",
   },
 ];

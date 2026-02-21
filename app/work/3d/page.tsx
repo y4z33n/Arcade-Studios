@@ -77,7 +77,7 @@ export default function ThreeDWorkPage() {
             Animation Showreels
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16">
             {/* T-Rex Animation */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -125,35 +125,11 @@ export default function ThreeDWorkPage() {
                 </div>
               </div>
             </motion.div>
-
-            {/* Nescafe Animation */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
-              className="group"
-            >
-              <div className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 transition-all duration-500 hover:border-red-500/50">
-                <video
-                  className="w-full h-auto"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                >
-                  <source src="/3d/nescafe.mp4" type="video/mp4" />
-                </video>
-                <div className="p-6">
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Nescafe Commercial</h3>
-                  <p className="text-white/70 text-sm">Product commercial with fluid dynamics</p>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Character Design - George Lenin */}
+      {/* Character Modeling Gallery */}
       <section className="relative py-12 md:py-16 overflow-hidden">
         <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24">
           <motion.div
@@ -163,153 +139,77 @@ export default function ThreeDWorkPage() {
             className="mb-12"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-4">
-              Character Design: George Lenin
+              Character Modeling Gallery
             </h2>
             <p className="text-lg md:text-xl text-white/70 max-w-3xl">
-              A complete character design project showcasing modeling, rigging, texturing, and various poses. 
-              From wireframes to fully rendered scenes, this project demonstrates our end-to-end 3D character pipeline.
+              A showcase of character modeling by various talented designers. Images are grouped by wireframe, grey, and full color renders for each character. No subcategories—just pure creative diversity.
             </p>
           </motion.div>
 
-          {/* Hero Image */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-            className="relative aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl"
-          >
-            <Image
-              src="/3d/george-lenin-main-image.webp"
-              alt="George Lenin Character - Main Render"
-              fill
-              className="object-cover"
-            />
-          </motion.div>
-
-          {/* Process Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-              transition={{ delay: 1.0, duration: 0.6 }}
-              className="relative aspect-square rounded-xl overflow-hidden"
-            >
-              <Image
-                src="/3d/george-lenin-wireframe.webp"
-                alt="Wireframe"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-              transition={{ delay: 1.1, duration: 0.6 }}
-              className="relative aspect-square rounded-xl overflow-hidden"
-            >
-              <Image
-                src="/3d/george-lenin-wire1.webp"
-                alt="Wireframe Detail"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-              className="relative aspect-square rounded-xl overflow-hidden"
-            >
-              <Image
-                src="/3d/george-lenin-grey.webp"
-                alt="Grey Render"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-              transition={{ delay: 1.3, duration: 0.6 }}
-              className="relative aspect-square rounded-xl overflow-hidden"
-            >
-              <Image
-                src="/3d/george-lenin-idle-grey.webp"
-                alt="Idle Pose"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
+          {/* Pinterest/Masonry Style Gallery */}
+          <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
+            {/* Example: Grouped by character and type (wire, grey, color) */}
+            {/* Big Boy */}
+            <div>
+              <Image src="/3d/big%20boy/chara1.webp" alt="Big Boy - Full Color" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/big%20boy/grey1.webp" alt="Big Boy - Grey" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/big%20boy/george-lenin-main-image.webp" alt="Big Boy - Color Alt" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+            </div>
+            {/* Boy */}
+            <div>
+              <Image src="/3d/boy/chara3.webp" alt="Boy - Full Color" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/boy/george-lenin-render-1.webp" alt="Boy - Color Alt" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/boy/george-lenin-wire1.webp" alt="Boy - Wireframe" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+            </div>
+            {/* Droid */}
+            <div>
+              <Image src="/3d/droid/chara5.webp" alt="Droid - Full Color" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/droid/droidreal.webp" alt="Droid - Color Alt" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/droid/droid%20wire.webp" alt="Droid - Wireframe" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+            </div>
+            {/* Girl */}
+            <div>
+              <Image src="/3d/girl/girl.webp" alt="Girl - Full Color" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/girl/girlreal.webp" alt="Girl - Color Alt" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/girl/girlwire.webp" alt="Girl - Wireframe" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+            </div>
+            {/* Robot */}
+            <div>
+              <Image src="/3d/robot/chara4.webp" alt="Robot - Full Color" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/robot/george-lenin-render1.webp" alt="Robot - Color Alt" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/robot/george-lenin-wireframe%20(1).webp" alt="Robot - Wireframe" width={400} height={600} className="mb-4 rounded-xl w-full h-auto" />
+            </div>
           </div>
+        </div>
+      </section>
 
-          {/* Character Poses & Renders */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-            {[
-              { src: "/3d/george-lenin-render1.webp", title: "Action Pose" },
-              { src: "/3d/george-lenin-render2.webp", title: "Profile View" },
-              { src: "/3d/george-lenin-render5.webp", title: "Dynamic Pose" },
-              { src: "/3d/george-lenin-pose-1-bg.webp", title: "Character Stance" },
-              { src: "/3d/george-lenin-front-bg.webp", title: "Front View" },
-              { src: "/3d/george-lenin-profile-bg.webp", title: "Side Profile" },
-            ].map((item, index) => (
-              <motion.div
-                key={item.src}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                transition={{ delay: 1.4 + index * 0.1, duration: 0.6 }}
-                className="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 transition-all duration-500 hover:border-red-500/50 hover:shadow-2xl"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden">
-                  <Image
-                    src={item.src}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Props & Equipment */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ delay: 2.0, duration: 0.8 }}
-            className="mb-12"
-          >
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">Props & Equipment</h3>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {[
-              "/3d/george-lenin-canon1.jpg",
-              "/3d/george-lenin-canon2.jpg",
-              "/3d/george-lenin-shotgun.jpg",
-              "/3d/george-lenin-shotgun1.jpg",
-              "/3d/george-lenin-droid2.webp",
-              "/3d/george-lenin-droid4.webp",
-              "/3d/george-lenin-k2-so1.webp",
-              "/3d/george-lenin-sofa-frontleft.webp",
-            ].map((src, index) => (
-              <motion.div
-                key={src}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-                transition={{ delay: 2.1 + index * 0.05, duration: 0.5 }}
-                className="relative aspect-square rounded-xl overflow-hidden border border-white/10 hover:border-red-500/50 transition-all duration-300"
-              >
-                <Image
-                  src={src}
-                  alt="3D Asset"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            ))}
+      {/* Props & Equipment Section */}
+      <section className="relative py-12 md:py-16 overflow-hidden">
+        <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24">
+          <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">Props & Equipment</h3>
+          <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
+            {/* Guns */}
+            <div>
+              <Image src="/3d/guns/george-lenin-canon1.jpg" alt="Gun Prop 1" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/guns/george-lenin-canon2.jpg" alt="Gun Prop 2" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/guns/george-lenin-canon3.jpg" alt="Gun Prop 3" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/guns/george-lenin-canon5.jpg" alt="Gun Prop 4" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/guns/george-lenin-canon8.jpg" alt="Gun Prop 5" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/guns/george-lenin-shotgun.jpg" alt="Shotgun Prop 1" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/guns/george-lenin-shotgun1.jpg" alt="Shotgun Prop 2" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/guns/george-lenin-shotgun2.jpg" alt="Shotgun Prop 3" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+            </div>
+            {/* Furniture */}
+            <div>
+              <Image src="/3d/furni/george-lenin-main-image.jpg" alt="Furniture Prop 1" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/furni/george-lenin-main-image-wireframe.jpg" alt="Furniture Prop 2" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/furni/george-lenin-sofa-backright.webp" alt="Furniture Prop 3" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/furni/george-lenin-sofa-frontleft.webp" alt="Furniture Prop 4" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/furni/george-lenin-sec.webp" alt="Furniture Prop 5" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/furni/george-lenin-second.jpg" alt="Furniture Prop 6" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/furni/george-lenin-third.jpg" alt="Furniture Prop 7" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+              <Image src="/3d/furni/george-lenin-wire.webp" alt="Furniture Prop 8" width={400} height={400} className="mb-4 rounded-xl w-full h-auto" />
+            </div>
           </div>
         </div>
       </section>
