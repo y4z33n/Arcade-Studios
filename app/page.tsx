@@ -49,9 +49,11 @@ export default function HomePage() {
       
       <div className="relative min-h-screen">
         <Hero />
-        <FeaturedWork />
-        <BrandShowcase />
-        <Services />
+        <div className="space-y-0">
+          <FeaturedWork />
+          <BrandShowcase />
+          <Services />
+        </div>
         
         <CTA title="Let's build something extraordinary" href="/contact" />
       </div>

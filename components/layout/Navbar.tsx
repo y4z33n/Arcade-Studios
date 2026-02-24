@@ -457,7 +457,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
 const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   position = 'right',
-  colors = ['#B19EEF', '#5227FF'],
+  colors = ['#1F2937', '#DC2626'],
   items = [],
   socialItems = [],
   displaySocials = true,
@@ -467,7 +467,7 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   menuButtonColor = '#fff',
   openMenuButtonColor = '#fff',
   changeMenuColorOnOpen = true,
-  accentColor = '#5227FF',
+  accentColor = '#DC2626',
   isFixed = false,
   closeOnClickAway = true,
   isOpen: externalIsOpen,
@@ -948,6 +948,19 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           style={{ WebkitBackdropFilter: 'blur(12px)' }}
           aria-hidden={!open}
         >
+          {/* Red X Close Button */}
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={closeMenu}
+            className="sm-close-btn absolute top-8 right-8 z-20 w-12 h-12 flex items-center justify-center bg-transparent border-0 cursor-pointer p-0 transition-transform duration-200 hover:scale-110"
+          >
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="14" y1="14" x2="34" y2="34" stroke="#DC2626" strokeWidth="4" strokeLinecap="round" />
+              <line x1="34" y1="14" x2="14" y2="34" stroke="#DC2626" strokeWidth="4" strokeLinecap="round" />
+            </svg>
+          </button>
+
           <div className="sm-panel-inner flex-1 flex flex-col gap-5">
             <ul
               className="sm-panel-list list-none m-0 p-0 flex flex-col gap-2"
@@ -1044,6 +1057,9 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-panel-item { position: relative; color: #000; font-weight: 600; font-size: 4rem; cursor: pointer; line-height: 1; letter-spacing: -2px; text-transform: uppercase; transition: background 0.25s, color 0.25s; display: inline-block; text-decoration: none; padding-right: 1.4em; }
 .sm-scope .sm-panel-itemLabel { display: inline-block; will-change: transform; transform-origin: 50% 100%; backface-visibility: hidden; transform: translate3d(0,0,0); }
 .sm-scope .sm-panel-item:hover { color: var(--sm-accent, #ff0000); }
+.sm-scope .sm-close-btn { outline: none; }
+.sm-scope .sm-close-btn:focus-visible { outline: 2px solid #DC2626; outline-offset: 4px; border-radius: 4px; }
+.sm-scope .sm-close-btn svg { display: block; pointer-events: none; }
 .sm-scope .sm-panel-list[data-numbering] { counter-reset: smItem; }
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 0.1em; right: 3.2em; font-size: 18px; font-weight: 400; color: var(--sm-accent, #ff0000); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
 @media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
@@ -1169,7 +1185,7 @@ export default function Navbar() {
 
       <StaggeredMenu
         position="right"
-        colors={['#B19EEF', '#5227FF']}
+        colors={['#1F2937', '#DC2626']}
         items={NAV_LINKS.map(link => ({
           label: link.label,
           ariaLabel: `Navigate to ${link.label}`,
@@ -1189,7 +1205,7 @@ export default function Navbar() {
         logoUrl="/logo.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#000"
-        accentColor="#5227FF"
+        accentColor="#DC2626"
         isFixed={false}
         changeMenuColorOnOpen={true}
         closeOnClickAway={true}

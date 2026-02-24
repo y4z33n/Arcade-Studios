@@ -160,7 +160,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       style={{ borderTop: isFirst ? 'none' : `1px solid ${borderColor}` }}
     >
       <a
-        className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-semibold text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+        className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl px-2"
         href={link}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -176,9 +176,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
         <div className="h-full w-fit flex" ref={marqueeInnerRef}>
           {[...Array(repetitions)].map((_, idx) => (
             <div className="marquee-part flex items-center flex-shrink-0" key={idx} style={{ color: marqueeTextColor }}>
-              <span className="whitespace-nowrap uppercase font-normal text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-[1] px-4 md:px-6 lg:px-8">{text}</span>
+              <span className="whitespace-nowrap uppercase font-normal text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-[1] px-3 sm:px-4 md:px-6 lg:px-8">{text}</span>
               <div
-                className="w-32 md:w-40 lg:w-48 h-16 md:h-20 lg:h-24 my-4 mx-4 md:mx-6 lg:mx-8 py-4 rounded-full bg-cover bg-center"
+                className="w-24 sm:w-32 md:w-40 lg:w-48 h-12 sm:h-16 md:h-20 lg:h-24 my-3 sm:my-4 mx-3 sm:mx-4 md:mx-6 lg:mx-8 py-3 sm:py-4 rounded-full bg-cover bg-center"
                 style={{ backgroundImage: `url(${image})` }}
               />
             </div>
@@ -196,13 +196,13 @@ export default function Services() {
   return (
     <section
       ref={containerRef}
-      className="relative py-32 md:py-40 overflow-hidden"
+      className="relative py-16 md:py-24 lg:py-32 overflow-hidden"
     >
-      <div className="relative z-10 w-full mx-auto px-6 lg:px-12 3xl:px-24">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24">
         {/* Glass Container */}
-        <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 3xl:p-16 border border-white/10">
+        <div className="bg-white/5 backdrop-blur-md rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12 3xl:p-16 border border-white/10">
           {/* Section Header */}
-          <div className="mb-16 md:mb-20">
+          <div className="mb-12 md:mb-16 lg:mb-20">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -216,7 +216,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl 3xl:text-[10rem] font-bold text-white leading-[0.95] tracking-tighter mb-8"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 3xl:text-9xl font-bold text-white leading-[0.95] tracking-tighter mb-6 md:mb-8"
           >
             What We Do
           </motion.h2>
@@ -225,14 +225,14 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
+            className="text-base sm:text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
           >
             We craft digital experiences that combine strategic thinking with beautiful design and robust development.
           </motion.p>
         </div>
 
         {/* Services Flowing Menu */}
-        <div className="h-[400px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden">
+        <div className="h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl md:rounded-3xl overflow-hidden">
           <div className="w-full h-full overflow-hidden" style={{ backgroundColor: 'transparent' }}>
             <nav className="flex flex-col h-full m-0 p-0">
               {SERVICES.map((item, idx) => (

@@ -500,35 +500,35 @@ LogoLoop.displayName = 'LogoLoop';
 
 const CLIENT_LOGOS: LogoItem[] = [
   {
-    node: <span className="text-white font-bold text-2xl">Boosted</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Boosted</span>,
     title: "Boosted - E-Mobility",
   },
   {
-    node: <span className="text-white font-bold text-2xl">Rivian</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Rivian</span>,
     title: "Rivian - Automotive",
   },
   {
-    node: <span className="text-white font-bold text-2xl">Tesla</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Tesla</span>,
     title: "Tesla - Technology",
   },
   {
-    node: <span className="text-white font-bold text-2xl">Black Diamond</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Black Diamond</span>,
     title: "Black Diamond - Outdoor Gear",
   },
   {
-    node: <span className="text-white font-bold text-2xl">Cardiff</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Cardiff</span>,
     title: "Cardiff - Lifestyle",
   },
   {
-    node: <span className="text-white font-bold text-2xl">SolarCity</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">SolarCity</span>,
     title: "SolarCity - Clean Energy",
   },
   {
-    node: <span className="text-white font-bold text-2xl">Patagonia</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Patagonia</span>,
     title: "Patagonia - Outdoor",
   },
   {
-    node: <span className="text-white font-bold text-2xl">Airbnb</span>,
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Airbnb</span>,
     title: "Airbnb - Travel",
   },
 ];
@@ -540,20 +540,20 @@ export default function BrandShowcase() {
   return (
     <section
       ref={containerRef}
-      className="relative py-16 md:py-20 overflow-hidden bg-black"
+      className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-black"
     >
-      <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24 relative" style={{ zIndex: 10 }}>
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 relative" style={{ zIndex: 10 }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-10 md:mb-12 lg:mb-16"
         >
-          <span className="text-sm 3xl:text-base text-white/60 uppercase tracking-widest mb-4 block">
+          <span className="text-xs sm:text-sm 3xl:text-base text-white/60 uppercase tracking-widest mb-3 md:mb-4 block">
             Trusted by leading brands
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl font-bold text-white leading-[0.95] tracking-tighter">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl font-bold text-white leading-[0.95] tracking-tighter px-4">
             We've partnered with industry leaders
           </h2>
         </motion.div>
@@ -569,14 +569,14 @@ export default function BrandShowcase() {
             logos={CLIENT_LOGOS}
             speed={80}
             direction="left"
-            logoHeight={32}
-            gap={48}
+            logoHeight={28}
+            gap={32}
             pauseOnHover={true}
             fadeOut={true}
             fadeOutColor="rgba(0, 0, 0, 0.8)"
             scaleOnHover={true}
             ariaLabel="Partner company logos"
-            className="py-8"
+            className="py-6 md:py-8"
           />
         </motion.div>
 
@@ -585,9 +585,9 @@ export default function BrandShowcase() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-center mt-12"
+          className="text-center mt-8 md:mt-12"
         >
-          <p className="text-white/60 3xl:text-lg">
+          <p className="text-white/60 text-sm sm:text-base 3xl:text-lg">
             And many more innovative companies across the globe
           </p>
         </motion.div>

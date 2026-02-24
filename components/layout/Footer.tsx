@@ -14,18 +14,7 @@ export default function Footer() {
       {/* Footer Content */}
       <div className="w-full mx-auto">
         <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-elegant py-16 md:py-20 px-6 lg:px-12 3xl:px-20">
-          {/* Large Statement Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.8 }}
-            className="mb-20"
-          >
-            <h2 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl 3xl:text-[10rem] font-medium text-white leading-[1.1] tracking-tight">
-              Just do it.
-            </h2>
-          </motion.div>
-
+          
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}

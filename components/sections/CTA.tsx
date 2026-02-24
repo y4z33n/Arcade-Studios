@@ -26,16 +26,16 @@ export default function CTA({
   return (
     <section
       ref={containerRef}
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-12 md:py-20 lg:py-28 overflow-hidden"
     >
-      <div className="w-full mx-auto px-4 lg:px-6 3xl:px-12 relative z-10">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 relative z-10">
         <motion.div style={{ scale }}>
           <Link href={href} className="block group">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative flex flex-col md:flex-row items-center justify-between bg-gradient-to-r from-red-600 to-red-700 rounded-3xl p-12 md:p-16 3xl:p-20 overflow-hidden shadow-elegant-xl group-hover:shadow-2xl transition-all"
+              className="relative flex flex-col md:flex-row items-center justify-between bg-gradient-to-r from-red-600 to-red-700 rounded-2xl md:rounded-3xl p-8 sm:p-10 md:p-12 lg:p-16 3xl:p-20 overflow-hidden shadow-2xl group-hover:shadow-red-500/30 transition-all"
             >
               {/* Animated background gradient on hover - darker red */}
               <motion.div
@@ -43,9 +43,9 @@ export default function CTA({
               />
 
               {/* Content */}
-              <div className="relative z-10 mb-8 md:mb-0">
+              <div className="relative z-10 mb-6 md:mb-0 text-center md:text-left">
                 <motion.h2
-                  className="text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl font-bold text-white tracking-tight max-w-3xl"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl font-bold text-white tracking-tight max-w-3xl"
                 >
                   {title}
                 </motion.h2>
@@ -57,13 +57,13 @@ export default function CTA({
                 whileHover={{ scale: 1.1, rotate: 45 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 3xl:w-24 3xl:h-24 rounded-full bg-white flex items-center justify-center shadow-elegant">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 3xl:w-24 3xl:h-24 rounded-full bg-white flex items-center justify-center shadow-lg">
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
-                    className="text-black -rotate-45 3xl:w-8 3xl:h-8"
+                    className="text-black -rotate-45 sm:w-6 sm:h-6 3xl:w-8 3xl:h-8"
                   >
                     <path
                       d="M5 12H19M19 12L12 5M19 12L12 19"
