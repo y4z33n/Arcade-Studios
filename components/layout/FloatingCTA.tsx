@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { SITE_CONFIG } from "@/lib/constants";
+
 
 export default function FloatingCTA() {
   return (
@@ -10,17 +10,17 @@ export default function FloatingCTA() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.6 }}
-      className="fixed bottom-8 right-8 z-40"
+      className="fixed bottom-8 right-8 z-50"
     >
       <Link href="/contact" className="block group">
         <motion.div
-          className="bg-lilac-600 text-white px-6 py-4 rounded-2xl shadow-2xl hover:shadow-3xl transition-all"
+          className="relative bg-red-600 text-white px-6 md:px-8 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-red-500/50 transition-all overflow-hidden"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <div className="flex items-center space-x-2">
-            <span className="text-sm md:text-base font-bold tracking-tight uppercase">
-              {SITE_CONFIG.name}
+          <div className="relative flex items-center justify-center">
+            <span className="text-sm md:text-base font-bold tracking-tight">
+              Start Your Project
             </span>
           </div>
         </motion.div>

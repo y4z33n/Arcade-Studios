@@ -5,6 +5,7 @@ import BrandShowcase from "@/components/sections/BrandShowcase";
 import FeaturedWork from "@/components/sections/FeaturedWork";
 import CTA from "@/components/sections/CTA";
 import HyperspeedBackground from "@/components/HyperspeedBackground";
+import FloatingCTA from "@/components/layout/FloatingCTA";
 
 export const metadata: Metadata = {
   title: "Arcade Studios | Web Development Agency",
@@ -46,6 +47,9 @@ export default function HomePage() {
     <>
       {/* Hyperspeed Background - Full Page */}
       <HyperspeedBackground />
+      
+      {/* Floating Action Button */}
+      <FloatingCTA />
       
       <div className="relative min-h-screen">
         <Hero />
