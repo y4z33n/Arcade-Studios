@@ -520,16 +520,16 @@ const CLIENT_LOGOS: LogoItem[] = [
     title: "Iris&Peach",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Myexperienceshop</span>,
-    title: "Myexperienceshop",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">MyExperienceShop</span>,
+    title: "MyExperienceShop",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">bodyography</span>,
-    title: "bodyography",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Bodyography</span>,
+    title: "Bodyography ",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">theflashgroups</span>,
-    title: "theflashgroups",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">TheFlashGroups</span>,
+    title: "TheFlashGroups",
   },
   {
     node: <span className="text-white font-bold text-xl sm:text-2xl">MBS Leo</span>,
