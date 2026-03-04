@@ -7,8 +7,8 @@ export const SITE_CONFIG = {
   tagline: "Every digital problem. One solution.",
   description:
     "Leylak is a full-spectrum digital solutions studio. From concept to launch — we craft the web, the brand, the motion, and everything in between.",
-  url: "https://leylak.com",
-  email: "kysondana@gmail.com",
+  url: "https://leylak.tech",
+  email: "hello@leylak.tech",
   location: "2nd Floor, Unity House, Rue du Savoir, Cybercity, Ebene, Mauritius 72201",
   phone: ["+230 57904684", "+230 55057910"],
   social: {
