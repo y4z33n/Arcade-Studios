@@ -240,13 +240,13 @@ The site is optimized for:
 
 ## 📄 License
 
-All rights reserved © Arcade Studios
+All rights reserved © Leylak
 
 ## 🤝 Support
 
-For questions or issues, contact: hello@arcadestudios.com
+For questions or issues, contact: hello@leylak.com
 
 ---
 
-Built with ❤️ by Arcade Studios
+Built with ❤️ by Leylak
 

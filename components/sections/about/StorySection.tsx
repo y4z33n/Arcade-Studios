@@ -62,24 +62,21 @@ export default function StorySection() {
           >
             <div className="space-y-6">
               <p className="text-xl md:text-2xl 3xl:text-3xl text-white leading-relaxed font-medium">
-                Arcade Studios was founded with a simple mission: to build
-                exceptional web applications that drive business growth.
+                Leylak was born from one belief: no digital problem should go unsolved.
               </p>
               <p className="text-lg md:text-xl 3xl:text-2xl text-white/70 leading-relaxed">
-                We started as a small team of passionate developers and designers,
-                united by our belief that great code and thoughtful design can
-                transform businesses.
+                We are a full-spectrum digital solutions studio — not just developers,
+                not just designers. We are strategists, storytellers, and builders
+                who move across every discipline to handle whatever your brand needs.
               </p>
               <p className="text-lg md:text-xl 3xl:text-2xl text-white/70 leading-relaxed">
-                Over the years, we've had the privilege of working with ambitious
-                startups, established agencies, and forward-thinking brands across
-                various industries. From e-commerce platforms to SaaS applications,
-                we've helped our clients bring their digital visions to life.
+                From ambitious startups to established brands, we've partnered with
+                clients across industries to tackle their hardest digital challenges —
+                web, branding, motion, 3D, e-commerce, SEO, and beyond.
               </p>
               <p className="text-lg md:text-xl 3xl:text-2xl text-white/70 leading-relaxed">
-                We believe in the power of modern web technologies, clean code, and
-                meaningful user experiences. Every project is an opportunity to push
-                boundaries and create something remarkable that solves real problems.
+                Whatever the problem, we find the solution. That's not a tagline —
+                it's the standard we hold ourselves to on every single project.
               </p>
             </div>
 
@@ -118,7 +115,7 @@ export default function StorySection() {
             >
               <Image
                 src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=1500&fit=crop&q=80"
-                alt="Arcade Studios workspace"
+                alt="Leylak workspace"
                 fill
                 className="object-cover"
               />
@@ -130,7 +127,7 @@ export default function StorySection() {
               <p className="text-white font-medium text-lg 3xl:text-xl">
                 "Every project is a chance to create something extraordinary"
               </p>
-              <p className="text-white/60 text-sm 3xl:text-base mt-2">— Arcade Studios Team</p>
+              <p className="text-white/60 text-sm 3xl:text-base mt-2">— Leylak Team</p>
             </div>
           </motion.div>
         </div>

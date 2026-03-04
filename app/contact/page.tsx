@@ -3,20 +3,21 @@ import ContactHero from "@/components/sections/contact/ContactHero";
 import ContactFormSection from "@/components/sections/contact/ContactFormSection";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Arcade Studios | Web Development Agency",
+  title: "Contact Us | Leylak | Digital Solutions Studio",
   description:
-    "Ready to build your next web application? Get in touch with Arcade Studios for web development, React, Next.js, and full-stack solutions. Available for projects with startups, agencies, and next-gen brands.",
+    "Got a digital challenge? Leylak is ready to solve it. Reach out to discuss your project — web, branding, motion, 3D, e-commerce, or anything in between.",
   keywords: [
-    "hire web developers",
-    "contact web agency",
-    "web development services",
-    "react development consultation",
-    "next.js development",
-    "full-stack development",
+    "contact leylak",
+    "digital solutions studio",
+    "hire digital agency",
+    "solve digital problems",
+    "creative studio contact",
+    "web and branding studio",
+    "digital project inquiry",
   ],
   openGraph: {
-    title: "Contact Us | Arcade Studios",
-    description: "Let's build your next digital product. Available for web development projects.",
+    title: "Contact Us | Leylak",
+    description: "Got a digital challenge? Let's solve it together.",
     type: "website",
   },
 };

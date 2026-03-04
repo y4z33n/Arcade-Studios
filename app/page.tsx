@@ -8,37 +8,37 @@ import HyperspeedBackground from "@/components/HyperspeedBackground";
 import FloatingCTA from "@/components/layout/FloatingCTA";
 
 export const metadata: Metadata = {
-  title: "Arcade Studios | Web Development Agency",
+  title: "Leylak | Digital Solutions Studio",
   description:
-    "Award-winning web development agency building modern applications, digital products, and innovative solutions. Transforming ideas into exceptional digital experiences.",
+    "Leylak is a full-spectrum digital solutions studio. Every problem your brand faces online — we solve it. Web, branding, motion, 3D, e-commerce, and beyond.",
   keywords: [
-    "web development agency",
-    "React development",
-    "Next.js development",
-    "full-stack development",
-    "web applications",
-    "digital products",
-    "creative agency",
-    "award-winning",
+    "digital solutions studio",
+    "digital agency",
+    "web design and development",
+    "branding agency",
+    "creative studio",
+    "e-commerce solutions",
+    "motion design",
+    "3D design",
   ],
   openGraph: {
-    title: "Arcade Studios | Web Development Agency",
+    title: "Leylak | Digital Solutions Studio",
     description:
-      "Award-winning web development agency transforming ideas into exceptional digital experiences.",
+      "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
     type: "website",
     images: [
       {
         url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=630&fit=crop",
         width: 1200,
         height: 630,
-        alt: "Arcade Studios - Web Development Agency",
+        alt: "Leylak - Digital Solutions Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arcade Studios | Web Development Agency",
-    description: "Award-winning web development agency building exceptional digital experiences.",
+    title: "Leylak | Digital Solutions Studio",
+    description: "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
   },
 };
 

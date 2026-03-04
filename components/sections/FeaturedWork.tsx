@@ -173,7 +173,7 @@ export default function FeaturedWork() {
                   transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="absolute inset-0"
                 >
-                  <Link href={`/work/${currentCard.slug}`} className="block w-full h-full group">
+                  <Link href="/work/web-dev" className="block w-full h-full group">
                     <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
                       {/* Image */}
                       <div className="absolute inset-0">
@@ -359,7 +359,7 @@ export default function FeaturedWork() {
                 </div>
                 {/* View All Projects Link */}
                 <Link 
-                  href="/work" 
+                  href="/work/web-dev" 
                   className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-full transition-all hover:gap-3 group mt-4"
                 >
                   View All Projects
@@ -397,7 +397,7 @@ export default function FeaturedWork() {
               >
             {CASE_STUDIES.map((study) => (
               <Card key={study.slug} customClass="cursor-pointer">
-                <Link href={`/work/${study.slug}`} className="block w-full h-full group">
+                <Link href="/work/web-dev" className="block w-full h-full group">
                   <div className="relative w-full h-full rounded-xl overflow-hidden">
                     {/* Image */}
                     <div className="absolute inset-0">

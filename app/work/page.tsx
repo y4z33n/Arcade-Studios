@@ -26,18 +26,13 @@ const SERVICES = [
     description: "High-quality 3D modeling, animation, and rendering services",
   },
   {
-    link: "/work/ecommerce",
-    text: "E-commerce Solutions",
-    description: "End-to-end e-commerce platforms that convert visitors into customers",
-  },
-  {
     link: "/work/seo-graphics",
-    text: "SEO & Graphics Design",
-    description: "SEO optimization, digital marketing, and stunning graphic design services",
+    text: "SEO & Digital Marketing",
+    description: "Data-driven SEO strategies and digital marketing campaigns that grow your reach and revenue",
   },
   {
     link: "/work/branding",
-    text: "Branding & Identity",
+    text: "Graphics Design & Branding",
     description: "Comprehensive brand strategies and visual identities that stand out",
   },
 ];

@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Arcade Studios | Web Development Agency',
-    short_name: 'Arcade Studios',
-    description: 'Web development agency building modern web applications, digital products, and innovative solutions for startups, agencies, and next-gen brands.',
+    name: 'Leylak | Digital Solutions Studio',
+    short_name: 'Leylak',
+    description: 'A full-spectrum digital solutions studio. Every problem your brand faces online — we solve it.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

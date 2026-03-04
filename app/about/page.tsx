@@ -7,21 +7,21 @@ import CTA from "@/components/sections/CTA";
 
 
 export const metadata: Metadata = {
-  title: "About Us | Arcade Studios | Web Development Agency",
+  title: "About Us | Leylak | Digital Solutions Studio",
   description:
-    "Meet the Arcade Studios team—a web development agency building modern digital products for startups, agencies, and next-gen brands. Specializing in React, Next.js, and full-stack solutions.",
+    "Meet the people behind Leylak — a digital solutions studio obsessed with solving every challenge your brand faces online. Web, branding, motion, 3D, and more.",
   keywords: [
-    "about arcade studios",
-    "web development team",
-    "react developers",
-    "next.js agency",
-    "full-stack development",
-    "web development company",
-    "software development team",
+    "about leylak",
+    "digital solutions studio",
+    "creative studio team",
+    "branding and design agency",
+    "full-service digital studio",
+    "web and motion design",
+    "digital problem solvers",
   ],
   openGraph: {
-    title: "About Us | Arcade Studios",
-    description: "A web development agency building modern digital products for next-gen brands.",
+    title: "About Us | Leylak",
+    description: "The people behind your digital solutions. We handle every problem — you focus on growth.",
     type: "website",
   },
 };

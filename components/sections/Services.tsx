@@ -44,17 +44,12 @@ const SERVICES = [
     image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop&crop=center",
   },
   {
-    link: "/contact",
+    link: "/work/seo-graphics",
     text: "SEO / Digital Marketing",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center",
   },
   {
-    link: "/work",
-    text: "E-commerce Solutions",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop&crop=center",
-  },
-  {
-    link: "/contact",
+    link: "/work/branding",
     text: "Graphics Design / Branding",
     image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=400&h=200&fit=crop&crop=center",
   },

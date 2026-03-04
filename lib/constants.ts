@@ -3,13 +3,14 @@
  */
 
 export const SITE_CONFIG = {
-  name: "Arcade Studios",
-  tagline: "Building digital products for next-gen brands",
+  name: "Leylak",
+  tagline: "Every digital problem. One solution.",
   description:
-    "Arcade Studios builds modern web applications, digital products, and innovative solutions for startups, agencies, and next-gen brands.",
-  url: "https://arcadestudios.com",
+    "Leylak is a full-spectrum digital solutions studio. From concept to launch — we craft the web, the brand, the motion, and everything in between.",
+  url: "https://leylak.com",
   email: "kysondana@gmail.com",
-  location: "Santa Cruz, CA",
+  location: "2nd Floor, Unity House, Rue du Savoir, Cybercity, Ebene, Mauritius 72201",
+  phone: ["+230 57904684", "+230 55057910"],
   social: {
     linkedin: "https://linkedin.com/in/kysondana",
     instagram: "https://instagram.com/kysondana",

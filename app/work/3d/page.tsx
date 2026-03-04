@@ -14,7 +14,8 @@ export default function ThreeDWorkPage() {
     <div className="relative min-h-screen pt-20">
       {/* Hero Section */}
       <section ref={containerRef} className="relative py-20 md:py-28 overflow-hidden">
-        <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_20%,rgba(239,68,68,0.1),transparent_60%)]" />
+        <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -23,7 +24,7 @@ export default function ThreeDWorkPage() {
           >
             <Link
               href="/work"
-              className="inline-flex items-center text-white/60 hover:text-white transition-colors duration-300 mb-6"
+              className="inline-flex items-center text-white/60 hover:text-white transition-colors duration-300"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -49,7 +50,7 @@ export default function ThreeDWorkPage() {
           >
             Bringing Ideas
             <br />
-            to Life in 3D
+            <span className="text-red-500">to Life in 3D</span>
           </motion.h1>
 
           <motion.p
@@ -258,6 +259,37 @@ export default function ThreeDWorkPage() {
                 </motion.div>
               ))}
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Bottom Callout */}
+      <section className="relative py-16 md:py-24 overflow-hidden">
+        <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto rounded-3xl bg-gradient-to-br from-red-600/20 to-red-600/5 border border-red-500/20 p-10 md:p-14 text-center"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
+              Have a vision that needs<br />
+              <span className="text-red-400">to exist in 3D?</span>
+            </h2>
+            <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+              Whether it's a character, a product, or an entire world — we have the tools and 
+              talent to make it real. Let's start a conversation.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full transition-all text-base"
+            >
+              Start your 3D project
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </motion.div>
         </div>
       </section>

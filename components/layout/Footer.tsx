@@ -32,39 +32,7 @@ export default function Footer() {
                 {SITE_CONFIG.tagline}
               </p>
               
-              {/* Social Media Links */}
-              <div className="flex flex-wrap gap-3">
-                {SITE_CONFIG.social.twitter && (
-                  <a
-                    href={SITE_CONFIG.social.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 border border-white/20 rounded-full text-sm 3xl:text-base text-white/70 hover:text-white hover:border-white/40 transition-colors"
-                  >
-                    Twitter
-                  </a>
-                )}
-                {SITE_CONFIG.social.linkedin && (
-                  <a
-                    href={SITE_CONFIG.social.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 border border-white/20 rounded-full text-sm 3xl:text-base text-white/70 hover:text-white hover:border-white/40 transition-colors"
-                  >
-                    LinkedIn
-                  </a>
-                )}
-                {SITE_CONFIG.social.instagram && (
-                  <a
-                    href={SITE_CONFIG.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 border border-white/20 rounded-full text-sm 3xl:text-base text-white/70 hover:text-white hover:border-white/40 transition-colors"
-                  >
-                    Instagram
-                  </a>
-                )}
-              </div>
+              {/* Social Media Links — hidden for now */}
             </div>
 
             {/* Navigation */}
@@ -93,8 +61,16 @@ export default function Footer() {
                 >
                   {SITE_CONFIG.email}
                 </a>
-                <p className="text-white/50 text-base 3xl:text-lg">
-                  {SITE_CONFIG.location}
+                <a href="tel:+23057904684" className="text-white/50 hover:text-white/80 transition-colors text-base 3xl:text-lg">
+                  +230 57904684
+                </a>
+                <a href="tel:+23055057910" className="text-white/50 hover:text-white/80 transition-colors text-base 3xl:text-lg">
+                  +230 55057910
+                </a>
+                <p className="text-white/50 text-sm 3xl:text-base leading-relaxed pt-1">
+                  2nd Floor, Unity House<br />
+                  Rue du Savoir, Cybercity<br />
+                  Ebene, Mauritius 72201
                 </p>
               </div>
             </div>

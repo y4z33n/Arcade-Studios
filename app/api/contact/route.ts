@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     // Example with Resend:
     // const resend = new Resend(process.env.RESEND_API_KEY);
     // await resend.emails.send({
-    //   from: 'onboarding@arcadestudios.com',
+    //   from: 'onboarding@leylak.com',
     //   to: process.env.CONTACT_EMAIL!,
     //   subject: `New Contact Form Submission from ${validatedData.name}`,
     //   html: `

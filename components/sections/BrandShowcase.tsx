@@ -500,36 +500,76 @@ LogoLoop.displayName = 'LogoLoop';
 
 const CLIENT_LOGOS: LogoItem[] = [
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Boosted</span>,
-    title: "Boosted - E-Mobility",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">ModelManagement.Mu</span>,
+    title: "ModelManagement.Mu",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Rivian</span>,
-    title: "Rivian - Automotive",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Trait d'Union Ltée</span>,
+    title: "Trait d'Union Ltée",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Tesla</span>,
-    title: "Tesla - Technology",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Breathing Soul</span>,
+    title: "Breathing Soul",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Black Diamond</span>,
-    title: "Black Diamond - Outdoor Gear",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">ProCare</span>,
+    title: "ProCare",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Cardiff</span>,
-    title: "Cardiff - Lifestyle",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Iris&amp;Peach</span>,
+    title: "Iris&Peach",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">SolarCity</span>,
-    title: "SolarCity - Clean Energy",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Myexperienceshop</span>,
+    title: "Myexperienceshop",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Patagonia</span>,
-    title: "Patagonia - Outdoor",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">bodyography</span>,
+    title: "bodyography",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Airbnb</span>,
-    title: "Airbnb - Travel",
+    node: <span className="text-white font-bold text-xl sm:text-2xl">theflashgroups</span>,
+    title: "theflashgroups",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">MBS Leo</span>,
+    title: "MBS Leo",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Super Distribution</span>,
+    title: "Super Distribution",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Create a Solution</span>,
+    title: "Create a Solution",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Saapad</span>,
+    title: "Saapad",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">CHiLi</span>,
+    title: "CHiLi",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Eggs More</span>,
+    title: "Eggs More",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Kishkinda University</span>,
+    title: "Kishkinda University",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Event Works</span>,
+    title: "Event Works",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">FlashModels</span>,
+    title: "FlashModels",
+  },
+  {
+    node: <span className="text-white font-bold text-xl sm:text-2xl">Experience Boutique</span>,
+    title: "Experience Boutique",
   },
 ];
 

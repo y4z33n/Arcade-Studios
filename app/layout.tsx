@@ -6,32 +6,32 @@ import Footer from "@/components/layout/Footer";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 
 export const metadata: Metadata = {
-  title: "Arcade Studios | Web Development Agency",
+  title: "Leylak | Digital Solutions Studio",
   description:
-    "Award-winning web development agency building modern applications, digital products, and innovative solutions. Transforming ideas into exceptional digital experiences.",
+    "Leylak is a full-spectrum digital solutions studio. Every problem your brand faces online — we solve it. Web, branding, motion, 3D, e-commerce, and beyond.",
   keywords: [
-    "web development agency",
-    "digital products",
-    "web applications",
-    "next.js development",
-    "react development",
-    "creative agency",
-    "technology studio",
-    "award-winning agency",
+    "digital solutions studio",
+    "digital agency",
+    "web design and development",
+    "branding agency",
+    "creative studio",
+    "e-commerce solutions",
+    "motion design",
+    "3D design",
   ],
-  authors: [{ name: "Arcade Studios" }],
+  authors: [{ name: "Leylak" }],
   openGraph: {
-    title: "Arcade Studios | Web Development Agency",
+    title: "Leylak | Digital Solutions Studio",
     description:
-      "Award-winning web development agency transforming ideas into exceptional digital experiences.",
+      "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
     type: "website",
     locale: "en_US",
-    siteName: "Arcade Studios",
+    siteName: "Leylak",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arcade Studios | Web Development Agency",
-    description: "Award-winning web development agency building exceptional digital experiences.",
+    title: "Leylak | Digital Solutions Studio",
+    description: "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
   },
 };
 
