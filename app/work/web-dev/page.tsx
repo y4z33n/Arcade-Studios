@@ -15,7 +15,7 @@ const WEB_PROJECTS = [
     description: "A comprehensive platform connecting models, photographers, casting directors, and agencies. Features include portfolio management, booking systems, and talent discovery tools built for the Mauritian and regional market.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
     year: "2024",
-    image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&h=900&fit=crop&q=80",
+    image: "/pro/model.jpg",
     link: "https://modelmanagement.mu",
     features: [
       "Advanced portfolio management system",
@@ -32,7 +32,7 @@ const WEB_PROJECTS = [
     description: "A dynamic website for a full-service marketing agency showcasing their creative work, services, and portfolio across multiple channels including digital, outdoor, and event marketing.",
     tags: ["React", "Next.js", "Framer Motion", "CMS", "SEO"],
     year: "2024",
-    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=900&fit=crop&q=80",
+    image: "/pro/flash.jpg",
     link: "https://theflashgroups.com",
     features: [
       "Interactive portfolio showcase",
@@ -49,7 +49,7 @@ const WEB_PROJECTS = [
     description: "Professional business website focused on delivering clear communication of services and establishing credibility in the business solutions sector across Mauritius.",
     tags: ["WordPress", "PHP", "JavaScript", "Responsive Design"],
     year: "2023",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=900&fit=crop&q=80",
+    image: "/pro/tdu.jpg",
     link: "#",
     features: [
       "Clean, professional design",
@@ -67,7 +67,7 @@ const ECOMMERCE_PROJECTS = [
     link: "https://myexperienceshop.com",
     description: "An innovative e-commerce platform selling curated experiences rather than physical products. Built with seamless booking flows, calendar availability, and secure payment processing.",
     tags: ["Shopify", "React", "API Integration", "Payment Gateway"],
-    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=700&fit=crop&q=80",
+    image: "/pro/mes.jpg",
     features: [
       "Experience booking & calendar system",
       "Secure multi-gateway payment processing",
@@ -81,7 +81,7 @@ const ECOMMERCE_PROJECTS = [
     link: "https://superdistribution.mu",
     description: "A B2B and retail e-commerce solution for a major Mauritian distribution company. Enables bulk ordering, product catalogue management, and streamlined checkout for wholesale and retail buyers.",
     tags: ["WooCommerce", "WordPress", "B2B", "Custom Checkout"],
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=700&fit=crop&q=80",
+    image: "/pro/sd.jpg",
     features: [
       "Dual B2B & retail product catalogues",
       "Bulk ordering with tiered pricing",
@@ -95,7 +95,7 @@ const ECOMMERCE_PROJECTS = [
     link: "https://breathing-soul.com",
     description: "A mindful lifestyle and wellness e-commerce brand. Designed to feel calm, premium, and trustworthy — with a smooth product discovery experience and clean purchase flow.",
     tags: ["Shopify", "Custom Theme", "UX Design", "SEO"],
-    image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1200&h=700&fit=crop&q=80",
+    image: "/pro/bs.jpg",
     features: [
       "Premium custom Shopify theme",
       "Wellness-focused UX & copywriting",

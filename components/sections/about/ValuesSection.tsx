@@ -6,27 +6,27 @@ import { motion, useInView } from "framer-motion";
 const VALUES = [
   {
     number: "01",
-    title: "Excellence",
+    title: "Precision",
     description:
-      "We strive for excellence in every line of code, every design decision, and every interaction. Quality is never compromised.",
+      "Every component, query, and deployment decision is deliberate. We don't ship code that we wouldn't stake our reputation on.",
   },
   {
     number: "02",
-    title: "Innovation",
+    title: "Performance",
     description:
-      "We stay at the forefront of web technologies, constantly exploring new tools and methodologies to deliver cutting-edge solutions.",
+      "Speed is a feature. We optimise at every layer — from database queries and server response times to Core Web Vitals and perceived load.",
   },
   {
     number: "03",
-    title: "Collaboration",
+    title: "Scalability",
     description:
-      "We work closely with our clients as partners, ensuring transparency, communication, and alignment throughout the entire process.",
+      "We architect for where you're going, not just where you are. Systems built here are designed to grow without being rebuilt.",
   },
   {
     number: "04",
-    title: "Impact",
+    title: "Ownership",
     description:
-      "We focus on building solutions that create real value—for users, for businesses, and for the communities we serve.",
+      "We take full responsibility for what we ship. No passing the blame, no hidden dependencies — clean, documented, maintainable code every time.",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function ValuesSection() {
               transition={{ delay: 0.1, duration: 0.8 }}
               className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl 3xl:text-[10rem] font-bold text-white leading-[0.95] tracking-tighter mb-8"
             >
-              What drives us
+              How we engineer
             </motion.h2>
 
             <motion.p
@@ -68,7 +68,7 @@ export default function ValuesSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
             >
-              The principles that guide our work and shape our culture
+              The technical principles we hold ourselves to on every single project
             </motion.p>
           </div>
 

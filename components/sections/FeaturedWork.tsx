@@ -9,39 +9,39 @@ import CardSwap, { Card } from "@/components/CardSwap";
 const CASE_STUDIES = [
   {
     slug: "model-management",
-    title: "Model Management dot Mu",
-    subtitle: "Premier platform for models, casting professionals, and talent management",
+    title: "Model Management Mu",
+    subtitle: "ModelManagement.mu is a Mauritius‑based model and talent platform that connects brands, agencies, and creators with diverse local faces for campaigns, shoots, and events. It streamlines casting, bookings, and portfolio management so both clients and talents can collaborate professionally and fast.",
     client: "ModelManagement.mu",
     tags: ["Platform", "Brand", "Website", "Talent"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&h=900&fit=crop&q=80",
+    image: "/pro/model.jpg",
   },
   {
     slug: "flash-communication",
     title: "Flash Communications",
-    subtitle: "Integrated marketing agency - Creative, Digital, OOH, Video & Events",
+    subtitle: "TheFlashGroups.com is a digital studio and venture lab that designs, builds, and scales modern web and mobile products. From branding and UX to full‑stack development and ongoing growth, Flash Groups partners with clients and internal ventures to turn ideas into fast, polished, revenue‑ready platforms.",
     client: "theflashgroups.com",
     tags: ["Agency", "Brand", "Website", "Marketing"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=900&fit=crop&q=80",
+    image: "/pro/flash.jpg",
   },
   {
     slug: "tdultee",
-    title: "TD Ultee",
-    subtitle: "Digital presence for business solutions",
+    title: "Trait d’Union Ltée",
+    subtitle: "Trait d’Union Ltée (tdultee.com) is Mauritius’ leading out‑of‑home and outdoor advertising company, with island‑wide coverage across hundreds of billboards and bus shelters since 1998. They help brands win attention in the real world with strategic OOH networks, supermarket and roadside signage, and custom large‑format printing that keeps campaigns visible in all nine districts.",
     client: "tdultee.com",
     tags: ["Brand", "Website", "Business"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=900&fit=crop&q=80",
+    image: "/pro/tdu.jpg",
   },
   {
     slug: "my-experience-shop",
     title: "My Experience Shop",
-    subtitle: "E-commerce platform for unique experiences",
+    subtitle: "MyExperienceShop.com is an e‑commerce platform for experiences instead of just products. Brands and creators use it to package workshops, events, tours, and one‑off moments into bookable offers, while customers browse, pay online, and secure unique experiences in just a few clicks.",
     client: "myexperienceshop.com",
     tags: ["E-commerce", "Website", "Product"],
     isComingSoon: false,
-    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&h=900&fit=crop&q=80",
+    image: "/pro/mes.jpg",
   },
 ];
 
@@ -345,8 +345,7 @@ export default function FeaturedWork() {
               >
                 <h3 className="text-3xl xl:text-4xl font-bold text-white mb-4">{currentCard.title}</h3>
                 <p className="text-white/90 text-base xl:text-lg leading-relaxed mb-4">
-                  {currentCard.subtitle} - Delivering innovative solutions that combine cutting-edge technology with exceptional user experience. Our comprehensive approach ensures every project meets the highest standards of quality and performance.
-                </p>
+                  {currentCard.subtitle} </p>
                 <div className="flex flex-wrap gap-3 pt-2 mb-4">
                   {currentCard.tags.map((tag, i) => (
                     <span

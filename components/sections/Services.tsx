@@ -26,32 +26,32 @@ const SERVICES = [
   {
     link: "/work/web-dev",
     text: "Web Design / Development",
-    image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&h=200&fit=crop&crop=center",
+    image: "/services/web.jpg",
   },
   {
     link: "/work",
     text: "App Design / Development",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center",
+    image: "/services/app.jpg",
   },
   {
     link: "/work/video-production",
     text: "Video Production / Editing",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&crop=center",
+    image: "/services/video.jpg",
   },
   {
     link: "/work/3d",
     text: "3D Modeling / Animation",
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop&crop=center",
+    image: "/services/3d.jpg",
   },
   {
     link: "/work/seo-graphics",
     text: "SEO / Digital Marketing",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center",
+    image: "/services/seo.jpg",
   },
   {
     link: "/work/branding",
     text: "Graphics Design / Branding",
-    image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=400&h=200&fit=crop&crop=center",
+    image: "/services/gd.jpg",
   },
 ];
 

@@ -44,7 +44,7 @@ export default function AboutHero() {
             </motion.span>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 3xl:text-9xl font-bold text-white leading-[1.05] tracking-tight text-left drop-shadow-2xl">
-              Building digital products for <span className="text-red-400">next-gen</span> brands
+              One studio. <span className="text-red-400">Every discipline.</span>
             </h1>
           </motion.div>
 
@@ -61,9 +61,9 @@ export default function AboutHero() {
               className="lg:col-span-7 space-y-6"
             >
               <p className="text-lg md:text-xl lg:text-2xl 3xl:text-3xl text-white/80 leading-relaxed">
-                We're a web development agency specializing in React, Next.js, and
-                full-stack solutions for startups, agencies, and innovative companies
-                that dare to push boundaries.
+                Arcade Studios covers the full digital spectrum — web development, e-commerce, branding,
+                3D visualisation, video production, app development, and SEO. One team,
+                built to handle every problem your business faces online.
               </p>
             </motion.div>
           </div>
@@ -78,7 +78,7 @@ export default function AboutHero() {
             {/* Background Image */}
             <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&q=80"
-              alt="Team collaboration"
+              alt="Arcade Studios workspace"
               fill
               className="object-cover"
               priority

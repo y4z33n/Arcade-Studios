@@ -39,7 +39,7 @@ export default function StorySection() {
             transition={{ delay: 0.1, duration: 0.8 }}
             className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl 3xl:text-[10rem] font-bold text-white leading-[0.95] tracking-tighter mb-8"
           >
-            Passion meets expertise
+            Built different, by design
           </motion.h2>
 
           <motion.p
@@ -48,7 +48,7 @@ export default function StorySection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
           >
-            From a small team of passionate developers to a full-service agency
+            Why a multi-discipline studio beats working with five separate vendors
           </motion.p>
         </div>
 
@@ -62,21 +62,20 @@ export default function StorySection() {
           >
             <div className="space-y-6">
               <p className="text-xl md:text-2xl 3xl:text-3xl text-white leading-relaxed font-medium">
-                Leylak was born from one belief: no digital problem should go unsolved.
+                Arcade Studios was built on a simple idea: your business shouldn't need five vendors to go digital.
               </p>
               <p className="text-lg md:text-xl 3xl:text-2xl text-white/70 leading-relaxed">
-                We are a full-spectrum digital solutions studio — not just developers,
-                not just designers. We are strategists, storytellers, and builders
-                who move across every discipline to handle whatever your brand needs.
+                We're a multi-discipline studio covering web development, e-commerce, branding and identity,
+                3D visualisation, video production, app development, and SEO — all under one roof,
+                with one point of contact and a consistent standard of quality throughout.
               </p>
               <p className="text-lg md:text-xl 3xl:text-2xl text-white/70 leading-relaxed">
-                From ambitious startups to established brands, we've partnered with
-                clients across industries to tackle their hardest digital challenges —
-                web, branding, motion, 3D, e-commerce, SEO, and beyond.
+                We've delivered for talent platforms, marketing groups, distribution companies, retail brands,
+                and experience-based businesses — adapting our stack and approach to what each project actually needs.
               </p>
               <p className="text-lg md:text-xl 3xl:text-2xl text-white/70 leading-relaxed">
-                Whatever the problem, we find the solution. That's not a tagline —
-                it's the standard we hold ourselves to on every single project.
+                Whatever the challenge — launch a product, grow a brand, automate a workflow, dominate search —
+                we've got the team and the tools to get it done.
               </p>
             </div>
 
@@ -114,8 +113,8 @@ export default function StorySection() {
               className="absolute inset-0 will-change-transform"
             >
               <Image
-                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=1500&fit=crop&q=80"
-                alt="Leylak workspace"
+                src="/pro/bs.jpg"
+                alt="Arcade Studios — built systems"
                 fill
                 className="object-cover"
               />
@@ -125,9 +124,9 @@ export default function StorySection() {
             {/* Glassmorphism overlay badge */}
             <div className="absolute bottom-8 left-8 right-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
               <p className="text-white font-medium text-lg 3xl:text-xl">
-                "Every project is a chance to create something extraordinary"
+                "The best code is the code you never have to rewrite"
               </p>
-              <p className="text-white/60 text-sm 3xl:text-base mt-2">— Leylak Team</p>
+              <p className="text-white/60 text-sm 3xl:text-base mt-2">— Arcade Studios</p>
             </div>
           </motion.div>
         </div>
