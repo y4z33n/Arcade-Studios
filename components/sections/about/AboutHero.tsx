@@ -58,8 +58,8 @@ export default function AboutHero() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="text-lg md:text-xl lg:text-2xl 3xl:text-3xl text-white/70 leading-relaxed max-w-2xl"
             >
-              Leylak covers the full digital spectrum — web development, e-commerce, branding,
-              3D visualisation, video production, app development, and SEO.
+              Leylak covers the full digital spectrum from web development, e-commerce, branding,
+              3D visualisation, video production, app development, and SEO to much more.
               One team. One contact. Zero compromise.
             </motion.p>
 
@@ -88,8 +88,8 @@ export default function AboutHero() {
               className="flex gap-10 pt-4 border-t border-white/10"
             >
               {[
-                { value: "50+", label: "Projects" },
-                { value: "5+", label: "Years" },
+                { value: "7+", label: "Services" },
+                { value: "10+", label: "Industries" },
                 { value: "100%", label: "Satisfaction" },
               ].map((stat) => (
                 <div key={stat.label}>

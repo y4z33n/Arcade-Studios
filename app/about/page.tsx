@@ -8,7 +8,7 @@ import CTA from "@/components/sections/CTA";
 export const metadata: Metadata = {
   title: "About | Leylak | Full-Spectrum Digital Studio",
   description:
-    "Leylak is a full-spectrum digital studio covering web development, e-commerce, branding, 3D, video production, app development, and SEO — one team, every discipline.",
+    "Leylak is a full-spectrum digital studio covering web development, e-commerce, branding, 3D, video production, app development, and SEO. One team, every discipline.",
   keywords: [
     "about leylak",
     "digital studio mauritius",
