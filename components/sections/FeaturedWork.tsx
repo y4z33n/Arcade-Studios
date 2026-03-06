@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
@@ -28,7 +28,7 @@ const CASE_STUDIES = [
   {
     slug: "tdultee",
     title: "Trait d’Union Ltée",
-    subtitle: "Trait d’Union Ltée (tdultee.com) is Mauritius’ leading out‑of‑home and outdoor advertising company, with island‑wide coverage across hundreds of billboards and bus shelters since 1998. They help brands win attention in the real world with strategic OOH networks, supermarket and roadside signage, and custom large‑format printing that keeps campaigns visible in all nine districts.",
+    subtitle: "Trait d’Union Ltée (tdultee.com) is Mauritius’ leading outdoor advertising company, with island wide coverage across hundreds of billboards and bus shelters since 1998. They help brands win attention in the real world with strategic OOH networks, supermarket and roadside signage, and custom large format printing that keeps campaigns visible in all nine districts.",
     client: "tdultee.com",
     tags: ["Brand", "Website", "Business"],
     isComingSoon: false,
@@ -37,7 +37,7 @@ const CASE_STUDIES = [
   {
     slug: "my-experience-shop",
     title: "My Experience Shop",
-    subtitle: "MyExperienceShop.com is an e‑commerce platform for experiences instead of just products. Brands and creators use it to package workshops, events, tours, and one‑off moments into bookable offers, while customers browse, pay online, and secure unique experiences in just a few clicks.",
+    subtitle: "MyExperienceShop.com is an e-commerce platform for experiences instead of just products. Brands and creators use it to package workshops, events, tours, and one off moments into bookable offers, while customers browse, pay online, and secure unique experiences in just a few clicks.",
     client: "myexperienceshop.com",
     tags: ["E-commerce", "Website", "Product"],
     isComingSoon: false,

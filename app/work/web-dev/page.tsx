@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -46,10 +46,10 @@ const WEB_PROJECTS = [
   {
     slug: "tdultee",
     title: "Trait d'Union Ltée",
-    subtitle: "Nationwide out‑of‑home and outdoor advertising network",
+    subtitle: "Nationwide outdoor and outdoor advertising network",
     client: "Trait d'Union Ltée",
     description:
-      "Corporate website for Mauritius’ leading OOH advertising company, presenting its island‑wide billboard network, supermarket signage, bus shelters, and custom printing services, while reinforcing over two decades of market presence.",
+      "Corporate website for Mauritius’ leading OOH advertising company, presenting its island wide billboard network, supermarket signage, bus shelters, and custom printing services, while reinforcing over two decades of market presence.",
     tags: ["WordPress", "PHP", "JavaScript", "Responsive Design"],
     year: "2023",
     image: "/pro/tdu.jpg",
@@ -58,7 +58,7 @@ const WEB_PROJECTS = [
       "Service pages for billboards, bus shelters and large-format signage",
       "Location-focused views of 4x3 and other key formats",
       "Case-study style portfolio of recent campaigns",
-      "Mobile‑first layout for quick access by media buyers and brand managers",
+      "Mobile first layout for quick access by media buyers and brand managers",
     ],
   },
 ];
@@ -69,13 +69,13 @@ const ECOMMERCE_PROJECTS = [
     client: "myexperienceshop.com",
     link: "https://myexperienceshop.com",
     description:
-      "A beauty e‑commerce storefront for the EXPERIENCE professional cosmetics brand, offering curated collections of premium makeup and skincare with a focus on cruelty‑free and vegan‑friendly products.",
+      "A beauty e-commerce storefront for the EXPERIENCE professional cosmetics brand, offering curated collections of premium makeup and skincare with a focus on cruelty free and vegan friendly products.",
     tags: ["Shopify", "Custom Theme", "UX Design", "Payment Gateway"],
     image: "/pro/mes.jpg",
     features: [
-      "Collection‑driven browsing for makeup and skincare ranges",
-      "Secure checkout with multi‑gateway payment integration",
-      "Promotional sections for best‑sellers and curated looks",
+      "Collection driven browsing for makeup and skincare ranges",
+      "Secure checkout with multi gateway payment integration",
+      "Promotional sections for best sellers and curated looks",
       "Customer account area for orders and support",
     ],
   },
@@ -99,14 +99,14 @@ const ECOMMERCE_PROJECTS = [
     client: "breathing-soul.com",
     link: "https://breathing-soul.com",
     description:
-      "An apparel and lifestyle e‑commerce brand focused on loungewear, dresses, and resort‑inspired pieces designed to support a calm, mindful lifestyle with comfortable yet premium fits.[web:114][web:117][web:120]",
+      "An apparel and lifestyle e-commerce brand focused on loungewear, dresses, and resort inspired pieces designed to support a calm, mindful lifestyle with comfortable yet premium fits.[web:114][web:117][web:120]",
     tags: ["Shopify", "Custom Theme", "UX Design", "SEO"],
     image: "/pro/bs.jpg",
     features: [
-      "Category‑driven catalogues for dresses, loungewear and holiday pieces",
+      "Category driven catalogues for dresses, loungewear and holiday pieces",
       "Editorial product imagery aligned with the brand’s mindful aesthetic",
-      "Promotion sections for sales, best‑sellers and seasonal collections",
-      "Mobile‑first shopping experience with optimised checkout",
+      "Promotion sections for sales, best sellers and seasonal collections",
+      "Mobile first shopping experience with optimised checkout",
     ],
   },
 ];
