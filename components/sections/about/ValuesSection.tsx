@@ -6,27 +6,27 @@ import { motion, useInView } from "framer-motion";
 const VALUES = [
   {
     number: "01",
-    title: "Precision",
+    title: "Quality",
     description:
-      "Every component, query, and deployment decision is deliberate. We don't ship code that we wouldn't stake our reputation on.",
+      "Every deliverable — whether it's a line of code, a brand identity, or a video cut — is held to the same high standard. We don't ship work we're not proud of.",
   },
   {
     number: "02",
-    title: "Performance",
+    title: "Versatility",
     description:
-      "Speed is a feature. We optimise at every layer — from database queries and server response times to Core Web Vitals and perceived load.",
+      "We don't specialise in one thing at the expense of everything else. Our strength is the ability to move across disciplines and still produce excellent work in each one.",
   },
   {
     number: "03",
-    title: "Scalability",
+    title: "Transparency",
     description:
-      "We architect for where you're going, not just where you are. Systems built here are designed to grow without being rebuilt.",
+      "One point of contact, honest timelines, and clear communication throughout. No surprises, no runaround — just a direct working relationship built on trust.",
   },
   {
     number: "04",
-    title: "Ownership",
+    title: "Results",
     description:
-      "We take full responsibility for what we ship. No passing the blame, no hidden dependencies — clean, documented, maintainable code every time.",
+      "We focus on outcomes, not outputs. A website needs to convert. A brand needs to stick. A video needs to land. We build and create with that end goal always in mind.",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function ValuesSection() {
               transition={{ delay: 0.1, duration: 0.8 }}
               className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl 3xl:text-[10rem] font-bold text-white leading-[0.95] tracking-tighter mb-8"
             >
-              How we engineer
+              What drives us
             </motion.h2>
 
             <motion.p
@@ -68,7 +68,7 @@ export default function ValuesSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
             >
-              The technical principles we hold ourselves to on every single project
+              The principles behind every project we take on, regardless of the discipline
             </motion.p>
           </div>
 

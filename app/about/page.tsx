@@ -6,21 +6,21 @@ import CTA from "@/components/sections/CTA";
 
 
 export const metadata: Metadata = {
-  title: "About | Arcade Studios | Full-Stack Digital Engineering",
+  title: "About | Leylak | Full-Spectrum Digital Studio",
   description:
-    "Arcade Studios is a full-stack digital engineering studio. We build scalable web systems, platforms, and interfaces — from architecture to deployment.",
+    "Leylak is a full-spectrum digital studio covering web development, e-commerce, branding, 3D, video production, app development, and SEO — one team, every discipline.",
   keywords: [
-    "about arcade studios",
-    "full-stack web development",
-    "digital engineering studio",
-    "web platform development",
-    "next.js development studio",
-    "scalable web systems",
-    "software engineering mauritius",
+    "about leylak",
+    "digital studio mauritius",
+    "full-spectrum digital studio",
+    "web development branding seo",
+    "leylak studio",
+    "multi-discipline digital studio",
+    "digital solutions mauritius",
   ],
   openGraph: {
-    title: "About | Arcade Studios",
-    description: "Engineering-first digital studio. We build systems that scale, interfaces that convert, and platforms that perform.",
+    title: "About | Leylak",
+    description: "One studio. Every discipline. Leylak handles every digital challenge your business faces.",
     type: "website",
   },
 };
@@ -32,7 +32,7 @@ export default function AboutPage() {
         <AboutHero />
         <StorySection />
         <ValuesSection />
-        <CTA title="Ready to build something?" href="/contact" />
+        <CTA title="Ready to work with us?" href="/contact" />
       </div>
     </>
   );
