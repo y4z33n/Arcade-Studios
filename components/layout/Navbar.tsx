@@ -7,6 +7,7 @@ import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import React from 'react';
 import { gsap } from 'gsap';
+import { menuState } from "@/lib/store";
 
 interface GlassSurfaceProps {
   children?: React.ReactNode;
@@ -1073,6 +1074,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Sync menu state to the module store so FloatingCTA can react
+  useEffect(() => {
+    menuState.setOpen(menuOpen);
+  }, [menuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {

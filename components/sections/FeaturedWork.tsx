@@ -243,65 +243,43 @@ export default function FeaturedWork() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Navigation Arrows */}
-              <button
-                onClick={handlePrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all hover:scale-110"
-                aria-label="Previous project"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="text-black"
+              {/* Navigation Arrows - placed at bottom, compact */}
+              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
+                <button
+                  onClick={handlePrevious}
+                  className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white transition-all active:scale-95"
+                  aria-label="Previous project"
                 >
-                  <path
-                    d="M15 18L9 12L15 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-black">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
 
-              <button
-                onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all hover:scale-110"
-                aria-label="Next project"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="text-black"
+                {/* Dots Indicator */}
+                <div className="flex gap-1.5 items-center">
+                  {CASE_STUDIES.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentCardIndex(idx)}
+                      className={`h-1.5 rounded-full transition-all ${
+                        idx === currentCardIndex
+                          ? 'bg-red-600 w-5'
+                          : 'w-1.5 bg-white/50 hover:bg-white/80'
+                      }`}
+                      aria-label={`Go to project ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleNext}
+                  className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white transition-all active:scale-95"
+                  aria-label="Next project"
                 >
-                  <path
-                    d="M9 18L15 12L9 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-
-              {/* Dots Indicator */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                {CASE_STUDIES.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentCardIndex(idx)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      idx === currentCardIndex
-                        ? 'bg-red-600 w-8'
-                        : 'bg-white/50 hover:bg-white/80'
-                    }`}
-                    aria-label={`Go to project ${idx + 1}`}
-                  />
-                ))}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-black">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
               </div>
               
               {/* View All Projects Button - Mobile */}
