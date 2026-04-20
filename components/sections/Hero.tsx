@@ -61,14 +61,13 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative aspect-video rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl"
           >
-            {/* Autoplay looping background video */}
-            <video
-              src="/3d/hero.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
+
+            {/* Gallery image instead of video */}
+            <img
+              src="/pro/bs.jpg"
+              alt="Arcade Studio Project Gallery"
               className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectFit: "cover" }}
             />
 
             {/* Subtle gradient overlay */}
