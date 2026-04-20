@@ -50,7 +50,7 @@ export default function StorySection() {
             className="lg:col-span-6 flex flex-col justify-end space-y-6 lg:pt-24"
           >
             <p className="text-xl md:text-2xl text-white font-medium leading-relaxed">
-              Leylak was built on a simple idea: your business shouldn't need five vendors to go digital.
+              Arcade was built on a simple idea: your business shouldn't need five vendors to go digital.
             </p>
             <p className="text-lg md:text-xl text-white/60 leading-relaxed">
               We're a multi-discipline studio — web, e-commerce, branding, 3D, video, apps, and SEO —
@@ -76,7 +76,7 @@ export default function StorySection() {
         <div className="relative w-full aspect-[21/9] rounded-3xl overflow-hidden">
           <Image
             src="/pro/bs.jpg"
-            alt="Leylak studio work"
+            alt="Arcade studio work"
             fill
             className="object-cover"
             sizes="100vw"
@@ -88,7 +88,7 @@ export default function StorySection() {
               <p className="text-2xl md:text-3xl font-bold text-white leading-snug mb-3">
                 "Whatever the problem, we find the solution."
               </p>
-              <p className="text-white/50 text-sm uppercase tracking-widest">— Leylak</p>
+              <p className="text-white/50 text-sm uppercase tracking-widest">— Arcade</p>
             </div>
           </div>
         </div>

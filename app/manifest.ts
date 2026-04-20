@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Leylak | Digital Solutions Studio',
-    short_name: 'Leylak',
+    name: 'Arcade | Digital Solutions Studio',
+    short_name: 'Arcade',
     description: 'A full-spectrum digital solutions studio. Every problem your brand faces online — we solve it.',
     start_url: '/',
     display: 'standalone',

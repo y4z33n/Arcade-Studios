@@ -58,7 +58,7 @@ export default function AboutHero() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="text-lg md:text-xl lg:text-2xl 3xl:text-3xl text-white/70 leading-relaxed max-w-2xl"
             >
-              Leylak covers the full digital spectrum from web development, e-commerce, branding,
+              Arcade covers the full digital spectrum from web development, e-commerce, branding,
               3D visualisation, video production, app development, and SEO to much more.
               One team. One contact. Zero compromise.
             </motion.p>

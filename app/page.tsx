@@ -8,9 +8,9 @@ import HyperspeedBackground from "@/components/HyperspeedBackground";
 import FloatingCTA from "@/components/layout/FloatingCTA";
 
 export const metadata: Metadata = {
-  title: "Leylak | Digital Solutions Studio",
+  title: "Arcade | Digital Solutions Studio",
   description:
-    "Leylak is a full-spectrum digital solutions studio. Every problem your brand faces online — we solve it. Web, branding, motion, 3D, e-commerce, and beyond.",
+    "Arcade is a full-spectrum digital solutions studio. Every problem your brand faces online — we solve it. Web, branding, motion, 3D, e-commerce, and beyond.",
   keywords: [
     "digital solutions studio",
     "digital agency",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "3D design",
   ],
   openGraph: {
-    title: "Leylak | Digital Solutions Studio",
+    title: "Arcade | Digital Solutions Studio",
     description:
       "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
     type: "website",
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
         url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=630&fit=crop",
         width: 1200,
         height: 630,
-        alt: "Leylak - Digital Solutions Studio",
+        alt: "Arcade - Digital Solutions Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Leylak | Digital Solutions Studio",
+    title: "Arcade | Digital Solutions Studio",
     description: "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
   },
 };

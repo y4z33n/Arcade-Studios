@@ -6,9 +6,9 @@ import Footer from "@/components/layout/Footer";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 
 export const metadata: Metadata = {
-  title: "Leylak | Digital Solutions Studio",
+  title: "Arcade | Digital Solutions Studio",
   description:
-    "Leylak is a full-spectrum digital solutions studio. Every problem your brand faces online — we solve it. Web, branding, motion, 3D, e-commerce, and beyond.",
+    "Arcade is a full-spectrum digital solutions studio. Every problem your brand faces online — we solve it. Web, branding, motion, 3D, e-commerce, and beyond.",
   keywords: [
     "digital solutions studio",
     "digital agency",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "motion design",
     "3D design",
   ],
-  authors: [{ name: "Leylak" }],
+  authors: [{ name: "Arcade" }],
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
@@ -33,16 +33,16 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Leylak | Digital Solutions Studio",
+    title: "Arcade | Digital Solutions Studio",
     description:
       "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
     type: "website",
     locale: "en_US",
-    siteName: "Leylak",
+    siteName: "Arcade",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Leylak | Digital Solutions Studio",
+    title: "Arcade | Digital Solutions Studio",
     description: "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
   },
 };
