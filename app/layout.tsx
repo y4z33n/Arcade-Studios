@@ -54,6 +54,19 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Leylak Tech",
+              "url": "https://leylaktech.com",
+              "logo": "https://leylaktech.com/icon-192.png",
+              "description": "Leylak Tech is a full-spectrum digital solutions studio. From web and app development to custom software, AI integration, and automation."
+            })
+          }}
+        />
       </head>
       <body className="antialiased bg-black text-gray-900">
         <SmoothScrollProvider>

@@ -1,453 +1,169 @@
-﻿"use client";
+"use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
-import CardSwap, { Card } from "@/components/CardSwap";
+import Link from "next/link";
 
-const CASE_STUDIES = [
+const PROJECTS = [
   {
-    slug: "model-management",
-    title: "Model Management Mu",
-    subtitle: "ModelManagement.mu is a Mauritius‑based model and talent platform that connects brands, agencies, and creators with diverse local faces for campaigns, shoots, and events. It streamlines casting, bookings, and portfolio management so both clients and talents can collaborate professionally and fast.",
-    client: "ModelManagement.mu",
-    tags: ["Platform", "Brand", "Website", "Talent"],
-    isComingSoon: false,
-    image: "/pro/model.jpg",
+    id: 1,
+    title: "Aura Skincare",
+    category: "E-Commerce Experience",
+    image: "https://images.unsplash.com/photo-1615397323602-9888924b12df?q=80&w=2070&auto=format&fit=crop",
+    color: "bg-orange-100",
+    link: "/work/aura"
   },
   {
-    slug: "flash-communication",
-    title: "Flash Communications",
-    subtitle: "TheFlashGroups.com is a digital studio and venture lab that designs, builds, and scales modern web and mobile products. From branding and UX to full‑stack development and ongoing growth, Flash Groups partners with clients and internal ventures to turn ideas into fast, polished, revenue‑ready platforms.",
-    client: "theflashgroups.com",
-    tags: ["Agency", "Brand", "Website", "Marketing"],
-    isComingSoon: false,
-    image: "/pro/flash.jpg",
+    id: 2,
+    title: "Nova Fintech",
+    category: "Web Application",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+    color: "bg-blue-100",
+    link: "/work/nova"
   },
   {
-    slug: "tdultee",
-    title: "Trait d’Union Ltée",
-    subtitle: "Trait d’Union Ltée (tdultee.com) is Mauritius’ leading outdoor advertising company, with island wide coverage across hundreds of billboards and bus shelters since 1998. They help brands win attention in the real world with strategic OOH networks, supermarket and roadside signage, and custom large format printing that keeps campaigns visible in all nine districts.",
-    client: "tdultee.com",
-    tags: ["Brand", "Website", "Business"],
-    isComingSoon: false,
-    image: "/pro/tdu.jpg",
+    id: 3,
+    title: "Oasis Realty",
+    category: "Immersive 3D Web",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
+    color: "bg-emerald-100",
+    link: "/work/oasis"
   },
   {
-    slug: "my-experience-shop",
-    title: "My Experience Shop",
-    subtitle: "MyExperienceShop.com is an e-commerce platform for experiences instead of just products. Brands and creators use it to package workshops, events, tours, and one off moments into bookable offers, while customers browse, pay online, and secure unique experiences in just a few clicks.",
-    client: "myexperienceshop.com",
-    tags: ["E-commerce", "Website", "Product"],
-    isComingSoon: false,
-    image: "/pro/mes.jpg",
-  },
+    id: 4,
+    title: "Flux Energy",
+    category: "Brand Identity",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop",
+    color: "bg-purple-100",
+    link: "/work/flux"
+  }
 ];
-
 
 export default function FeaturedWork() {
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const swapDelay = 4000;
-
-  const currentCard = CASE_STUDIES[currentCardIndex];
-
-  // Check if mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // lg breakpoint
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Auto-advance slider on mobile
-  useEffect(() => {
-    if (!isMobile || isPaused) return;
-    
-    const interval = setInterval(() => {
-      setCurrentCardIndex((prev) => (prev + 1) % CASE_STUDIES.length);
-    }, swapDelay);
-    
-    return () => clearInterval(interval);
-  }, [isMobile, isPaused]);
-
-  const handlePrevious = () => {
-    setIsPaused(true);
-    setCurrentCardIndex((prev) => (prev - 1 + CASE_STUDIES.length) % CASE_STUDIES.length);
-    setTimeout(() => setIsPaused(false), 8000); // Resume after 8 seconds
-  };
-
-  const handleNext = () => {
-    setIsPaused(true);
-    setCurrentCardIndex((prev) => (prev + 1) % CASE_STUDIES.length);
-    setTimeout(() => setIsPaused(false), 8000); // Resume after 8 seconds
-  };
-
-  // Handle touch swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-    
-    if (isLeftSwipe) {
-      handleNext();
-    } else if (isRightSwipe) {
-      handlePrevious();
-    }
-    
-    setTouchStart(0);
-    setTouchEnd(0);
-  };
+  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
 
   return (
     <section
       ref={containerRef}
-      className="relative py-16 md:py-24 lg:py-28 overflow-hidden"
+      className="relative py-24 md:py-32 overflow-hidden bg-black text-white border-t border-white/10"
     >
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24">
-        {/* Section Header */}
-        <div className="mb-12 md:mb-16 lg:mb-20">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block px-4 py-2 bg-red-600 text-white text-xs font-medium uppercase tracking-wider rounded-full mb-6"
-          >
-            Featured Work
-          </motion.span>
-
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-red-900/20 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 z-10">
+        
+        {/* Header */}
+        <div className="mb-12 md:mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 3xl:text-9xl font-bold text-white leading-[0.95] tracking-tighter mb-4"
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter uppercase mb-6"
           >
-            Work we're proud of
+            Selected <span className="text-red-600">Works</span>
           </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-base sm:text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
-          >
-            Explore our portfolio of successful projects that showcase our expertise in design and development.
-          </motion.p>
         </div>
 
-        {/* Card Swap Animation */}
-        <div className="relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[600px] mb-16 lg:mb-0">
-          {/* Mobile Slider */}
-          {isMobile ? (
-            <div 
-              className="relative w-full h-[450px] sm:h-[500px] mb-28"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentCardIndex}
-                  initial={{ opacity: 0, x: 100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -100 }}
-                  transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute inset-0"
-                >
-                  <Link href="/work/web-dev" className="block w-full h-full group">
-                    <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
-                      {/* Image */}
-                      <div className="absolute inset-0">
-                        <Image
-                          src={currentCard.image}
-                          alt={currentCard.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="100vw"
-                        />
-                      </div>
-
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-transparent" />
-
-                      {/* Content */}
-                      <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8">
-                        {/* Top: Client badge */}
-                        <div>
-                          <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-white/95 backdrop-blur-sm rounded-full text-xs font-medium text-black uppercase tracking-wider shadow-lg">
-                            {currentCard.client}
-                          </span>
-                        </div>
-
-                        {/* Bottom: Title and tags */}
-                        <div>
-                          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 sm:mb-3 leading-tight tracking-tighter">
-                            {currentCard.title}
-                          </h3>
-                          <p className="text-white/90 text-sm sm:text-base mb-3 sm:mb-4">
-                            {currentCard.subtitle}
-                          </p>
-                          
-                          <div className="flex flex-wrap gap-2">
-                            {currentCard.tags.map((tag, i) => (
-                              <span
-                                key={i}
-                                className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-white/80 border border-white/30 rounded-full backdrop-blur-sm"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* View button */}
-                      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          className="text-white -rotate-45 sm:w-5 sm:h-5"
-                        >
-                          <path
-                            d="M5 12H19M19 12L12 5M19 12L12 19"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Navigation Arrows - placed at bottom, compact */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
-                <button
-                  onClick={handlePrevious}
-                  className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white transition-all active:scale-95"
-                  aria-label="Previous project"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-black">
-                    <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-
-                {/* Dots Indicator */}
-                <div className="flex gap-1.5 items-center">
-                  {CASE_STUDIES.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentCardIndex(idx)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        idx === currentCardIndex
-                          ? 'bg-red-600 w-5'
-                          : 'w-1.5 bg-white/50 hover:bg-white/80'
-                      }`}
-                      aria-label={`Go to project ${idx + 1}`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  onClick={handleNext}
-                  className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white transition-all active:scale-95"
-                  aria-label="Next project"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-black">
-                    <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-              
-              {/* View All Projects Button - Mobile */}
-              <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full flex justify-center">
-                <Link 
-                  href="/work" 
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-full transition-all hover:gap-3 group shadow-lg"
-                >
-                  View All Projects
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="transition-transform group-hover:translate-x-1"
-                  >
-                    <path
-                      d="M5 12H19M19 12L12 5M19 12L12 19"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          ) : (
-            /* Desktop Card Stack */
-            <div className="flex flex-col lg:flex-row gap-8 items-center">
-            {/* Left side content for top card - Hidden on mobile */}
-            <div className="hidden lg:block lg:w-1/3 xl:w-2/5">
+        {/* Split Screen Layout (Desktop) */}
+        <div className="hidden md:flex gap-12 lg:gap-24 min-h-[600px] lg:min-h-[700px]">
+          
+          {/* Left: Project List */}
+          <div className="w-1/2 flex flex-col justify-center">
+            {PROJECTS.map((project, idx) => (
               <motion.div
-                key={currentCardIndex}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-4 bg-black/40 backdrop-blur-sm p-6 rounded-2xl border border-white/10 flex flex-col justify-center h-[450px] min-h-[450px] max-h-[450px]"
-                style={{ height: 450 }}
+                key={project.id}
+                initial={{ opacity: 0, x: -30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                className="py-6 lg:py-8 border-b border-white/10 last:border-0 group cursor-pointer"
               >
-                <h3 className="text-3xl xl:text-4xl font-bold text-white mb-4">{currentCard.title}</h3>
-                <p className="text-white/90 text-base xl:text-lg leading-relaxed mb-4">
-                  {currentCard.subtitle} </p>
-                <div className="flex flex-wrap gap-3 pt-2 mb-4">
-                  {currentCard.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-1.5 text-base text-white/90 bg-white/10 rounded-full backdrop-blur-sm font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {/* View All Projects Link */}
-                <Link 
-                  href="/work/web-dev" 
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-full transition-all hover:gap-3 group mt-4"
-                >
-                  View All Projects
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="transition-transform group-hover:translate-x-1"
-                  >
-                    <path
-                      d="M5 12H19M19 12L12 5M19 12L12 19"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Card Stack - Right side */}
-            <div className="w-full lg:w-2/3 xl:w-3/5 flex justify-center lg:justify-end">
-              <CardSwap
-                width={800}
-                height={450}
-                cardDistance={35}
-                verticalDistance={45}
-                delay={swapDelay}
-                pauseOnHover={true}
-                skewAmount={4}
-                easing="elastic"
-                onCardChange={(idx) => setCurrentCardIndex(idx)}
-              >
-            {CASE_STUDIES.map((study) => (
-              <Card key={study.slug} customClass="cursor-pointer">
-                <Link href="/work/web-dev" className="block w-full h-full group">
-                  <div className="relative w-full h-full rounded-xl overflow-hidden">
-                    {/* Image */}
-                    <div className="absolute inset-0">
-                      <Image
-                        src={study.image}
-                        alt={study.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 800px"
-                      />
-                    </div>
-
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-transparent" />
-
-                    {/* Content */}
-                    <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 md:p-10">
-                      {/* Top: Client badge */}
-                      <div>
-                        <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-white/95 backdrop-blur-sm rounded-full text-xs font-medium text-black uppercase tracking-wider shadow-lg">
-                          {study.client}
-                        </span>
-                      </div>
-
-                      {/* Bottom: Title and tags */}
-                      <div>
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 leading-tight tracking-tighter">
-                          {study.title}
-                        </h3>
-                        <p className="text-white/90 text-sm sm:text-base md:text-lg mb-3 sm:mb-4">
-                          {study.subtitle}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-2">
-                          {study.tags.map((tag, i) => (
-                            <span
-                              key={i}
-                              className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-white/80 border border-white/30 rounded-full backdrop-blur-sm"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* View button */}
-                    <div className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        className="text-white -rotate-45 sm:w-5 sm:h-5"
-                      >
-                        <path
-                          d="M5 12H19M19 12L12 5M19 12L12 19"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
+                <Link href={project.link} className="flex flex-col">
+                  <span className="text-sm text-white/50 mb-2 font-mono tracking-widest uppercase transition-colors group-hover:text-red-500">
+                    {project.category}
+                  </span>
+                  <div className="flex items-center justify-between">
+                    <h3 className={`text-4xl lg:text-6xl font-black tracking-tighter uppercase transition-colors duration-300 ${
+                      hoveredIndex === idx ? "text-white" : "text-white/30 group-hover:text-white/70"
+                    }`}>
+                      {project.title}
+                    </h3>
+                    <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                      hoveredIndex === idx ? "bg-white text-black border-white rotate-0" : "border-white/20 text-white/20 -rotate-45"
+                    }`}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   </div>
                 </Link>
-              </Card>
+              </motion.div>
             ))}
-          </CardSwap>
-            </div>
           </div>
-          )}
+
+          {/* Right: Sticky Image Reveal */}
+          <div className="w-1/2 relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={hoveredIndex}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={PROJECTS[hoveredIndex].image}
+                  alt={PROJECTS[hoveredIndex].title}
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
+
+        {/* Mobile View (Stack) */}
+        <div className="md:hidden flex flex-col gap-12">
+          {PROJECTS.map((project, idx) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              className="flex flex-col gap-4 group"
+            >
+              <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex justify-between items-end">
+                <div>
+                  <span className="text-xs text-red-500 mb-1 block font-mono tracking-widest uppercase">
+                    {project.category}
+                  </span>
+                  <h3 className="text-3xl font-black tracking-tighter uppercase text-white">
+                    {project.title}
+                  </h3>
+                </div>
+                <Link href={project.link} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

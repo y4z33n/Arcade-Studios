@@ -1,253 +1,150 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Button from "@/components/ui/Button";
-import React, { useEffect, useState } from 'react';
-import { gsap } from 'gsap';
-
-interface MenuItemData {
-  link: string;
-  text: string;
-  image: string;
-}
-
-interface MenuItemProps extends MenuItemData {
-  speed: number;
-  textColor: string;
-  marqueeBgColor: string;
-  marqueeTextColor: string;
-  borderColor: string;
-  isFirst: boolean;
-}
 
 const SERVICES = [
   {
+    id: "web",
+    title: "Web Design & Dev",
+    description: "We architect ultra-fast, visually stunning websites that dominate your industry and convert visitors into loyal customers at scale.",
     link: "/work/web-dev",
-    text: "Web Design / Development",
-    image: "/services/web.jpg",
+    color: "bg-blue-600"
   },
-   {
+  {
+    id: "ai",
+    title: "AI & Automation",
+    description: "Integrate cutting-edge LLMs and custom AI pipelines to automate your operations and unlock unprecedented efficiency.",
     link: "/products",
-    text: "AI Integration / Automation",
-    image: "/services/3d.jpg", // Using existing image for now
+    color: "bg-emerald-600"
   },
   {
+    id: "app",
+    title: "App Development",
+    description: "Native iOS, Android, and cross-platform applications built for speed, scalability, and an uncompromising user experience.",
     link: "/work",
-    text: "App Design / Development",
-    image: "/services/app.jpg",
+    color: "bg-purple-600"
   },
   {
-    link: "/work/video-production",
-    text: "Video Production / Editing",
-    image: "/services/video.jpg",
-  },
-  {
-    link: "/work/3d",
-    text: "3D Modeling / Animation",
-    image: "/services/3d.jpg",
-  },
-  {
-    link: "/work/seo-graphics",
-    text: "SEO / Digital Marketing",
-    image: "/services/seo.jpg",
-  },
-  {
+    id: "branding",
+    title: "Graphics & Branding",
+    description: "From striking visual identities to comprehensive brand systems, we forge digital empires that command attention.",
     link: "/work/branding",
-    text: "Graphics Design / Branding",
-    image: "/services/gd.jpg",
-  },
- 
+    color: "bg-red-600"
+  }
 ];
-
-const MenuItem: React.FC<MenuItemProps> = ({
-  link,
-  text,
-  image,
-  speed,
-  textColor,
-  marqueeBgColor,
-  marqueeTextColor,
-  borderColor,
-  isFirst
-}) => {
-  const itemRef = useRef<HTMLDivElement>(null);
-  const marqueeRef = useRef<HTMLDivElement>(null);
-  const marqueeInnerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<gsap.core.Tween | null>(null);
-  const [repetitions, setRepetitions] = useState(4);
-
-  const animationDefaults = { duration: 0.6, ease: 'expo' };
-
-  const findClosestEdge = (mouseX: number, mouseY: number, width: number, height: number): 'top' | 'bottom' => {
-    const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY, 2);
-    const bottomEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY - height, 2);
-    return topEdgeDist < bottomEdgeDist ? 'top' : 'bottom';
-  };
-
-  useEffect(() => {
-    const calculateRepetitions = () => {
-      if (!marqueeInnerRef.current) return;
-      const marqueeContent = marqueeInnerRef.current.querySelector('.marquee-part') as HTMLElement;
-      if (!marqueeContent) return;
-      const contentWidth = marqueeContent.offsetWidth;
-      const viewportWidth = window.innerWidth;
-      const needed = Math.ceil(viewportWidth / contentWidth) + 2;
-      setRepetitions(Math.max(4, needed));
-    };
-
-    calculateRepetitions();
-    window.addEventListener('resize', calculateRepetitions);
-    return () => window.removeEventListener('resize', calculateRepetitions);
-  }, [text, image]);
-
-  useEffect(() => {
-    const setupMarquee = () => {
-      if (!marqueeInnerRef.current) return;
-      const marqueeContent = marqueeInnerRef.current.querySelector('.marquee-part') as HTMLElement;
-      if (!marqueeContent) return;
-      const contentWidth = marqueeContent.offsetWidth;
-      if (contentWidth === 0) return;
-
-      if (animationRef.current) {
-        animationRef.current.kill();
-      }
-
-      animationRef.current = gsap.to(marqueeInnerRef.current, {
-        x: -contentWidth,
-        duration: speed,
-        ease: 'none',
-        repeat: -1
-      });
-    };
-
-    const timer = setTimeout(setupMarquee, 50);
-    return () => {
-      clearTimeout(timer);
-      if (animationRef.current) {
-        animationRef.current.kill();
-      }
-    };
-  }, [text, image, repetitions, speed]);
-
-  const handleMouseEnter = (ev: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
-    const rect = itemRef.current.getBoundingClientRect();
-    const edge = findClosestEdge(ev.clientX - rect.left, ev.clientY - rect.top, rect.width, rect.height);
-
-    gsap
-      .timeline({ defaults: animationDefaults })
-      .set(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0)
-      .set(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0)
-      .to([marqueeRef.current, marqueeInnerRef.current], { y: '0%' }, 0);
-  };
-
-  const handleMouseLeave = (ev: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
-    const rect = itemRef.current.getBoundingClientRect();
-    const edge = findClosestEdge(ev.clientX - rect.left, ev.clientY - rect.top, rect.width, rect.height);
-
-    gsap
-      .timeline({ defaults: animationDefaults })
-      .to(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0)
-      .to(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0);
-  };
-
-  return (
-    <div
-      className="flex-1 relative overflow-hidden text-center"
-      ref={itemRef}
-      style={{ borderTop: isFirst ? 'none' : `1px solid ${borderColor}` }}
-    >
-      <a
-        className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl px-2"
-        href={link}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{ color: textColor }}
-      >
-        {text}
-      </a>
-      <div
-        className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none translate-y-[101%]"
-        ref={marqueeRef}
-        style={{ backgroundColor: marqueeBgColor }}
-      >
-        <div className="h-full w-fit flex" ref={marqueeInnerRef}>
-          {[...Array(repetitions)].map((_, idx) => (
-            <div className="marquee-part flex items-center flex-shrink-0" key={idx} style={{ color: marqueeTextColor }}>
-              <span className="whitespace-nowrap uppercase font-normal text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-[1] px-3 sm:px-4 md:px-6 lg:px-8">{text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export default function Services() {
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   return (
     <section
       ref={containerRef}
-      className="relative py-16 md:py-24 lg:py-32 overflow-hidden"
+      className="relative py-24 md:py-32 bg-black text-white border-t border-white/10"
     >
-      <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24">
-        {/* Glass Container */}
-        <div className="bg-white/5 backdrop-blur-md rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12 3xl:p-16 border border-white/10">
-          {/* Section Header */}
-          <div className="mb-12 md:mb-16 lg:mb-20">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block px-4 py-2 bg-red-600 text-white text-xs font-medium uppercase tracking-wider rounded-full mb-6"
-          >
-            Services
-          </motion.span>
-
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24">
+        
+        {/* Header */}
+        <div className="mb-16 md:mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 3xl:text-9xl font-bold text-white leading-[0.95] tracking-tighter mb-6 md:mb-8"
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase mb-6"
           >
-            What We Do
+            What <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">We Do</span>
           </motion.h2>
-
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-base sm:text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl"
+            className="text-lg md:text-xl text-white/60 font-light max-w-2xl"
           >
-            We craft digital experiences that combine strategic thinking with beautiful design and robust development.
+            We don't do average. We offer a relentless, full-spectrum suite of digital services designed for total market dominance.
           </motion.p>
         </div>
 
-        {/* Services Flowing Menu */}
-        <div className="h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl md:rounded-3xl overflow-hidden">
-          <div className="w-full h-full overflow-hidden" style={{ backgroundColor: 'transparent' }}>
-            <nav className="flex flex-col h-full m-0 p-0">
-              {SERVICES.map((item, idx) => (
-                <MenuItem
-                  key={idx}
-                  {...item}
-                  speed={20}
-                  textColor="#fff"
-                  marqueeBgColor="#fff"
-                  marqueeTextColor="#060010"
-                  borderColor="rgba(255,255,255,0.1)"
-                  isFirst={idx === 0}
-                />
-              ))}
-            </nav>
-          </div>
+        {/* Dynamic Accordion System */}
+        <div className="max-w-6xl mx-auto flex flex-col gap-4">
+          {SERVICES.map((service, idx) => {
+            const isExpanded = expandedIndex === idx;
+
+            return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={`relative rounded-3xl overflow-hidden border border-white/10 transition-colors duration-500 ${
+                  isExpanded ? "bg-white/5" : "bg-black hover:bg-white/[0.02]"
+                }`}
+              >
+                {/* Accordion Header (Clickable) */}
+                <button
+                  onClick={() => setExpandedIndex(isExpanded ? null : idx)}
+                  className="w-full flex items-center justify-between p-6 md:p-10 text-left focus:outline-none group"
+                >
+                  <h3 className={`text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase transition-colors duration-300 ${
+                    isExpanded ? "text-white" : "text-white/50 group-hover:text-white"
+                  }`}>
+                    {service.title}
+                  </h3>
+                  
+                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full border flex items-center justify-center transition-all duration-500 shrink-0 ${
+                    isExpanded ? "bg-white border-white text-black rotate-45" : "border-white/20 text-white/50 group-hover:border-white/50"
+                  }`}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </div>
+                </button>
+
+                {/* Expanded Content Drawer */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="p-6 md:p-10 pt-0 flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center">
+                        
+                        {/* Text & Link */}
+                        <div className="flex-1">
+                          <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mb-8 max-w-2xl">
+                            {service.description}
+                          </p>
+                          <Link href={service.link} className="inline-flex items-center gap-4 bg-red-600 text-white px-8 py-4 rounded-full font-bold hover:bg-red-500 transition-colors group">
+                            Explore Service
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="group-hover:translate-x-1 transition-transform">
+                              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </Link>
+                        </div>
+                        
+                        {/* Abstract Visual / Color Block */}
+                        <div className="w-full lg:w-1/3 h-48 md:h-64 rounded-2xl overflow-hidden relative group shrink-0">
+                          <div className={`absolute inset-0 ${service.color} opacity-80 group-hover:scale-110 transition-transform duration-1000 ease-out`} />
+                          <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
+                          <div className="absolute inset-0 border border-white/20 rounded-2xl" />
+                        </div>
+                        
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
+              </motion.div>
+            );
+          })}
         </div>
-      </div>
+
       </div>
     </section>
   );

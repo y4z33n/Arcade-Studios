@@ -63,29 +63,17 @@ export default function FloatingCTA() {
           >
             <Link href="/contact" className="block group">
               <motion.div
-                className="relative bg-red-600 text-white px-6 md:px-8 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-red-500/50 transition-all overflow-hidden"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="relative bg-red-600 text-white rounded-full shadow-2xl hover:shadow-red-500/50 transition-all overflow-hidden flex items-center h-14 w-14 group-hover:w-48"
+                style={{ transitionProperty: "width, box-shadow" }}
               >
-                <div className="relative flex items-center justify-center gap-2">
-                  <span className="text-sm md:text-base font-bold tracking-tight">
-                    Start Your Project
-                  </span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="text-white transition-transform group-hover:translate-x-1"
-                  >
-                    <path
-                      d="M5 12H19M19 12L12 5M19 12L12 19"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+                <div className="absolute left-0 w-14 h-14 flex items-center justify-center shrink-0 pointer-events-none">
+                  {/* Spark / Idea Icon */}
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
+                    <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
+                </div>
+                <div className="absolute left-12 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold pointer-events-none">
+                  Start Project
                 </div>
               </motion.div>
             </Link>

@@ -593,8 +593,8 @@ export default function BrandShowcase() {
           <span className="text-xs sm:text-sm 3xl:text-base text-white/60 uppercase tracking-widest mb-3 md:mb-4 block">
             Trusted by leading brands
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl font-bold text-white leading-[0.95] tracking-tighter px-4">
-            We've partnered with industry leaders
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-white leading-[0.95] px-4">
+            We've Partnered <br className="hidden md:block"/><span className="text-white/50">With Leaders</span>
           </h2>
         </motion.div>
 

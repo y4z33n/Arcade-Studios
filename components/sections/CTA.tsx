@@ -45,7 +45,7 @@ export default function CTA({
               {/* Content */}
               <div className="relative z-10 mb-6 md:mb-0 text-center md:text-left">
                 <motion.h2
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl font-bold text-white tracking-tight max-w-3xl"
+                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-white max-w-4xl leading-[0.95]"
                 >
                   {title}
                 </motion.h2>
