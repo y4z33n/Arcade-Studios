@@ -58,9 +58,9 @@ export default function AboutHero() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="text-lg md:text-xl lg:text-2xl 3xl:text-3xl text-white/70 leading-relaxed max-w-2xl"
             >
-              Arcade covers the full digital spectrum from web development, e-commerce, branding,
-              3D visualisation, video production, app development, and SEO to much more.
-              One team. One contact. Zero compromise.
+              Leylak Tech provides full-scale software engineering covering web development,
+              app development, custom software, AI integration, and automation.
+              One team. Seamless execution. Built for scale.
             </motion.p>
 
             {/* Discipline tags */}
@@ -70,7 +70,7 @@ export default function AboutHero() {
               transition={{ delay: 0.45, duration: 0.7 }}
               className="flex flex-wrap gap-2"
             >
-              {["Web Dev", "E-commerce", "Branding", "3D & Animation", "Video Production", "App Dev", "SEO"].map((tag) => (
+              {["Web Dev", "App Dev", "Custom Software", "AI Integration", "Automation"].map((tag) => (
                 <span
                   key={tag}
                   className="px-4 py-2 text-sm font-medium text-white/80 border border-white/20 rounded-full bg-white/5 backdrop-blur-sm"
@@ -88,7 +88,7 @@ export default function AboutHero() {
               className="flex gap-10 pt-4 border-t border-white/10"
             >
               {[
-                { value: "7+", label: "Services" },
+                { value: "5+", label: "Core Services" },
                 { value: "10+", label: "Industries" },
                 { value: "100%", label: "Satisfaction" },
               ].map((stat) => (

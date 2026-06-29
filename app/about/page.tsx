@@ -6,21 +6,21 @@ import CTA from "@/components/sections/CTA";
 
 
 export const metadata: Metadata = {
-  title: "About | Arcade | Full-Spectrum Digital Studio",
+  title: "About | Leylak Tech | Custom Software & AI Studio",
   description:
-    "Arcade is a full-spectrum digital studio covering web development, e-commerce, branding, 3D, video production, app development, and SEO. One team, every discipline.",
+    "Leylak Tech is a digital solutions studio focusing on web and app development, custom software, AI integration, and automation.",
   keywords: [
-    "about arcade",
-    "digital studio mauritius",
-    "full-spectrum digital studio",
-    "web development branding seo",
-    "arcade studio",
-    "multi-discipline digital studio",
-    "digital solutions mauritius",
+    "about leylak",
+    "digital agency",
+    "web development studio",
+    "app development",
+    "custom software",
+    "ai integration",
+    "automation",
   ],
   openGraph: {
-    title: "About | Arcade",
-    description: "One studio. Every discipline. Arcade handles every digital challenge your business faces.",
+    title: "About | Leylak Tech",
+    description: "Leylak Tech is a digital solutions studio focusing on web and app development, custom software, AI integration, and automation.",
     type: "website",
   },
 };

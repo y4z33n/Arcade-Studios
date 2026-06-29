@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
 
 const newsletterSchema = z.object({
   firstName: z.string().optional(),
@@ -18,38 +18,38 @@ export async function POST(request: NextRequest) {
 
     // Notify the team about the new subscriber
     await resend.emails.send({
-      from: "Arcade <hello@arcade.tech>",
-      to: process.env.CONTACT_EMAIL ?? "hello@arcade.tech",
+      from: "Leylak Tech <hello@leylak.tech>",
+      to: process.env.CONTACT_EMAIL ?? "hello@leylak.tech",
       subject: `New newsletter subscriber: ${validatedData.email}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
           <h2 style="color: #dc2626;">New Newsletter Subscriber</h2>
           <p><strong>Email:</strong> ${validatedData.email}</p>
           ${validatedData.firstName ? `<p><strong>Name:</strong> ${validatedData.firstName}</p>` : ""}
-          <p style="font-size: 12px; color: #888;">Subscribed via arcade.tech</p>
+          <p style="font-size: 12px; color: #888;">Subscribed via leylak.tech</p>
         </div>
       `,
     });
 
     // Send a welcome email to the subscriber
     await resend.emails.send({
-      from: "Arcade <hello@arcade.tech>",
+      from: "Leylak Tech <hello@leylak.tech>",
       to: validatedData.email,
-      subject: "You're on the list — Arcade",
+      subject: "You're on the list — Leylak Tech",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
           <h2 style="color: #dc2626;">Welcome${validatedData.firstName ? `, ${validatedData.firstName}` : ""}!</h2>
           <p style="line-height: 1.6; color: #444;">
-            You're now subscribed to updates from Arcade. We'll keep you in the loop on new projects, insights, and studio news.
+            You're now subscribed to updates from Leylak Tech. We'll keep you in the loop on new projects, insights, and studio news.
           </p>
           <p style="line-height: 1.6; color: #444;">
             In the meantime, explore our latest work at
-            <a href="https://arcade.tech/work" style="color: #dc2626;">arcade.tech/work</a>.
+            <a href="https://leylak.tech/work" style="color: #dc2626;">leylak.tech/work</a>.
           </p>
           <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
           <p style="font-size: 13px; color: #888;">
-            The Arcade Team<br />
-            <a href="mailto:hello@arcade.tech" style="color: #dc2626;">hello@arcade.tech</a>
+            The Leylak Tech Team<br />
+            <a href="mailto:hello@leylak.tech" style="color: #dc2626;">hello@leylak.tech</a>
           </p>
         </div>
       `,

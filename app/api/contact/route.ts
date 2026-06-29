@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -18,10 +18,10 @@ export async function POST(request: NextRequest) {
     // Validate the request body
     const validatedData = contactSchema.parse(body);
 
-    // Send notification email to Arcade
+    // Send notification email to Leylak Tech
     await resend.emails.send({
-      from: "Arcade Contact Form <hello@arcade.tech>",
-      to: process.env.CONTACT_EMAIL ?? "hello@arcade.tech",
+      from: "Leylak Tech Contact Form <hello@leylak.tech>",
+      to: process.env.CONTACT_EMAIL ?? "hello@leylak.tech",
       replyTo: validatedData.email,
       subject: `New enquiry from ${validatedData.name}${validatedData.company ? ` — ${validatedData.company}` : ""}`,
       html: `
@@ -46,16 +46,16 @@ export async function POST(request: NextRequest) {
             <p style="font-weight: bold; margin-bottom: 8px;">Message</p>
             <p style="background: #f5f5f5; padding: 16px; border-radius: 8px; line-height: 1.6; white-space: pre-wrap;">${validatedData.message}</p>
           </div>
-          <p style="margin-top: 24px; font-size: 12px; color: #888;">Sent from the contact form at arcade.tech</p>
+          <p style="margin-top: 24px; font-size: 12px; color: #888;">Sent from the contact form at leylak.tech</p>
         </div>
       `,
     });
 
     // Send auto-reply to the person who submitted
     await resend.emails.send({
-      from: "Arcade <hello@arcade.tech>",
+      from: "Leylak Tech <hello@leylak.tech>",
       to: validatedData.email,
-      subject: "We received your message — Arcade",
+      subject: "We received your message — Leylak Tech",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
           <h2 style="color: #dc2626;">Thanks for reaching out, ${validatedData.name.split(" ")[0]}!</h2>
@@ -64,12 +64,12 @@ export async function POST(request: NextRequest) {
           </p>
           <p style="line-height: 1.6; color: #444;">
             In the meantime, feel free to explore our work at
-            <a href="https://arcade.tech/work" style="color: #dc2626;">arcade.tech/work</a>.
+            <a href="https://leylak.tech/work" style="color: #dc2626;">leylak.tech/work</a>.
           </p>
           <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
           <p style="font-size: 13px; color: #888;">
-            The Arcade Team<br />
-            <a href="mailto:hello@arcade.tech" style="color: #dc2626;">hello@arcade.tech</a>
+            The Leylak Tech Team<br />
+            <a href="mailto:hello@leylak.tech" style="color: #dc2626;">hello@leylak.tech</a>
           </p>
         </div>
       `,

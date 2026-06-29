@@ -37,6 +37,7 @@ const SERVICES = [
   },
 ];
 import CTA from "@/components/sections/CTA";
+import BorderGlow from "@/components/ui/BorderGlow";
 
 export default function WorkPage() {
   const containerRef = useRef<HTMLElement>(null);
@@ -88,43 +89,44 @@ export default function WorkPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
+                  className="h-full"
                 >
-                  <Link
-                    href={service.link}
-                    className="group relative overflow-hidden rounded-2xl p-8 md:p-10 text-left transition-all duration-500 bg-white/5 backdrop-blur-sm border border-white/10 block h-full"
-                    style={{ transition: 'background 0.4s, border-color 0.4s' }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.background = '#ff1a1a';
-                      e.currentTarget.style.borderColor = '#ff1a1a';
-                      e.currentTarget.style.color = '#fff';
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                      e.currentTarget.style.color = '';
-                    }}
-                  >
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
-                      {service.text}
-                    </h2>
-                    <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6">
-                      {service.description}
-                    </p>
-                    <div className="opacity-0 transform translate-x-[-20px] transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </div>
+                  <Link href={service.link} className="block h-full group">
+                    <BorderGlow
+                      edgeSensitivity={60}
+                      glowColor="0 100 50"
+                      backgroundColor="#050505"
+                      borderRadius={24}
+                      className="h-full w-full"
+                      colors={['#ff1a1a', '#ff4d4d', '#ff0000']}
+                      fillOpacity={0.2}
+                    >
+                      <div className="p-8 md:p-10 h-full flex flex-col justify-between relative z-10 transition-colors duration-500 hover:bg-white/5">
+                        <div>
+                          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+                            {service.text}
+                          </h2>
+                          <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6">
+                            {service.description}
+                          </p>
+                        </div>
+                        <div className="opacity-0 transform translate-x-[-20px] transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 mt-4">
+                          <svg
+                            className="w-6 h-6 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M17 8l4 4m0 0l-4 4m4-4H3"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </BorderGlow>
                   </Link>
                 </motion.div>
               ))}

@@ -28,6 +28,11 @@ const SERVICES = [
     text: "Web Design / Development",
     image: "/services/web.jpg",
   },
+   {
+    link: "/products",
+    text: "AI Integration / Automation",
+    image: "/services/3d.jpg", // Using existing image for now
+  },
   {
     link: "/work",
     text: "App Design / Development",
@@ -53,6 +58,7 @@ const SERVICES = [
     text: "Graphics Design / Branding",
     image: "/services/gd.jpg",
   },
+ 
 ];
 
 const MenuItem: React.FC<MenuItemProps> = ({
@@ -172,10 +178,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
           {[...Array(repetitions)].map((_, idx) => (
             <div className="marquee-part flex items-center flex-shrink-0" key={idx} style={{ color: marqueeTextColor }}>
               <span className="whitespace-nowrap uppercase font-normal text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-[1] px-3 sm:px-4 md:px-6 lg:px-8">{text}</span>
-              <div
-                className="w-24 sm:w-32 md:w-40 lg:w-48 h-12 sm:h-16 md:h-20 lg:h-24 my-3 sm:my-4 mx-3 sm:mx-4 md:mx-6 lg:mx-8 py-3 sm:py-4 rounded-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${image})` }}
-              />
             </div>
           ))}
         </div>

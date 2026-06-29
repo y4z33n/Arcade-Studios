@@ -1,6 +1,6 @@
-# Arcade - Web Development Agency Website
+# Leylak Tech - Web Development Agency Website
 
-A modern, high-performance website for Arcade built with Next.js 14, featuring smooth scroll animations, video backgrounds, and a minimal design aesthetic.
+A modern, high-performance website for Leylak Tech built with Next.js 14, featuring smooth scroll animations, video backgrounds, and a minimal design aesthetic.
 
 ## 🚀 Tech Stack
 
@@ -24,7 +24,7 @@ A modern, high-performance website for Arcade built with Next.js 14, featuring s
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd arcade
+   cd leylak
    ```
 
 2. **Install dependencies**
@@ -53,7 +53,7 @@ A modern, high-performance website for Arcade built with Next.js 14, featuring s
 ## 📁 Project Structure
 
 ```
-arcade/
+leylak/
 ├── app/                      # Next.js app directory
 │   ├── about/               # About page
 │   ├── work/                # Work listing and case studies
@@ -240,13 +240,13 @@ The site is optimized for:
 
 ## 📄 License
 
-All rights reserved © Arcade
+All rights reserved © Leylak Tech
 
 ## 🤝 Support
 
-For questions or issues, contact: hello@arcade.com
+For questions or issues, contact: hello@leylak.tech
 
 ---
 
-Built with ❤️ by Arcade
+Built with ❤️ by Leylak Tech
 

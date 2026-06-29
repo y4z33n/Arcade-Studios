@@ -14,7 +14,7 @@ export default function Footer() {
       {/* Footer Content */}
       <div className="w-full mx-auto">
         <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-elegant py-16 md:py-20 px-6 lg:px-12 3xl:px-20">
-          
+
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -31,7 +31,7 @@ export default function Footer() {
               <p className="text-white/70 text-base 3xl:text-lg leading-relaxed mb-8 max-w-sm">
                 {SITE_CONFIG.tagline}
               </p>
-              
+
               {/* Social Media Links — hidden for now */}
             </div>
 

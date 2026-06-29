@@ -6,12 +6,10 @@ import Image from "next/image";
 
 const SERVICES_LIST = [
   { num: "01", title: "Web Development", desc: "Custom websites and web apps built with Next.js, React, and modern stacks — fast, scalable, and production-ready." },
-  { num: "02", title: "E-commerce", desc: "Shopify, WooCommerce, and custom storefronts with seamless checkout, inventory, and conversion-optimised UX." },
-  { num: "03", title: "Branding & Identity", desc: "Logo design, visual systems, brand guidelines — everything a business needs to look credible and memorable." },
-  { num: "04", title: "3D & Animation", desc: "3D modelling, product visualisation, and motion graphics that make your brand impossible to ignore." },
-  { num: "05", title: "Video Production", desc: "From concept to final cut — brand films, product videos, social reels, and event coverage." },
-  { num: "06", title: "App Development", desc: "Mobile and cross-platform apps built for iOS and Android, with clean UX and robust backends." },
-  { num: "07", title: "SEO & Digital Marketing", desc: "On-page SEO, content strategy, and digital campaigns that grow your visibility and drive qualified traffic." },
+  { num: "02", title: "App Development", desc: "Mobile and cross-platform apps built for iOS and Android, with clean UX and robust backends." },
+  { num: "03", title: "Custom Software", desc: "Bespoke internal tools, ERPs, and management systems tailored to your unique operational needs." },
+  { num: "04", title: "AI Integration", desc: "Intelligent solutions leveraging the latest in LLMs, machine learning, and automated workflows." },
+  { num: "05", title: "Automation", desc: "Streamline your business with data synchronization, reporting pipelines, and process optimization." },
 ];
 
 export default function StorySection() {
@@ -50,17 +48,15 @@ export default function StorySection() {
             className="lg:col-span-6 flex flex-col justify-end space-y-6 lg:pt-24"
           >
             <p className="text-xl md:text-2xl text-white font-medium leading-relaxed">
-              Arcade was built on a simple idea: your business shouldn't need five vendors to go digital.
+              Leylak Tech was built on a simple idea: your business shouldn't have to piece together fragmented tech stacks.
             </p>
             <p className="text-lg md:text-xl text-white/60 leading-relaxed">
-              We're a multi-discipline studio — web, e-commerce, branding, 3D, video, apps, and SEO —
-              all under one roof. One team, one point of contact, and a consistent standard of quality
-              across every deliverable.
+              We're a dedicated software engineering team — focusing entirely on web, app, custom software, AI integration, and automation —
+              delivering products and services under one roof. 
             </p>
             <p className="text-lg md:text-xl text-white/60 leading-relaxed">
-              We've delivered for talent platforms, marketing groups, distribution companies, retail brands,
-              and experience-based businesses. Whatever the challenge, we adapt our stack and approach
-              to what the project actually needs.
+              We've developed robust solutions for startups and enterprise businesses alike. Whatever the challenge, we adapt our engineering stack and approach
+              to what the project actually needs to succeed.
             </p>
           </motion.div>
         </div>
@@ -76,7 +72,7 @@ export default function StorySection() {
         <div className="relative w-full aspect-[21/9] rounded-3xl overflow-hidden">
           <Image
             src="/pro/bs.jpg"
-            alt="Arcade studio work"
+            alt="Leylak Tech studio work"
             fill
             className="object-cover"
             sizes="100vw"
@@ -86,9 +82,9 @@ export default function StorySection() {
           <div className="absolute inset-0 flex items-end p-10 md:p-16">
             <div className="max-w-xl">
               <p className="text-2xl md:text-3xl font-bold text-white leading-snug mb-3">
-                "Whatever the problem, we find the solution."
+                "Whatever the problem, we engineer the solution."
               </p>
-              <p className="text-white/50 text-sm uppercase tracking-widest">— Arcade</p>
+              <p className="text-white/50 text-sm uppercase tracking-widest">— Leylak Tech</p>
             </div>
           </div>
         </div>

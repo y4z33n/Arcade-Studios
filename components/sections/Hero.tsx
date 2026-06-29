@@ -49,7 +49,7 @@ export default function Hero() {
               className="lg:col-span-7 space-y-4 md:space-y-6"
             >
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl 3xl:text-3xl text-white/90 leading-relaxed">
-                Web apps, e-commerce, branding, 3D, video production, SEO, and app development. One studio, every discipline, zero compromise.
+                Web apps, e-commerce, branding, 3D, video production, SEO, app development, AI integration, and automation. One studio, every discipline, zero compromise.
               </p>
             </motion.div>
           </div>
@@ -65,7 +65,7 @@ export default function Hero() {
             {/* Gallery image instead of video */}
             <img
               src="/pro/bs.jpg"
-              alt="Arcade Studio Project Gallery"
+              alt="Leylak Tech Project Gallery"
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectFit: "cover" }}
             />

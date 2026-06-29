@@ -6,20 +6,18 @@ import Footer from "@/components/layout/Footer";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 
 export const metadata: Metadata = {
-  title: "Arcade | Digital Solutions Studio",
+  title: "Leylak Tech | Custom Software & AI Studio",
   description:
-    "Arcade is a full-spectrum digital solutions studio. Every problem your brand faces online — we solve it. Web, branding, motion, 3D, e-commerce, and beyond.",
+    "Leylak Tech is a full-spectrum digital solutions studio. From web and app development to custom software, AI integration, and automation.",
   keywords: [
     "digital solutions studio",
-    "digital agency",
-    "web design and development",
-    "branding agency",
-    "creative studio",
-    "e-commerce solutions",
-    "motion design",
-    "3D design",
+    "web development",
+    "app development",
+    "custom software",
+    "ai integration",
+    "automation",
   ],
-  authors: [{ name: "Arcade" }],
+  authors: [{ name: "Leylak Tech" }],
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
@@ -33,17 +31,17 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Arcade | Digital Solutions Studio",
+    title: "Leylak Tech | Custom Software & AI Studio",
     description:
-      "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
+      "From web and app development to custom software, AI integration, and automation.",
     type: "website",
     locale: "en_US",
-    siteName: "Arcade",
+    siteName: "Leylak Tech",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arcade | Digital Solutions Studio",
-    description: "Every digital problem your brand faces — we solve it. Web, branding, motion, 3D, and beyond.",
+    title: "Leylak Tech | Custom Software & AI Studio",
+    description: "From web and app development to custom software, AI integration, and automation.",
   },
 };
 
