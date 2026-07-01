@@ -10,7 +10,7 @@ export default function Orb({
   forceHoverState = false,
   backgroundColor = '#000000'
 }) {
-  const ctnDom = useRef(null);
+  const ctnDom = useRef<HTMLDivElement>(null);
 
   const vert = /* glsl */ `
     precision highp float;
