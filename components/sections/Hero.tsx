@@ -133,14 +133,7 @@ export default function Hero() {
                      </div>
                  </div>
 
-                 <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 5, duration: 1 }}
-                    className="mt-8 lg:mt-12 text-sm md:text-base text-white/60 tracking-[0.2em] uppercase text-center max-w-md animate-pulse z-10"
-                 >
-                    Tap the orb to skip
-                 </motion.div>
+
               </motion.div>
             )}
           </AnimatePresence>

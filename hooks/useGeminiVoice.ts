@@ -306,15 +306,16 @@ CRITICAL INSTRUCTIONS:
     if (audioContextRef.current.state === 'suspended') {
         console.log("[Voice Agent] AudioContext is suspended. Attempting to resume...");
         try {
-            await audioContextRef.current.resume();
+            await Promise.race([
+                audioContextRef.current.resume(),
+                new Promise(resolve => setTimeout(resolve, 200))
+            ]);
             console.log("[Voice Agent] AudioContext resumed successfully!");
         } catch (e) {
             console.error("[Voice Agent] Failed to resume AudioContext (autoplay blocked):", e);
         }
     }
 
-    setIsSpeaking(true);
-    
     // Decode base64 to binary
     const binaryString = window.atob(base64);
     const len = binaryString.length;
@@ -331,14 +332,20 @@ CRITICAL INSTRUCTIONS:
     for (let i = 0; i < pcm16.length; i++) {
       channelData[i] = pcm16[i] / 32768;
     }
-    
+
+    setIsSpeaking(true);
+
     const source = audioContextRef.current.createBufferSource();
     source.buffer = audioBuffer;
     source.connect(audioContextRef.current.destination);
     
     activeAudioNodesRef.current.add(source);
     
+    let endedFired = false;
+    
     source.onended = () => {
+      if (endedFired) return;
+      endedFired = true;
       activeAudioNodesRef.current.delete(source);
       if (activeAudioNodesRef.current.size === 0) {
         setIsSpeaking(false);
@@ -352,6 +359,21 @@ CRITICAL INSTRUCTIONS:
     
     source.start(nextPlayTimeRef.current);
     nextPlayTimeRef.current += audioBuffer.duration;
+
+    const now = performance.now();
+    const globalObj = window as any;
+    if (globalObj._expectedPlayTime === undefined || globalObj._expectedPlayTime < now) {
+        globalObj._expectedPlayTime = now;
+    }
+    const delayUntilEnd = globalObj._expectedPlayTime - now + audioBuffer.duration * 1000;
+    globalObj._expectedPlayTime += audioBuffer.duration * 1000;
+
+    setTimeout(() => {
+        if (!endedFired) {
+            try { source.stop(); } catch(e) {}
+            source.onended?.(new Event('ended'));
+        }
+    }, delayUntilEnd + 200);
   };
 
   const stopConversation = useCallback(() => {
