@@ -8,35 +8,35 @@ import Link from "next/link";
 const PROJECTS = [
   {
     id: 1,
-    title: "Aura Skincare",
-    category: "E-Commerce Experience",
-    image: "https://images.unsplash.com/photo-1615397323602-9888924b12df?q=80&w=2070&auto=format&fit=crop",
-    color: "bg-orange-100",
-    link: "/work/aura"
+    title: "Model Management dot Mu",
+    category: "Web Application",
+    image: "/pro/model.jpg",
+    color: "bg-blue-100",
+    link: "https://modelmanagement.mu"
   },
   {
     id: 2,
-    title: "Nova Fintech",
-    category: "Web Application",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-    color: "bg-blue-100",
-    link: "/work/nova"
+    title: "Flash Communications",
+    category: "Digital Agency",
+    image: "/pro/flash.jpg",
+    color: "bg-orange-100",
+    link: "https://theflashgroups.com"
   },
   {
     id: 3,
-    title: "Oasis Realty",
-    category: "Immersive 3D Web",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
-    color: "bg-emerald-100",
-    link: "/work/oasis"
+    title: "My Experience Shop",
+    category: "E-Commerce",
+    image: "/pro/mes.jpg",
+    color: "bg-purple-100",
+    link: "https://myexperienceshop.com"
   },
   {
     id: 4,
-    title: "Flux Energy",
-    category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop",
-    color: "bg-purple-100",
-    link: "/work/flux"
+    title: "Breathing Soul",
+    category: "E-Commerce",
+    image: "/pro/bs.jpg",
+    color: "bg-emerald-100",
+    link: "https://breathing-soul.com"
   }
 ];
 

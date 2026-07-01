@@ -38,7 +38,7 @@ export default function Ethos() {
         {/* Massive Typography Manifesto */}
         <div ref={textRef} className="relative max-w-7xl">
           <p className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter uppercase leading-[0.9] text-white/10">
-            We don't just write code. We forge digital empires that command attention and dominate markets.
+            We believe in crafting digital experiences that feel human, connect deeply, and leave a lasting impression.
           </p>
 
           <motion.p
@@ -47,7 +47,7 @@ export default function Ethos() {
               clipPath: useTransform(fillProgress, (val) => `inset(0 ${100 - val}% 0 0)`),
             }}
           >
-            We don't just write code. We forge digital empires that command attention and dominate markets.
+            We believe in crafting digital experiences that feel human, connect deeply, and leave a lasting impression.
           </motion.p>
         </div>
 

@@ -67,82 +67,39 @@ export default function Services() {
           </motion.p>
         </div>
 
-        {/* Dynamic Accordion System */}
-        <div className="max-w-6xl mx-auto flex flex-col gap-4">
-          {SERVICES.map((service, idx) => {
-            const isExpanded = expandedIndex === idx;
-
-            return (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`relative rounded-3xl overflow-hidden border border-white/10 transition-colors duration-500 ${
-                  isExpanded ? "bg-white/5" : "bg-black hover:bg-white/[0.02]"
-                }`}
-              >
-                {/* Accordion Header (Clickable) */}
-                <button
-                  onClick={() => setExpandedIndex(isExpanded ? null : idx)}
-                  className="w-full flex items-center justify-between p-6 md:p-10 text-left focus:outline-none group"
-                >
-                  <h3 className={`text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase transition-colors duration-300 ${
-                    isExpanded ? "text-white" : "text-white/50 group-hover:text-white"
-                  }`}>
-                    {service.title}
-                  </h3>
-                  
-                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full border flex items-center justify-center transition-all duration-500 shrink-0 ${
-                    isExpanded ? "bg-white border-white text-black rotate-45" : "border-white/20 text-white/50 group-hover:border-white/50"
-                  }`}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="12" y1="5" x2="12" y2="19"></line>
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
+        {/* Compact Grid Layout */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {SERVICES.map((service, idx) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="group relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/30 transition-colors duration-500 flex flex-col h-full"
+            >
+              <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 ${service.color}`} />
+              
+              <div className="p-8 flex flex-col h-full relative z-10">
+                <h3 className="text-2xl md:text-3xl font-black tracking-tight uppercase mb-4 group-hover:text-white transition-colors duration-300">
+                  {service.title}
+                </h3>
+                
+                <p className="text-sm text-white/60 font-light leading-relaxed mb-8 flex-grow">
+                  {service.description}
+                </p>
+                
+                <Link href={service.link} className="inline-flex items-center justify-between w-full text-white/50 group-hover:text-white transition-colors font-semibold uppercase text-xs tracking-widest mt-auto">
+                  <span>Explore</span>
+                  <div className={`w-8 h-8 rounded-full border border-white/20 group-hover:border-white flex items-center justify-center transition-all duration-300 group-hover:bg-white group-hover:text-black`}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-0.5 transition-transform">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </div>
-                </button>
-
-                {/* Expanded Content Drawer */}
-                <AnimatePresence>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-6 md:p-10 pt-0 flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center">
-                        
-                        {/* Text & Link */}
-                        <div className="flex-1">
-                          <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mb-8 max-w-2xl">
-                            {service.description}
-                          </p>
-                          <Link href={service.link} className="inline-flex items-center gap-4 bg-red-600 text-white px-8 py-4 rounded-full font-bold hover:bg-red-500 transition-colors group">
-                            Explore Service
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="group-hover:translate-x-1 transition-transform">
-                              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                          </Link>
-                        </div>
-                        
-                        {/* Abstract Visual / Color Block */}
-                        <div className="w-full lg:w-1/3 h-48 md:h-64 rounded-2xl overflow-hidden relative group shrink-0">
-                          <div className={`absolute inset-0 ${service.color} opacity-80 group-hover:scale-110 transition-transform duration-1000 ease-out`} />
-                          <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
-                          <div className="absolute inset-0 border border-white/20 rounded-2xl" />
-                        </div>
-                        
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                
-              </motion.div>
-            );
-          })}
+                </Link>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
       </div>

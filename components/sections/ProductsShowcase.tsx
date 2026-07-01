@@ -6,31 +6,20 @@ import Link from "next/link";
 
 const PRODUCTS = [
   {
-    id: "nexus-ai",
-    name: "Nexus AI",
-    description: "Enterprise AI integration platform. Automate your workflows and unlock data-driven insights with our proprietary LLM orchestration engine.",
-    tags: ["AI", "SaaS"],
-    features: ["Custom Model Fine-tuning", "Secure Data Pipelines", "API First"],
-    color: "from-blue-600 to-indigo-900",
-    top: "top-32"
+    id: "ai-call-assistant",
+    name: "AI Call Assistant",
+    description: "An intelligent, voice-activated AI assistant designed to handle inbound and outbound calls. It uses advanced natural language processing to converse naturally, answer queries, schedule appointments, and route complex issues to human agents.",
+    features: ["Natural Voice Synthesis", "Real-time Processing", "CRM Integration", "Multi-language Support"],
+    icon: "🎙️",
+    color: "from-blue-600/20 to-indigo-900/20"
   },
   {
-    id: "leylak-cms",
-    name: "Leylak CMS",
-    description: "An ultra-fast, entirely custom headless content management system built for marketing teams who demand absolute freedom.",
-    tags: ["CMS", "Headless"],
-    features: ["Real-time Collaboration", "Global Edge CDN", "Visual Builder"],
-    color: "from-emerald-500 to-teal-900",
-    top: "top-40"
-  },
-  {
-    id: "vortex-commerce",
-    name: "Vortex Engine",
-    description: "High-conversion e-commerce engine packed into one powerful, ultra-fast core.",
-    tags: ["E-commerce", "Retail"],
-    features: ["Sub-second Loads", "Advanced Analytics", "Omnichannel"],
-    color: "from-orange-500 to-red-900",
-    top: "top-48"
+    id: "ai-queuing-system",
+    name: "AI Queuing System",
+    description: "A smart queuing and resource allocation system that uses machine learning to predict wait times, optimize routing, and manage customer flow efficiently. Perfect for high-volume customer service operations.",
+    features: ["Predictive Analytics", "Dynamic Routing", "Automated Triage", "Real-time Dashboards"],
+    icon: "⏱️",
+    color: "from-emerald-500/20 to-teal-900/20"
   }
 ];
 
@@ -62,7 +51,7 @@ export default function ProductsShowcase() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-lg md:text-xl text-white/60 font-light max-w-xl"
             >
-              Proprietary tools and engines designed to accelerate your growth.
+              Proprietary AI tools and engines designed to accelerate your operations and scale your growth.
             </motion.p>
           </div>
           
@@ -71,8 +60,8 @@ export default function ProductsShowcase() {
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            <Link href="/products" className="inline-flex items-center gap-4 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-white/90 transition-colors group">
-              Explore All
+            <Link href="/products" className="inline-flex items-center gap-4 bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 px-8 py-4 rounded-full font-bold transition-colors group">
+              View Roadmap
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="group-hover:translate-x-1 transition-transform">
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -80,61 +69,53 @@ export default function ProductsShowcase() {
           </motion.div>
         </div>
 
-        {/* Sticky Stacking Cards */}
-        <div className="relative pb-32">
+        {/* Lighter Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-10">
           {PRODUCTS.map((product, idx) => (
             <motion.div
               key={product.id}
-              initial={{ opacity: 0, y: 100 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 0.8, delay: idx * 0.1 }}
-              className={`sticky ${product.top} w-full shadow-2xl shadow-black max-w-5xl mx-auto rounded-[2rem] overflow-hidden p-[1px] mb-24`}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.6, delay: idx * 0.2 }}
+              className="relative group h-full"
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${product.color} opacity-40`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${product.color} rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
               
-              <div className="relative bg-black/80 backdrop-blur-2xl h-[400px] md:h-[450px] p-8 md:p-12 lg:p-16 flex flex-col md:flex-row gap-8 lg:gap-16 border border-white/10 rounded-[31px]">
+              <div className="relative bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 h-full flex flex-col transition-transform duration-500 group-hover:-translate-y-2">
                 
-                {/* Left Content */}
-                <div className="flex-1 flex flex-col">
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {product.tags.map((tag, i) => (
-                      <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-white/70 uppercase tracking-widest">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6">
-                    {product.name}
-                  </h3>
-                  
-                  <p className="text-lg lg:text-xl text-white/70 font-light leading-relaxed max-w-md">
-                    {product.description}
-                  </p>
+                <div className="text-6xl mb-8 group-hover:scale-110 transition-transform duration-500 origin-left">
+                  {product.icon}
                 </div>
+                
+                <h3 className="text-3xl lg:text-4xl font-bold tracking-tight mb-4">
+                  {product.name}
+                </h3>
+                
+                <p className="text-white/60 font-light leading-relaxed mb-8 flex-grow">
+                  {product.description}
+                </p>
 
-                {/* Right Content / Features */}
-                <div className="w-full md:w-1/3 flex flex-col justify-between">
-                  <ul className="space-y-4 mb-8">
+                <div className="mt-auto">
+                  <h4 className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Key Features</h4>
+                  <ul className="space-y-3 mb-8">
                     {product.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-white/80">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-red-500 shrink-0 mt-0.5">
+                      <li key={i} className="flex items-start gap-3 text-white/80 text-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-red-500 shrink-0 mt-0.5">
                           <path d="M5 12L10 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        <span className="text-base font-medium">{feature}</span>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <Link href="/contact" className="inline-flex items-center justify-between w-full gap-4 bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 px-6 py-4 rounded-full font-bold transition-all group/btn">
-                    <span>Get Access</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="group-hover/btn:translate-x-1 transition-transform">
+                  <Link href="/contact" className="inline-flex items-center gap-3 text-red-500 font-bold hover:text-white transition-colors group/link">
+                    Get Early Access
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="group-hover/link:translate-x-1 transition-transform">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </Link>
                 </div>
-
               </div>
             </motion.div>
           ))}
