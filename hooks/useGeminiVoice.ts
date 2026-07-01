@@ -14,9 +14,15 @@ export function useGeminiVoice() {
   const nextPlayTimeRef = useRef<number>(0);
   const sessionIdRef = useRef<string | null>(null);
 
-  const startConversation = async () => {
-    if (isRecording) {
-      stopConversation();
+  const startConversation = async (listenInitially = true) => {
+    if (wsRef.current) {
+      if (listenInitially && !isRecording) {
+         startMicrophone();
+      } else if (isRecording && !listenInitially) {
+         stopConversation();
+      } else if (isRecording && listenInitially) {
+         stopConversation();
+      }
       return;
     }
 
@@ -40,7 +46,6 @@ export function useGeminiVoice() {
 
       wsRef.current.onopen = () => {
         console.log("[Voice Agent] WebSocket Connection Opened!");
-        setIsRecording(true);
         // Generate a unique session ID for this conversation
         sessionIdRef.current = crypto.randomUUID();
 
@@ -90,8 +95,10 @@ CRITICAL INSTRUCTIONS:
         console.log("[Voice Agent] Sending setup message:", setupMessage);
         wsRef.current?.send(JSON.stringify(setupMessage));
 
-        // Start capturing mic audio
-        startAudioCapture();
+        // Start capturing mic audio if requested
+        if (listenInitially) {
+            startMicrophone();
+        }
       };
 
       wsRef.current.onmessage = async (event) => {
@@ -137,18 +144,28 @@ CRITICAL INSTRUCTIONS:
             console.log("[Voice Agent] Setup complete message received!");
             // Automatically trigger the greeting
             if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-              wsRef.current.send(JSON.stringify({
-                clientContent: {
-                  turnComplete: true,
-                  turns: [{
-                     role: "user",
-                     parts: [{ text: "The user has just activated you. Warmly greet them and briefly introduce Leylak Tech." }]
-                  }]
-                }
-              }));
+               if (listenInitially) {
+                  wsRef.current.send(JSON.stringify({
+                    clientContent: {
+                      turnComplete: true,
+                      turns: [{
+                         role: "user",
+                         parts: [{ text: "The user has just activated you. Warmly greet them and briefly introduce Leylak Tech." }]
+                      }]
+                    }
+                  }));
+               } else {
+                  wsRef.current.send(JSON.stringify({
+                    clientContent: {
+                      turnComplete: true,
+                      turns: [{
+                         role: "user",
+                         parts: [{ text: "The user just loaded the website. Say EXACTLY this greeting in a warm tone: 'Hi there! Welcome to Leylak Tech. I'm your personal AI guide, and I'm thrilled to show you around. Whenever you're ready, just tap the glowing orb to begin our journey.'" }]
+                      }]
+                    }
+                  }));
+               }
             }
-          } else {
-             // console.log("[Voice Agent] Other message:", msg);
           }
         } catch (e) {
           console.error("[Voice Agent] Error parsing message", e);
@@ -171,6 +188,26 @@ CRITICAL INSTRUCTIONS:
       setError(err.message);
       setIsRecording(false);
     }
+  };
+
+  const startMicrophone = () => {
+     if (!mediaStreamRef.current) {
+        setIsRecording(true);
+        startAudioCapture();
+        
+        if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+           // Tell the AI that the mic is now live
+           wsRef.current.send(JSON.stringify({
+             clientContent: {
+               turnComplete: true,
+               turns: [{
+                  role: "user",
+                  parts: [{ text: "The user has just tapped the orb and activated their microphone. Acknowledge this very briefly, friendly, and ask how you can help." }]
+               }]
+             }
+           }));
+        }
+     }
   };
 
   const handleFunctionCall = async (functionCall: any) => {
@@ -213,7 +250,9 @@ CRITICAL INSTRUCTIONS:
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       console.log("[Voice Agent] Microphone access granted!");
       mediaStreamRef.current = stream;
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
+      if (!audioContextRef.current) {
+         audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
+      }
       
       sourceRef.current = audioContextRef.current.createMediaStreamSource(stream);
       processorRef.current = audioContextRef.current.createScriptProcessor(4096, 1, 1);
@@ -260,8 +299,20 @@ CRITICAL INSTRUCTIONS:
   };
 
   const playAudioBase64 = async (base64: string) => {
-    if (!audioContextRef.current) return;
+    if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
+    }
     
+    if (audioContextRef.current.state === 'suspended') {
+        console.log("[Voice Agent] AudioContext is suspended. Attempting to resume...");
+        try {
+            await audioContextRef.current.resume();
+            console.log("[Voice Agent] AudioContext resumed successfully!");
+        } catch (e) {
+            console.error("[Voice Agent] Failed to resume AudioContext (autoplay blocked):", e);
+        }
+    }
+
     setIsSpeaking(true);
     
     // Decode base64 to binary
@@ -340,5 +391,5 @@ CRITICAL INSTRUCTIONS:
     };
   }, [stopConversation]);
 
-  return { startConversation, stopConversation, isSpeaking, isRecording, error };
+  return { startConversation, stopConversation, isSpeaking, isRecording, error, startMicrophone };
 }
