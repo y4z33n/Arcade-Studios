@@ -22,7 +22,7 @@ const TypewriterText = ({ text, className, delay = 0.5, trigger = true }: { text
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { type: "spring", damping: 12, stiffness: 100 },
+      transition: { type: "spring" as const, damping: 12, stiffness: 100 },
     },
     hidden: {
       opacity: 0,
