@@ -15,6 +15,7 @@ CREATE TABLE leads (
 -- 3. Create the Knowledge Base table (for AI RAG Memory)
 CREATE TABLE knowledge_base (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  page_path TEXT,
   content TEXT NOT NULL,
   embedding VECTOR(768) -- Matches Gemini's embedding model dimension
 );

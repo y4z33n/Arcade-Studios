@@ -8,13 +8,15 @@ export default function Orb({
   hoverIntensity = 0.2,
   rotateOnHover = true,
   forceHoverState = false,
-  backgroundColor = '#000000'
+  backgroundColor = '#000000',
+  isSpeaking = false
 }: {
   hue?: number;
   hoverIntensity?: number;
   rotateOnHover?: boolean;
   forceHoverState?: boolean;
   backgroundColor?: string;
+  isSpeaking?: boolean;
 }) {
   const ctnDom = useRef<HTMLDivElement>(null);
 
@@ -39,6 +41,7 @@ export default function Orb({
     uniform float rot;
     uniform float hoverIntensity;
     uniform vec3 backgroundColor;
+    uniform float speakingIntensity;
     varying vec2 vUv;
 
     vec3 rgb2yiq(vec3 c) {
@@ -180,6 +183,9 @@ export default function Orb({
       uv.x += hover * hoverIntensity * 0.1 * sin(uv.y * 10.0 + iTime);
       uv.y += hover * hoverIntensity * 0.1 * sin(uv.x * 10.0 + iTime);
       
+      uv.x += speakingIntensity * 0.05 * sin(uv.y * 12.0 + iTime * 12.0) * cos(uv.x * 8.0 - iTime * 8.0);
+      uv.y += speakingIntensity * 0.05 * cos(uv.x * 12.0 + iTime * 12.0) * sin(uv.y * 8.0 - iTime * 8.0);
+      
       return draw(uv);
     }
 
@@ -212,6 +218,7 @@ export default function Orb({
         hover: { value: 0 },
         rot: { value: 0 },
         hoverIntensity: { value: hoverIntensity },
+        speakingIntensity: { value: 0 },
         backgroundColor: { value: hexToVec3(backgroundColor) }
       }
     });
@@ -274,6 +281,9 @@ export default function Orb({
 
       const effectiveHover = forceHoverState ? 1 : targetHover;
       program.uniforms.hover.value += (effectiveHover - program.uniforms.hover.value) * 0.1;
+      
+      const targetSpeaking = isSpeaking ? 1 : 0;
+      program.uniforms.speakingIntensity.value += (targetSpeaking - program.uniforms.speakingIntensity.value) * 0.15;
 
       if (rotateOnHover && effectiveHover > 0.5) {
         currentRot += dt * rotationSpeed;
@@ -293,7 +303,7 @@ export default function Orb({
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hue, hoverIntensity, rotateOnHover, forceHoverState, backgroundColor]);
+  }, [hue, hoverIntensity, rotateOnHover, forceHoverState, backgroundColor, isSpeaking]);
 
   return <div ref={ctnDom} className="orb-container" />;
 }

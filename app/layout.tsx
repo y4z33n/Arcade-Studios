@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+import { GeminiVoiceProvider } from "@/components/providers/GeminiVoiceProvider";
+import GlobalOrb from "@/components/ui/GlobalOrb";
 
 export const metadata: Metadata = {
   title: "Leylak Tech | Custom Software & AI Studio",
@@ -69,11 +71,14 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-black text-gray-900">
-        <SmoothScrollProvider>
-          <Navbar />
-          <main className="relative">{children}</main>
-          <Footer />
-        </SmoothScrollProvider>
+        <GeminiVoiceProvider>
+          <SmoothScrollProvider>
+            <Navbar />
+            <main className="relative">{children}</main>
+            <GlobalOrb />
+            <Footer />
+          </SmoothScrollProvider>
+        </GeminiVoiceProvider>
       </body>
     </html>
   );

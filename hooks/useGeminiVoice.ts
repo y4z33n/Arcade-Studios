@@ -1,9 +1,21 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function useGeminiVoice() {
+  const pathname = usePathname();
+  const router = useRouter();
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [navPath, setNavPath] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (navPath) {
+      router.push(navPath);
+      setNavPath(null);
+    }
+  }, [navPath, router]);
   
   const wsRef = useRef<WebSocket | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -15,6 +27,17 @@ export function useGeminiVoice() {
   const sessionIdRef = useRef<string | null>(null);
 
   const startConversation = async (listenInitially = true) => {
+    // Initialize AudioContext synchronously on user gesture to bypass autoplay restrictions
+    if (!audioContextRef.current) {
+       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+       if (AudioContextClass) {
+         audioContextRef.current = new AudioContextClass({ sampleRate: 16000 });
+         audioContextRef.current.resume();
+       }
+    } else if (audioContextRef.current.state === 'suspended') {
+       audioContextRef.current.resume();
+    }
+
     if (wsRef.current) {
       if (listenInitially && !isRecording) {
          startMicrophone();
@@ -45,6 +68,7 @@ export function useGeminiVoice() {
       wsRef.current = new WebSocket(url);
 
       wsRef.current.onopen = () => {
+        setIsConnected(true);
         console.log("[Voice Agent] WebSocket Connection Opened!");
         // Generate a unique session ID for this conversation
         sessionIdRef.current = crypto.randomUUID();
@@ -70,25 +94,47 @@ CRITICAL INSTRUCTIONS:
 - NEVER state exact prices, minimum budgets, or shut down a project. Always say "it depends on the project scope" and that Leylak Tech is open to projects of any size (small, mid, or big).
 - Keep the conversation strictly to Leylak Tech and our business. NEVER suggest other platforms like Wix.
 - Do not interrogate the user. Gather information naturally. Example: greet -> ask name -> later discreetly ask for their phone number (including country code) and if they use WhatsApp -> ask about their project brief -> ask about their budget -> finally ask for email (and verify spelling before recording).
-- Call the "record_lead_info" tool continuously and incrementally as you learn new information (e.g., call it when you get the name, call it again when you get the phone, etc.).
-` }]
+- You have access to tools to navigate the website, scroll, and record leads. Use them naturally when the user makes a request, and narrate your actions smoothly. For example, if they want to see the about page, say "Sure, taking you there now!" and call the navigate tool.` }]
             },
             tools: [{
-              functionDeclarations: [{
-                name: "record_lead_info",
-                description: "Call this tool incrementally whenever you learn new information about the lead. It acts as your memory database. Call it multiple times during the conversation as you gather the name, phone, project brief, budget, and email.",
-                parameters: {
-                  type: "OBJECT",
-                  properties: {
-                    name: { type: "STRING", description: "The client's name" },
-                    phone: { type: "STRING", description: "The client's phone number with country code" },
-                    whatsapp: { type: "BOOLEAN", description: "Whether the phone number is connected to WhatsApp" },
-                    email: { type: "STRING", description: "The client's email address (only after verifying spelling)" },
-                    project_brief: { type: "STRING", description: "Brief description of the project" },
-                    budget: { type: "STRING", description: "The client's budget range" }
+              functionDeclarations: [
+                {
+                  name: "record_lead_info",
+                  description: "Saves information about a potential client/lead.",
+                  parameters: {
+                    type: "OBJECT",
+                    properties: {
+                      name: { type: "STRING" },
+                      phone: { type: "STRING" },
+                      email: { type: "STRING" },
+                      budget: { type: "STRING" },
+                      project_brief: { type: "STRING" }
+                    }
+                  }
+                },
+                {
+                  name: "navigate_to_page",
+                  description: "Navigates the user's screen to a specific page on the website. Use this when the user asks to see a page.",
+                  parameters: {
+                    type: "OBJECT",
+                    properties: {
+                      path: { type: "STRING", enum: ["/", "/about", "/work", "/products", "/contact"] }
+                    },
+                    required: ["path"]
+                  }
+                },
+                {
+                  name: "scroll_page",
+                  description: "Scrolls the current page up or down.",
+                  parameters: {
+                    type: "OBJECT",
+                    properties: {
+                      direction: { type: "STRING", enum: ["up", "down", "top", "bottom"] }
+                    },
+                    required: ["direction"]
                   }
                 }
-              }]
+              ]
             }]
           }
         };
@@ -127,6 +173,24 @@ CRITICAL INSTRUCTIONS:
               for (const part of modelTurn.parts) {
                 if (part.text) {
                   console.log("[Voice Agent] Agent text:", part.text);
+                  
+                  // Natural Language Heuristic Fallback
+                  // In case the model fails to emit a JSON functionCall, we listen for natural phrases in its spoken text
+                  const spoken = part.text.toLowerCase();
+                  if (spoken.includes("take you") || spoken.includes("head") || spoken.includes("navigat") || spoken.includes("show")) {
+                      let targetPath = null;
+                      if (spoken.includes("about")) targetPath = "/about";
+                      else if (spoken.includes("work")) targetPath = "/work";
+                      else if (spoken.includes("product")) targetPath = "/products";
+                      else if (spoken.includes("contact")) targetPath = "/contact";
+                      
+                      if (targetPath && targetPath !== pathname) {
+                          console.log(`[Voice Agent] Heuristic match: Navigating to ${targetPath}`);
+                          setNavPath(targetPath);
+                      }
+                  }
+                  
+                  // Cleaned up robotic text intents; we now rely on native functionCall handling.
                 }
                 if (part.inlineData && part.inlineData.data) {
                   console.log("[Voice Agent] Received audio chunk");
@@ -138,6 +202,13 @@ CRITICAL INSTRUCTIONS:
                    console.log("[Voice Agent] Function call received:", part.functionCall);
                    handleFunctionCall(part.functionCall);
                 }
+              }
+            }
+          } else if (msg.toolCall) {
+            console.log("[Voice Agent] Received tool call message:", msg.toolCall);
+            if (msg.toolCall.functionCalls) {
+              for (const call of msg.toolCall.functionCalls) {
+                handleFunctionCall(call);
               }
             }
           } else if (msg.setupComplete) {
@@ -179,6 +250,7 @@ CRITICAL INSTRUCTIONS:
       };
 
       wsRef.current.onclose = (event) => {
+        setIsConnected(false);
         console.log("[Voice Agent] WebSocket closed. Code:", event.code, "Reason:", event.reason);
         stopConversation();
       };
@@ -211,6 +283,8 @@ CRITICAL INSTRUCTIONS:
   };
 
   const handleFunctionCall = async (functionCall: any) => {
+    const isMock = functionCall.id && functionCall.id.startsWith('mock-');
+    
     if (functionCall.name === 'record_lead_info') {
       try {
         const args = functionCall.args;
@@ -223,23 +297,64 @@ CRITICAL INSTRUCTIONS:
         const data = await res.json();
         
         if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-          wsRef.current.send(JSON.stringify({
-            clientContent: {
-              turnComplete: true,
-              turns: [{
-                 role: "user",
-                 parts: [{
-                    functionResponse: {
-                      name: "record_lead_info",
-                      response: { result: res.ok ? "Memory updated successfully" : "Failed to update memory", details: data }
-                    }
+          if (isMock) {
+             wsRef.current.send(JSON.stringify({
+               clientContent: {
+                 turnComplete: true,
+                 turns: [{ role: "user", parts: [{ text: `[SYSTEM: Tool 'record_lead_info' executed successfully. Memory updated.]` }] }]
+               }
+             }));
+          } else {
+             wsRef.current.send(JSON.stringify({
+               toolResponse: {
+                 functionResponses: [{
+                   id: functionCall.id,
+                   name: "record_lead_info",
+                   response: { result: res.ok ? "Memory updated successfully" : "Failed to update memory", details: data }
                  }]
-              }]
-            }
-          }));
+               }
+             }));
+          }
         }
       } catch (e) {
         console.error("Function call error", e);
+      }
+    } else if (functionCall.name === 'navigate_to_page') {
+      const path = functionCall.args.path;
+      console.log(`[Voice Agent] True Tool Call: Navigating to`, path);
+      
+      // Use React state to ensure Next.js router executes in the render lifecycle
+      setNavPath(path);
+      
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+          wsRef.current.send(JSON.stringify({
+            toolResponse: {
+              functionResponses: [{
+                id: functionCall.id,
+                name: "navigate_to_page",
+                response: { result: "Navigation successful" }
+              }]
+            }
+          }));
+      }
+    } else if (functionCall.name === 'scroll_page') {
+      const direction = functionCall.args.direction;
+      console.log(`[Voice Agent] True Tool Call: Scrolling`, direction);
+      if (direction === 'down') window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+      else if (direction === 'up') window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+      else if (direction === 'top') window.scrollTo({ top: 0, behavior: 'smooth' });
+      else if (direction === 'bottom') window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+          wsRef.current.send(JSON.stringify({
+            toolResponse: {
+              functionResponses: [{
+                id: functionCall.id,
+                name: "scroll_page",
+                response: { result: "Scroll successful" }
+              }]
+            }
+          }));
       }
     }
   };
@@ -381,7 +496,9 @@ CRITICAL INSTRUCTIONS:
       wsRef.current.close();
       wsRef.current = null;
     }
-    
+    setIsConnected(false);
+    setIsRecording(false);
+    setIsSpeaking(false);
     if (processorRef.current && sourceRef.current && audioContextRef.current) {
       processorRef.current.disconnect();
       sourceRef.current.disconnect();
@@ -412,6 +529,54 @@ CRITICAL INSTRUCTIONS:
       stopConversation();
     };
   }, [stopConversation]);
+
+  // --- NEW: Page-Aware Context Injection ---
+  useEffect(() => {
+    if (!isRecording || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+
+    const abortController = new AbortController();
+    
+    // Add a fast timeout so it doesn't hang the client if Supabase is unreachable
+    const timeoutId = setTimeout(() => abortController.abort(), 2000);
+
+    const fetchAndInjectContext = async () => {
+      try {
+        const res = await fetch(`/api/context?path=${encodeURIComponent(pathname)}`, {
+          signal: abortController.signal
+        });
+        clearTimeout(timeoutId);
+        
+        const data = await res.json();
+        
+        if (data.content) {
+          console.log(`[Voice Agent] Injecting context for ${pathname}`);
+          wsRef.current?.send(JSON.stringify({
+            clientContent: {
+              turnComplete: true,
+              turns: [{ 
+                role: "user", 
+                parts: [{ text: `[SYSTEM: The user just navigated to ${pathname}. The page content is: "${data.content}". Use this to answer their questions.]` }] 
+              }]
+            }
+          }));
+        }
+      } catch (err: any) {
+        if (err.name !== 'AbortError') {
+          console.error("[Voice Agent] Failed to fetch page context:", err);
+        } else {
+          console.log("[Voice Agent] Page context fetch timed out or was aborted.");
+        }
+      }
+    };
+
+    fetchAndInjectContext();
+
+    return () => {
+      clearTimeout(timeoutId);
+      abortController.abort();
+    };
+  }, [pathname, isRecording]);
+  // -----------------------------------------
 
   return { startConversation, stopConversation, isSpeaking, isRecording, error, startMicrophone };
 }

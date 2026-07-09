@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useGeminiVoice } from "@/hooks/useGeminiVoice";
+import { useGeminiContext } from "@/components/providers/GeminiVoiceProvider";
 import { Mic, Square, AlertCircle } from "lucide-react";
 import Orb from "@/components/ui/Orb";
 
@@ -48,14 +48,35 @@ const TypewriterText = ({ text, className, delay = 0.5, trigger = true }: { text
 };
 
 export default function Hero() {
-  const { startConversation, stopConversation, isSpeaking, isRecording, error, startMicrophone } = useGeminiVoice();
+  const { 
+    isRecording, 
+    isSpeaking, 
+    isConnected,
+    startConversation, 
+    stopConversation 
+  } = useGeminiContext();
   const [introState, setIntroState] = useState<'gateway' | 'revealed'>('gateway');
   const [hasGreeted, setHasGreeted] = useState(false);
 
-  // Start Gemini without mic immediately on load
+  // Start Gemini without mic immediately on load, unless it's already active from another page
   useEffect(() => {
-    startConversation(false);
-  }, []);
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
+    
+    if (isConnected || hasSeenIntro) {
+      setIntroState('revealed');
+    }
+    
+    if (!isConnected && !hasSeenIntro) {
+      startConversation(false);
+    }
+  }, [isConnected]);
+
+  // Persist that the user has seen the intro for this session
+  useEffect(() => {
+    if (introState === 'revealed') {
+      sessionStorage.setItem('hasSeenIntro', 'true');
+    }
+  }, [introState]);
 
   // Track when greeting starts
   useEffect(() => {
@@ -79,10 +100,10 @@ export default function Hero() {
   const handleOrbClick = () => {
     if (introState === 'gateway') {
        setIntroState('revealed');
-       if (!isRecording) startMicrophone();
+       if (!isRecording) startConversation();
     } else {
        if (isRecording) stopConversation();
-       else startConversation(true);
+       else startConversation();
     }
   };
 
@@ -111,12 +132,12 @@ export default function Hero() {
                      </div>
 
                      <motion.button
-                        layoutId="hero-orb"
+                        layoutId="voice-orb"
                         onClick={handleOrbClick}
                         className="relative flex items-center justify-center w-[280px] h-[280px] md:w-[350px] md:h-[350px] lg:w-[450px] lg:h-[450px] shrink-0 rounded-full group cursor-pointer border-none bg-transparent outline-none"
                      >
                          <div className="absolute inset-0 pointer-events-none">
-                            <Orb hoverIntensity={0.8} rotateOnHover={true} hue={0} forceHoverState={true} backgroundColor="transparent" />
+                            <Orb hoverIntensity={0.8} rotateOnHover={true} hue={0} forceHoverState={true} backgroundColor="transparent" isSpeaking={isSpeaking} />
                          </div>
                          <div className="relative z-10 p-6 rounded-full text-white/70 group-hover:text-white group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
                             <Mic size={48} />
@@ -166,32 +187,20 @@ export default function Hero() {
                    {/* Right Column Orb */}
                    <div className="relative flex flex-col items-center justify-center min-h-[400px] z-50 mt-12 lg:mt-0 w-full">
                       <motion.button
-                         layoutId="hero-orb"
+                         layoutId="voice-orb"
                          onClick={handleOrbClick}
                          className="relative flex items-center justify-center w-[250px] h-[250px] md:w-[400px] md:h-[400px] shrink-0 rounded-full overflow-hidden transition-transform duration-500 group border-none bg-transparent hover:scale-105 cursor-pointer outline-none"
                       >
                          <div className="absolute inset-0 z-0 pointer-events-auto">
-                            <Orb hoverIntensity={0.8} rotateOnHover={true} hue={isRecording ? 10 : 0} forceHoverState={isSpeaking || isRecording} backgroundColor="transparent" />
+                            <Orb hoverIntensity={0.8} rotateOnHover={true} hue={isRecording ? 10 : 0} forceHoverState={isSpeaking || isRecording} backgroundColor="transparent" isSpeaking={isSpeaking} />
                          </div>
 
-                         {isSpeaking && (
-                            <motion.div animate={{ scale: [1, 1.8, 2.5], opacity: [0.6, 0.2, 0] }} transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }} className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500 to-orange-500 pointer-events-none" />
-                         )}
-                         
                          <div className={`relative z-10 p-6 rounded-full transition-colors duration-300 pointer-events-none ${isRecording ? 'text-red-500' : 'text-white/70 group-hover:text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]'}`}>
                             {isRecording ? <Square size={36} fill="currentColor" /> : <Mic size={40} />}
                          </div>
                       </motion.button>
                       
-                      <motion.div 
-                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.8 }}
-                         className="text-xs md:text-sm text-white/80 uppercase tracking-[0.25em] font-bold flex items-center justify-center gap-2 px-6 py-3 rounded-full backdrop-blur-md bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(220,38,38,0.15)] mt-4"
-                      >
-                         {error ? <span className="text-red-400 flex items-center gap-2"><AlertCircle size={14} /> Error</span>
-                         : isSpeaking ? <span className="text-orange-400 animate-pulse">Agent speaking...</span>
-                         : isRecording ? <span className="text-red-400 animate-pulse">Listening...</span>
-                         : "TOUCH TO AWAKEN"}
-                      </motion.div>
+
                    </div>
                 </motion.div>
              )}

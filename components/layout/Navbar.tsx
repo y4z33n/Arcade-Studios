@@ -166,6 +166,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   const blueGradId = `blue-grad-${uniqueId}`;
 
   const [svgSupported, setSvgSupported] = useState<boolean>(false);
+  const [backdropFilterSupported, setBackdropFilterSupported] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const feImageRef = useRef<SVGFEImageElement>(null);
@@ -243,6 +244,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
   useEffect(() => {
     setSvgSupported(supportsSVGFilters());
+    setBackdropFilterSupported(typeof window !== 'undefined' && CSS.supports('backdrop-filter', 'blur(10px)'));
   }, []);
 
   useEffect(() => {
@@ -296,6 +298,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   };
 
   const supportsBackdropFilter = () => {
+    // Deprecated in favor of state, keeping for backwards compatibility if used elsewhere
     if (typeof window === 'undefined') return false;
     return CSS.supports('backdrop-filter', 'blur(10px)');
   };
@@ -309,8 +312,6 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
       '--glass-frost': String(backgroundOpacity),
       '--glass-saturation': String(saturation)
     } as React.CSSProperties;
-
-    const backdropFilterSupported = supportsBackdropFilter();
 
     if (svgSupported) {
       return {
@@ -394,6 +395,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
       ref={containerRef}
       className={`${glassSurfaceClasses} ${focusVisibleClasses} ${className}`}
       style={getContainerStyles()}
+      suppressHydrationWarning
     >
       <svg
         className="w-full h-full pointer-events-none absolute inset-0 opacity-0 -z-10"
