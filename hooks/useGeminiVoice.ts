@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { WEBSITE_MAP } from '@/lib/website-knowledge';
 
 export function useGeminiVoice() {
   const pathname = usePathname();
@@ -25,6 +26,30 @@ export function useGeminiVoice() {
   const sourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
   const nextPlayTimeRef = useRef<number>(0);
   const sessionIdRef = useRef<string | null>(null);
+  const continuousScrollRef = useRef<number | null>(null);
+
+  const stopContinuousScroll = useCallback(() => {
+    if (continuousScrollRef.current) {
+      console.log("[Voice Agent] Stopping continuous scroll");
+      cancelAnimationFrame(continuousScrollRef.current);
+      continuousScrollRef.current = null;
+    }
+  }, []);
+
+  const startContinuousScroll = useCallback((speed: number = 6) => {
+    if (continuousScrollRef.current) return;
+    console.log(`[Voice Agent] Starting continuous scroll at speed ${speed}`);
+    const scrollStep = () => {
+      window.scrollBy({ top: speed, behavior: 'auto' });
+      // Stop if hit bottom
+      if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+         stopContinuousScroll();
+         return;
+      }
+      continuousScrollRef.current = requestAnimationFrame(scrollStep);
+    };
+    continuousScrollRef.current = requestAnimationFrame(scrollStep);
+  }, [stopContinuousScroll]);
 
   const startConversation = async (listenInitially = true) => {
     // Initialize AudioContext synchronously on user gesture to bypass autoplay restrictions
@@ -94,7 +119,10 @@ CRITICAL INSTRUCTIONS:
 - NEVER state exact prices, minimum budgets, or shut down a project. Always say "it depends on the project scope" and that Leylak Tech is open to projects of any size (small, mid, or big).
 - Keep the conversation strictly to Leylak Tech and our business. NEVER suggest other platforms like Wix.
 - Do not interrogate the user. Gather information naturally. Example: greet -> ask name -> later discreetly ask for their phone number (including country code) and if they use WhatsApp -> ask about their project brief -> ask about their budget -> finally ask for email (and verify spelling before recording).
-- You have access to tools to navigate the website, scroll, and record leads. Use them naturally when the user makes a request, and narrate your actions smoothly. For example, if they want to see the about page, say "Sure, taking you there now!" and call the navigate tool.` }]
+- PROACTIVELY AUTO-NAVIGATE AND AUTO-SCROLL: You have access to tools to navigate the website, scroll, and record leads. Use them proactively! When you mention a specific page (e.g. About, Work, Products, Contact), automatically use the navigate tool to take the user there. When explaining long content or guiding the user, automatically use the scroll tool to move the page. Narrate your actions naturally (e.g., "Let me take you to our work page...", "Scrolling down so you can see...").
+
+GLOBAL WEBSITE KNOWLEDGE:
+${WEBSITE_MAP}` }]
             },
             tools: [{
               functionDeclarations: [
@@ -133,6 +161,24 @@ CRITICAL INSTRUCTIONS:
                     },
                     required: ["direction"]
                   }
+                },
+                {
+                  name: "start_continuous_scroll",
+                  description: "Starts a slow, continuous cinematic scroll down the page. Use this when taking the user on a tour of the page.",
+                  parameters: {
+                    type: "OBJECT",
+                    properties: {
+                      speed: { type: "INTEGER", description: "The speed of the scroll, typically 1 or 2" }
+                    }
+                  }
+                },
+                {
+                  name: "stop_continuous_scroll",
+                  description: "Stops the continuous cinematic scroll.",
+                  parameters: {
+                    type: "OBJECT",
+                    properties: {}
+                  }
                 }
               ]
             }]
@@ -166,6 +212,7 @@ CRITICAL INSTRUCTIONS:
               activeAudioNodesRef.current.clear();
               nextPlayTimeRef.current = 0;
               setIsSpeaking(false);
+              stopContinuousScroll();
             }
             
             const modelTurn = msg.serverContent.modelTurn;
@@ -175,7 +222,6 @@ CRITICAL INSTRUCTIONS:
                   console.log("[Voice Agent] Agent text:", part.text);
                   
                   // Natural Language Heuristic Fallback
-                  // In case the model fails to emit a JSON functionCall, we listen for natural phrases in its spoken text
                   const spoken = part.text.toLowerCase();
                   if (spoken.includes("take you") || spoken.includes("head") || spoken.includes("navigat") || spoken.includes("show")) {
                       let targetPath = null;
@@ -183,6 +229,7 @@ CRITICAL INSTRUCTIONS:
                       else if (spoken.includes("work")) targetPath = "/work";
                       else if (spoken.includes("product")) targetPath = "/products";
                       else if (spoken.includes("contact")) targetPath = "/contact";
+                      else if (spoken.includes("home")) targetPath = "/";
                       
                       if (targetPath && targetPath !== pathname) {
                           console.log(`[Voice Agent] Heuristic match: Navigating to ${targetPath}`);
@@ -190,7 +237,14 @@ CRITICAL INSTRUCTIONS:
                       }
                   }
                   
-                  // Cleaned up robotic text intents; we now rely on native functionCall handling.
+                  if (spoken.includes("scroll") || spoken.includes("tour")) {
+                      if (spoken.includes("stop")) stopContinuousScroll();
+                      else if (spoken.includes("continu") || spoken.includes("tour")) startContinuousScroll(6);
+                      else if (spoken.includes("down")) window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+                      else if (spoken.includes("up")) window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+                      else if (spoken.includes("top")) window.scrollTo({ top: 0, behavior: 'smooth' });
+                      else if (spoken.includes("bottom")) window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                  }
                 }
                 if (part.inlineData && part.inlineData.data) {
                   console.log("[Voice Agent] Received audio chunk");
@@ -352,6 +406,35 @@ CRITICAL INSTRUCTIONS:
                 id: functionCall.id,
                 name: "scroll_page",
                 response: { result: "Scroll successful" }
+              }]
+            }
+          }));
+      }
+    } else if (functionCall.name === 'start_continuous_scroll') {
+      const speed = functionCall.args.speed || 2;
+      startContinuousScroll(speed);
+      
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+          wsRef.current.send(JSON.stringify({
+            toolResponse: {
+              functionResponses: [{
+                id: functionCall.id,
+                name: "start_continuous_scroll",
+                response: { result: "Started scrolling" }
+              }]
+            }
+          }));
+      }
+    } else if (functionCall.name === 'stop_continuous_scroll') {
+      stopContinuousScroll();
+      
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+          wsRef.current.send(JSON.stringify({
+            toolResponse: {
+              functionResponses: [{
+                id: functionCall.id,
+                name: "stop_continuous_scroll",
+                response: { result: "Stopped scrolling" }
               }]
             }
           }));
@@ -522,7 +605,8 @@ CRITICAL INSTRUCTIONS:
 
     setIsRecording(false);
     setIsSpeaking(false);
-  }, []);
+    stopContinuousScroll();
+  }, [stopContinuousScroll]);
 
   useEffect(() => {
     return () => {
@@ -578,5 +662,5 @@ CRITICAL INSTRUCTIONS:
   }, [pathname, isRecording]);
   // -----------------------------------------
 
-  return { startConversation, stopConversation, isSpeaking, isRecording, error, startMicrophone };
+  return { startConversation, stopConversation, isSpeaking, isRecording, isConnected, error, startMicrophone };
 }

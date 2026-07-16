@@ -45,7 +45,12 @@ export async function GET(request: Request) {
     const combinedContent = data.map((row: any) => row.content).join('\n\n');
     return NextResponse.json({ content: combinedContent });
 
-  } catch (error) {
+  } catch (error: any) {
+    if (error.code === '42703') {
+      // The page_path column doesn't exist in the knowledge_base table yet.
+      // Gracefully fallback to empty context instead of throwing 500.
+      return NextResponse.json({ content: "" });
+    }
     console.error('Error fetching context:', error);
     return NextResponse.json({ error: 'Failed to fetch context' }, { status: 500 });
   }
