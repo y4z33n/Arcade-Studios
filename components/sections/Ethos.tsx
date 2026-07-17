@@ -18,9 +18,10 @@ export default function Ethos() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[120vh] flex items-center justify-center bg-black py-24 md:py-32 overflow-hidden"
+      className="relative min-h-[120vh] flex items-center justify-center bg-[#0A0A0A] py-24 md:py-32 overflow-hidden border-t border-white/5"
     >
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-red-900/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 z-10">
         
         {/* Subtitle */}
         <motion.div

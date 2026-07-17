@@ -29,9 +29,10 @@ export default function Process() {
   return (
     <section
       ref={containerRef}
-      className="relative py-24 md:py-32 bg-black text-white border-t border-white/10 overflow-hidden"
+      className="relative py-24 md:py-32 bg-[#0A0A0A] text-white border-t border-white/5 overflow-hidden"
     >
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-red-900/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 z-10">
         
         {/* Header */}
         <div className="mb-16 md:mb-24 lg:mb-32 text-center">

@@ -1072,15 +1072,22 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   );
 };
 
+import { usePathname } from "next/navigation";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   // Sync menu state to the module store so FloatingCTA can react
   useEffect(() => {
     menuState.setOpen(menuOpen);
   }, [menuOpen]);
+
+  if (pathname.startsWith('/mail')) {
+    return null;
+  }
 
   useEffect(() => {
     const handleScroll = () => {

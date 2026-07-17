@@ -9,6 +9,11 @@ import Orb from './Orb';
 export default function GlobalOrb() {
   const { isSpeaking, isRecording, isConnected, startConversation, stopConversation, error } = useGeminiContext();
   const prefersReducedMotion = useReducedMotion();
+  const pathname = usePathname();
+
+  if (pathname.startsWith('/mail')) {
+    return null;
+  }
 
   const handleOrbClick = () => {
     if (isConnected || isRecording) {

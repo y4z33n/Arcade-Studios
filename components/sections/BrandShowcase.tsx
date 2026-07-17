@@ -20,6 +20,7 @@ type LogoItem =
       sizes?: string;
       width?: number;
       height?: number;
+      className?: string;
     };
 
 interface LogoLoopProps {
@@ -349,7 +350,8 @@ const LogoLoop = React.memo<LogoLoopProps>(
               '[image-rendering:-webkit-optimize-contrast]',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120',
+              (item as any).className
             )}
             src={(item as any).src}
             srcSet={(item as any).srcSet}
@@ -500,77 +502,77 @@ LogoLoop.displayName = 'LogoLoop';
 
 const CLIENT_LOGOS: LogoItem[] = [
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">ModelManagement.Mu</span>,
+    src: "/Logos Web/modellogo.png",
+    alt: "ModelManagement.Mu",
     title: "ModelManagement.Mu",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Trait d'Union Ltée</span>,
+    src: "/Logos Web/tdu logo.webp",
+    alt: "Trait d'Union Ltée",
     title: "Trait d'Union Ltée",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Breathing Soul</span>,
+    src: "/Logos Web/breathing soul.png",
+    alt: "Breathing Soul",
     title: "Breathing Soul",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">ProCare</span>,
+    src: "/Logos Web/procare.png",
+    alt: "ProCare",
     title: "ProCare",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Iris&amp;Peach</span>,
+    src: "/Logos Web/Iris_Peach_new_2_Logo.webp",
+    alt: "Iris&Peach",
     title: "Iris&Peach",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">MyExperienceShop</span>,
+    src: "/Logos Web/experience logo.png",
+    alt: "MyExperienceShop",
     title: "MyExperienceShop",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Bodyography</span>,
-    title: "Bodyography ",
+    src: "/Logos Web/bodyography.webp",
+    alt: "Bodyography",
+    title: "Bodyography",
+    className: "brightness-0 invert",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">TheFlashGroups</span>,
+    src: "/Logos Web/flashgroup.webp",
+    alt: "TheFlashGroups",
     title: "TheFlashGroups",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">MBS Leo</span>,
+    src: "/Logos Web/leo_logo.webp",
+    alt: "MBS Leo",
     title: "MBS Leo",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Super Distribution</span>,
-    title: "Super Distribution",
+    src: "/Logos Web/eventworks.png",
+    alt: "Eventworks",
+    title: "Eventworks",
+    className: "brightness-0 invert",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Create a Solution</span>,
+    src: "/Logos Web/flash models.png",
+    alt: "Flash Models",
+    title: "Flash Models",
+  },
+  {
+    src: "/Logos Web/cas.png",
+    alt: "Create a Solution",
     title: "Create a Solution",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Saapad</span>,
-    title: "Saapad",
-  },
-  {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">CHiLi</span>,
+    src: "/Logos Web/logo_chili.png",
+    alt: "CHiLi",
     title: "CHiLi",
   },
   {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Eggs More</span>,
-    title: "Eggs More",
-  },
-  {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Kishkinda University</span>,
+    src: "/Logos Web/kish Logo.png",
+    alt: "Kishkinda University",
     title: "Kishkinda University",
-  },
-  {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Event Works</span>,
-    title: "Event Works",
-  },
-  {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">FlashModels</span>,
-    title: "FlashModels",
-  },
-  {
-    node: <span className="text-white font-bold text-xl sm:text-2xl">Experience Boutique</span>,
-    title: "Experience Boutique",
-  },
+  }
 ];
 
 export default function BrandShowcase() {
@@ -609,8 +611,8 @@ export default function BrandShowcase() {
             logos={CLIENT_LOGOS}
             speed={80}
             direction="left"
-            logoHeight={28}
-            gap={32}
+            logoHeight={48}
+            gap={48}
             pauseOnHover={true}
             fadeOut={true}
             fadeOutColor="rgba(0, 0, 0, 0.8)"

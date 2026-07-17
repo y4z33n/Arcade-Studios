@@ -2,12 +2,18 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 import { SITE_CONFIG, NAV_LINKS } from "@/lib/constants";
 
 export default function Footer() {
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const pathname = usePathname();
+
+  if (pathname.startsWith('/mail')) {
+    return null;
+  }
 
   return (
     <footer ref={containerRef} className="pb-4 px-4 lg:px-6 3xl:px-12">

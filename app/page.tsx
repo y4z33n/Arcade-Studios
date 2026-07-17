@@ -58,7 +58,7 @@ export default function HomePage() {
         
         <Ethos />
         
-        <div className="flex flex-col gap-12 md:gap-24 pb-20 mt-12 md:mt-24">
+        <div className="flex flex-col w-full">
           <FeaturedWork />
           
           <ProductsShowcase />
