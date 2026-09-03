@@ -404,3 +404,17 @@ p {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes progressLinear {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.animate-progress {
+  transform-origin: left;
+  animation-name: progressLinear;
+}

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 import { SITE_CONFIG, NAV_LINKS } from "@/lib/constants";
@@ -29,10 +30,13 @@ export default function Footer() {
           >
             {/* Brand Section */}
             <div className="md:col-span-5">
-              <Link href="/" className="inline-block mb-6">
-                <span className="text-2xl 3xl:text-3xl font-bold text-white">
-                  {SITE_CONFIG.name.split(' ')[0]}<span className="text-red-400">.</span>
-                </span>
+              <Link href="/" className="inline-block mb-6 relative w-40 h-10 md:h-12">
+                <Image 
+                  src="/leylak-new.png" 
+                  alt={`${SITE_CONFIG.name} Logo`} 
+                  fill 
+                  className="object-contain scale-[1.5]"
+                />
               </Link>
               <p className="text-white/70 text-base 3xl:text-lg leading-relaxed mb-8 max-w-sm">
                 {SITE_CONFIG.tagline}

@@ -23,14 +23,14 @@ const SERVICES = [
     id: "app",
     title: "App Development",
     description: "Native iOS, Android, and cross-platform applications built for speed, scalability, and an uncompromising user experience.",
-    link: "/work",
+    link: "/work/app-dev",
     color: "bg-purple-600"
   },
   {
-    id: "branding",
-    title: "Graphics & Branding",
-    description: "From striking visual identities to comprehensive brand systems, we forge digital empires that command attention.",
-    link: "/work/branding",
+    id: "software",
+    title: "Software Dev",
+    description: "Bespoke enterprise software, scalable cloud architectures, high-performance APIs, and custom CRM/ERP systems engineered for mission-critical scale.",
+    link: "/work/software-dev",
     color: "bg-red-600"
   }
 ];

@@ -13,22 +13,18 @@ export function ScrollReveal({ children }: { children: React.ReactNode }) {
     offset: ["0 1", "0.4 1"] 
   });
 
-  // Modern 3D Fold + Scale + Parallax Translation
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [150, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const rotateX = useTransform(scrollYProgress, [0, 1], [25, 0]);
+  // Clean, lightweight GPU-accelerated reveal without expensive 3D matrix churn
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.4, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [60, 0]);
 
   return (
-    <div ref={ref} className="w-full relative" style={{ perspective: "1500px" }}>
+    <div ref={ref} className="w-full relative">
       <motion.div
         style={{ 
           opacity, 
-          y, 
-          scale, 
-          rotateX,
+          y
         }}
-        className="w-full transform-gpu origin-bottom will-change-transform"
+        className="w-full transform-gpu will-change-transform"
       >
         {children}
       </motion.div>

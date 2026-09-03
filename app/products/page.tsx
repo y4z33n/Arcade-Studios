@@ -1,137 +1,223 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { 
+  Headphones, 
+  Dumbbell, 
+  HeartPulse, 
+  Fuel, 
+  ArrowRight,
+  Sparkles,
+  Check
+} from "lucide-react";
+import CTA from "@/components/sections/CTA";
 import Aurora from "@/components/Aurora";
-import { Mic, Network, ArrowRight } from "lucide-react";
 
 const PRODUCTS = [
   {
-    id: "ai-call-assistant",
-    title: "AI Call Assistant",
-    description: "An intelligent, voice-activated AI assistant designed to handle inbound and outbound calls. It uses advanced natural language processing to converse naturally, answer queries, schedule appointments, and route complex issues to human agents.",
-    status: "In Development",
-    features: ["Natural Voice Synthesis", "Real-time Processing", "CRM Integration", "Multi-language Support"],
-    icon: Mic,
+    id: "leysupport",
+    name: "LeySupport",
+    category: "Voice AI & Receptionist",
+    tagline: "Autonomous Phone Receptionist & Call Assistant",
+    description: "An intelligent voice assistant that answers customer calls, schedules appointments, answers queries, and handles support around the clock with zero hold times.",
+    icon: Headphones,
+    color: "from-red-600/20 to-orange-900/20",
+    highlights: [
+      "Natural conversational voice calls with zero hold times",
+      "Automated appointment booking & calendar sync",
+      "Customer inquiry handling & database lookups",
+      "24/7 front-desk phone coverage"
+    ]
   },
   {
-    id: "ai-queuing-system",
-    title: "AI Queuing System",
-    description: "A smart queuing and resource allocation system that uses machine learning to predict wait times, optimize routing, and manage customer flow efficiently. Perfect for high-volume customer service operations.",
-    status: "In Development",
-    features: ["Predictive Analytics", "Dynamic Routing", "Automated Triage", "Real-time Dashboards"],
-    icon: Network,
+    id: "gymley",
+    name: "GymLey",
+    category: "Fitness & Gym Management",
+    tagline: "Smart Gym Platform + Member & Trainer Apps",
+    description: "A complete gym management ecosystem with dedicated mobile apps for members and trainers, automated turnstile door access, and membership billing.",
+    icon: Dumbbell,
+    color: "from-amber-500/20 to-orange-900/20",
+    highlights: [
+      "Dedicated Member app for QR check-ins & workout tracking",
+      "Dedicated Trainer app for client scheduling & plans",
+      "Automated turnstile & magnetic gate access",
+      "Recurring membership billing & member retention"
+    ]
+  },
+  {
+    id: "medley",
+    name: "MedLey",
+    category: "Healthcare & Clinic Queuing",
+    tagline: "Smart Clinic & Hospital Patient Queuing",
+    description: "An intelligent patient queuing and scheduling platform designed to eliminate crowded waiting rooms and streamline doctor consultation flow.",
+    icon: HeartPulse,
+    color: "from-cyan-500/20 to-blue-900/20",
+    highlights: [
+      "Live SMS & WhatsApp virtual queue passes",
+      "Smart symptom triage & priority routing",
+      "Doctor consultation room workload balancing",
+      "Drastically reduces waiting room congestion"
+    ]
+  },
+  {
+    id: "fueley",
+    name: "FuelEy",
+    category: "Fuel Station & Accounting",
+    tagline: "Automated Fuel Dispenser Telemetry & Shift Accounting",
+    description: "A specialized platform for petrol stations that captures pump dispenser meter readings, monitors underground tank levels, and balances daily shift accounts in 1 click.",
+    icon: Fuel,
+    color: "from-emerald-500/20 to-teal-900/20",
+    highlights: [
+      "Real-time pump dispenser meter tracking",
+      "Underground fuel tank level & dipstick monitoring",
+      "1-click shift ledger reconciliation",
+      "Automated fuel discrepancy & leakage detection"
+    ]
   }
 ];
 
 export default function ProductsPage() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
   return (
-    <main className="relative bg-[#050505] min-h-screen text-white pt-32 pb-64 overflow-hidden" ref={containerRef}>
+    <main className="relative bg-[#050505] min-h-screen text-white overflow-hidden selection:bg-red-600 selection:text-white">
       
-      {/* Cinematic Aurora Background */}
-      <div className="absolute top-0 left-0 w-full h-[80vh] opacity-40 pointer-events-none -z-10 [mask-image:linear-gradient(to_bottom,white_20%,transparent)]">
-        <Aurora />
+      {/* Background Aurora */}
+      <div className="absolute top-0 left-0 w-full h-[80vh] opacity-30 pointer-events-none -z-10 [mask-image:linear-gradient(to_bottom,white_10%,transparent)]">
+        <Aurora colorStops={["#DC2626", "#ea580c", "#7c2d12"]} amplitude={1.1} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        
-        {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-32 text-center"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium mb-8 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
-            Active Research & Development
-          </div>
-          <h1 className="text-6xl md:text-8xl font-extrabold mb-8 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">
-            Products
-          </h1>
-          <p className="text-xl md:text-2xl text-white/50 max-w-3xl mx-auto font-light leading-relaxed">
-            Beyond our bespoke agency services, we are building proprietary AI infrastructure designed to automate and scale modern enterprises.
-          </p>
-        </motion.div>
+      {/* Hero Section */}
+      <section className="relative pt-32 md:pt-44 pb-16">
+        <div className="w-full mx-auto px-6 lg:px-12 3xl:px-24">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-3 mb-6"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-xs font-semibold uppercase tracking-wider rounded-full shadow-[0_0_25px_rgba(220,38,38,0.4)]">
+              <Sparkles className="w-3.5 h-3.5" />
+              In Active Development
+            </span>
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-mono">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              4 Products In Pipeline
+            </span>
+          </motion.div>
 
-        {/* Sticky Scroll Products List */}
-        <div className="space-y-12">
-          {PRODUCTS.map((product, index) => (
-            <ProductCard key={product.id} product={product} index={index} />
-          ))}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl 3xl:text-[10rem] font-black text-white leading-[0.92] tracking-tighter uppercase mb-8"
+          >
+            What We&apos;re <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-orange-500 to-white">
+              Building
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-lg md:text-xl 3xl:text-2xl text-white/70 max-w-3xl font-light leading-relaxed mb-8"
+          >
+            We are currently developing a proprietary suite of software and AI products engineered to automate mission-critical workflows across telephony, fitness, healthcare, and retail energy.
+          </motion.p>
+
         </div>
-        
-      </div>
-    </main>
-  );
-}
+      </section>
 
-function ProductCard({ product, index }: { product: typeof PRODUCTS[0], index: number }) {
-  const cardRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  });
+      {/* Products Grid */}
+      <section className="py-8 pb-24 w-full mx-auto px-6 lg:px-12 3xl:px-24 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          {PRODUCTS.map((product, index) => {
+            const Icon = product.icon;
 
-  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.85, 1, 1, 0.95]);
-
-  const Icon = product.icon;
-
-  return (
-    <motion.div
-      ref={cardRef}
-      style={{ y, opacity, scale }}
-      className={`sticky top-32 flex flex-col md:flex-row gap-0 overflow-hidden bg-black/40 border border-white/10 rounded-[2.5rem] backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-white/20 group z-${10 - index}`}
-    >
-      {/* Left Column (Visual/Icon) */}
-      <div className="md:w-5/12 bg-gradient-to-br from-white/[0.03] to-transparent p-10 md:p-16 flex flex-col items-start justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-white/5">
-        {/* Glow effect behind icon */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#ec4899]/20 blur-[120px] rounded-full group-hover:bg-[#ec4899]/30 transition-colors duration-700" />
-        
-        <div className="relative z-10 p-6 rounded-3xl bg-white/5 border border-white/10 text-white shadow-2xl backdrop-blur-md mb-12">
-           <Icon size={48} strokeWidth={1.5} />
-        </div>
-        
-        <div className="relative z-10 w-full mt-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-white">{product.title}</h2>
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#ec4899]/10 border border-[#ec4899]/20 text-[#ec4899] text-xs font-bold uppercase tracking-[0.2em]">
-            {product.status}
-          </div>
-        </div>
-      </div>
-
-      {/* Right Column (Details) */}
-      <div className="md:w-7/12 p-10 md:p-16 flex flex-col justify-center">
-        <p className="text-xl md:text-2xl text-white/70 leading-relaxed font-light mb-12">
-          {product.description}
-        </p>
-        
-        <div>
-          <h3 className="text-xs font-bold text-white/30 uppercase tracking-[0.3em] mb-6">Core Capabilities</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {product.features.map((feature, i) => (
-              <div 
-                key={i}
-                className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/5 group-hover:bg-white/[0.04] transition-colors"
+            return (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group relative rounded-3xl bg-[#0A0A0A] border border-white/10 hover:border-white/25 transition-all duration-500 overflow-hidden flex flex-col justify-between p-8 sm:p-10 lg:p-12 shadow-2xl"
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-[#ec4899]" />
-                <span className="text-sm md:text-base font-medium text-white/80">{feature}</span>
-              </div>
-            ))}
-          </div>
+                {/* Ambient glow on hover */}
+                <div 
+                  className={`absolute inset-0 bg-gradient-to-br ${product.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} 
+                />
+
+                <div className="relative z-10">
+                  {/* Top Row: Category + Status */}
+                  <div className="flex items-center justify-between gap-3 mb-6">
+                    <span className="text-xs font-mono uppercase tracking-widest text-white/50">
+                      {product.category}
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                      In Development
+                    </span>
+                  </div>
+
+                  {/* Icon & Title */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-white group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-6 h-6 text-red-500" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+                        {product.name}
+                      </h2>
+                    </div>
+                  </div>
+
+                  {/* Tagline */}
+                  <p className="text-sm sm:text-base font-medium text-red-400/90 mb-4">
+                    {product.tagline}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-sm sm:text-base text-white/60 font-light leading-relaxed mb-8">
+                    {product.description}
+                  </p>
+
+                  {/* Highlights List */}
+                  <div className="space-y-2.5 mb-8">
+                    {product.highlights.map((item, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80">
+                        <div className="w-4 h-4 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0 mt-0.5">
+                          <Check className="w-2.5 h-2.5 stroke-[3]" />
+                        </div>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Action / Status */}
+                <div className="relative z-10 pt-6 border-t border-white/10 flex items-center justify-end">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-red-400 hover:text-white transition-colors group/link"
+                  >
+                    <span>Early Inquiry</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-        
-        <div className="mt-12 pt-8 border-t border-white/10">
-          <button className="flex items-center gap-3 text-white font-medium hover:text-[#ec4899] transition-colors group/btn">
-            Join Early Access 
-            <ArrowRight size={18} className="group-hover/btn:translate-x-2 transition-transform duration-300" />
-          </button>
-        </div>
-      </div>
-    </motion.div>
+      </section>
+
+      {/* Website Signature CTA */}
+      <CTA 
+        title="Interested in our upcoming software products?" 
+        href="/contact" 
+      />
+
+    </main>
   );
 }

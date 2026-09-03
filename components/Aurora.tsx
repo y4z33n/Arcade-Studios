@@ -131,20 +131,25 @@ export default function Aurora(props: AuroraProps) {
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true
+      antialias: false,
+      dpr: Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 1)
     });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.backgroundColor = 'transparent';
+    gl.canvas.style.width = '100%';
+    gl.canvas.style.height = '100%';
 
     let program: Program | undefined;
 
     function resize() {
       if (!ctn) return;
-      const width = ctn.offsetWidth;
-      const height = ctn.offsetHeight;
+      // Half-resolution rendering for smooth 60fps aurora background without GPU churn
+      const scale = 0.5;
+      const width = Math.max(1, Math.floor(ctn.offsetWidth * scale));
+      const height = Math.max(1, Math.floor(ctn.offsetHeight * scale));
       renderer.setSize(width, height);
       if (program) {
         program.uniforms.uResolution.value = [width, height];

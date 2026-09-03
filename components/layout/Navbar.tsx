@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useId, useLayoutEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -1124,12 +1125,17 @@ export default function Navbar() {
         >
           {/* Logo */}
           <Link href="/" className="group flex items-center flex-shrink-0">
-            <motion.span 
-              className="text-xl md:text-2xl font-bold text-white whitespace-nowrap drop-shadow-lg"
+            <motion.div 
               whileHover={{ scale: 1.05 }}
+              className="relative w-32 h-8 md:w-40 md:h-10 flex items-center"
             >
-              {SITE_CONFIG.name.split(' ')[0]}<span className="text-red-400">.</span>
-            </motion.span>
+              <Image 
+                src="/leylak-new.png" 
+                alt={`${SITE_CONFIG.name} Logo`} 
+                fill 
+                className="object-contain drop-shadow-lg scale-[1.7] md:scale-[1.8]"
+              />
+            </motion.div>
           </Link>
 
           {/* Center Navigation - Desktop - with AnimatePresence */}
@@ -1165,7 +1171,7 @@ export default function Navbar() {
 
           {/* Hamburger Menu Button */}
           <button
-            className="p-2 text-white hover:text-red-300 transition-colors drop-shadow flex-shrink-0"
+            className="p-2 text-white hover:text-red-300 transition-colors drop-shadow flex-shrink-0 md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Open menu"
           >
@@ -1217,7 +1223,7 @@ export default function Navbar() {
         displayItemNumbering={true}
         hideHeader={true}
         isOpen={menuOpen}
-        logoUrl="/logo.png"
+        logoUrl="/leylak-new.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#000"
         accentColor="#DC2626"

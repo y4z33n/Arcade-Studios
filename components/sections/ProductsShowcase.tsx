@@ -1,125 +1,235 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { 
+  ArrowUpRight, 
+  ChevronRight,
+  Mic,
+  Dumbbell,
+  HeartPulse,
+  Fuel,
+  Sparkles,
+  ArrowRight
+} from "lucide-react";
 
-const PRODUCTS = [
+interface Product {
+  id: string;
+  num: string;
+  name: string;
+  subtitle: string;
+  category: string;
+  description: string;
+  icon: any;
+  color: string;
+  glowColor: string;
+  tags: string[];
+  link: string;
+}
+
+const PRODUCTS: Product[] = [
   {
-    id: "ai-call-assistant",
-    name: "AI Call Assistant",
-    description: "An intelligent, voice-activated AI assistant designed to handle inbound and outbound calls. It uses advanced natural language processing to converse naturally, answer queries, schedule appointments, and route complex issues to human agents.",
-    features: ["Natural Voice Synthesis", "Real-time Processing", "CRM Integration", "Multi-language Support"],
-    icon: "🎙️",
-    color: "from-blue-600/20 to-indigo-900/20"
+    id: "leysupport",
+    num: "01",
+    name: "LeySupport",
+    subtitle: "Voice AI Assistant",
+    category: "Customer Support & Booking",
+    description: "An intelligent voice assistant that answers phone calls, resolves customer inquiries, and books appointments 24/7 with zero hold times.",
+    icon: Mic,
+    color: "#ff2a2a",
+    glowColor: "rgba(255, 42, 42, 0.25)",
+    tags: ["24/7 Receptionist", "Calendar Booking", "Zero Hold Time"],
+    link: "/products#leysupport"
   },
   {
-    id: "ai-queuing-system",
-    name: "AI Queuing System",
-    description: "A smart queuing and resource allocation system that uses machine learning to predict wait times, optimize routing, and manage customer flow efficiently. Perfect for high-volume customer service operations.",
-    features: ["Predictive Analytics", "Dynamic Routing", "Automated Triage", "Real-time Dashboards"],
-    icon: "⏱️",
-    color: "from-emerald-500/20 to-teal-900/20"
+    id: "gymley",
+    num: "02",
+    name: "GymLey",
+    subtitle: "Gym OS",
+    category: "Fitness & Access Control",
+    description: "All-in-one software for gym owners, complete with dedicated member mobile apps, automated turnstile access, and recurring billing.",
+    icon: Dumbbell,
+    color: "#f59e0b",
+    glowColor: "rgba(245, 158, 11, 0.25)",
+    tags: ["Member Mobile App", "Turnstile Check-In", "Auto-Billing"],
+    link: "/products#gymley"
+  },
+  {
+    id: "medley",
+    num: "03",
+    name: "MedLey",
+    subtitle: "Clinic Queues",
+    category: "Healthcare & Patient Flow",
+    description: "A smart queue and booking platform for clinics and hospitals that eliminates waiting room congestion and sends live WhatsApp updates.",
+    icon: HeartPulse,
+    color: "#06b6d4",
+    glowColor: "rgba(6, 182, 212, 0.25)",
+    tags: ["WhatsApp Virtual Passes", "Smart Triage", "-85% Wait Time"],
+    link: "/products#medley"
+  },
+  {
+    id: "fueley",
+    num: "04",
+    name: "FuelEy",
+    subtitle: "Station Software",
+    category: "Petrol Stations & Inventory",
+    description: "Daily accounting and stock tracking software for petrol stations to easily record pump meter sales and underground tank levels in one click.",
+    icon: Fuel,
+    color: "#10b981",
+    glowColor: "rgba(16, 185, 129, 0.25)",
+    tags: ["Pump Meter Sales", "Tank Level Sync", "1-Click Balancing"],
+    link: "/products#fueley"
   }
 ];
 
 export default function ProductsShowcase() {
-  const containerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(0);
+  const activeProduct = hoveredIndex !== null ? PRODUCTS[hoveredIndex] : PRODUCTS[0];
+
+  // Mouse position tracking for floating magnetic preview
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
 
   return (
-    <section
+    <section 
       ref={containerRef}
-      className="relative py-24 md:py-32 bg-[#0A0A0A] text-white border-t border-white/5 overflow-hidden"
+      onMouseMove={handleMouseMove}
+      className="relative py-28 md:py-40 bg-black text-white border-t border-white/10 overflow-hidden select-none"
     >
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-red-900/10 blur-[100px] rounded-full pointer-events-none" />
+      {/* Dynamic Ambient Background Aura */}
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full blur-[180px] pointer-events-none transition-all duration-700 opacity-20 transform-gpu"
+        style={{ background: activeProduct.color }}
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.03),transparent)] pointer-events-none" />
+
       <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 z-10">
         
-        {/* Header */}
-        <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
+        {/* Section Header with Awwwards Editorial Layout */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
           <div>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase mb-6"
-            >
-              Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">Products</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-lg md:text-xl text-white/60 font-light max-w-xl"
-            >
-              Proprietary AI tools and engines designed to accelerate your operations and scale your growth.
-            </motion.p>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-600/10 border border-red-500/30 text-red-400 text-xs font-mono uppercase tracking-widest font-semibold">
+                <Sparkles className="w-3 h-3" />
+                Products &amp; Labs
+              </span>
+              <span className="text-xs font-mono uppercase tracking-wider text-white/40">
+                [ 04 In Development ]
+              </span>
+            </div>
+
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.85]">
+              Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-white">Products</span>
+            </h2>
           </div>
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            <Link href="/products" className="inline-flex items-center gap-4 bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 px-8 py-4 rounded-full font-bold transition-colors group">
-              View Roadmap
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="group-hover:translate-x-1 transition-transform">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+
+          <div className="flex flex-col items-start md:items-end gap-3 shrink-0">
+            <p className="text-sm sm:text-base text-white/50 font-light max-w-sm text-left md:text-right">
+              Software solutions crafted in-house to solve everyday industry bottlenecks.
+            </p>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 text-xs uppercase font-mono tracking-widest text-white/70 hover:text-white transition-colors group"
+            >
+              <span>View Product Archive</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Lighter Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-10">
-          {PRODUCTS.map((product, idx) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.6, delay: idx * 0.2 }}
-              className="relative group h-full"
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${product.color} rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-              
-              <div className="relative bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 h-full flex flex-col transition-transform duration-500 group-hover:-translate-y-2">
-                
-                <div className="text-6xl mb-8 group-hover:scale-110 transition-transform duration-500 origin-left">
-                  {product.icon}
-                </div>
-                
-                <h3 className="text-3xl lg:text-4xl font-bold tracking-tight mb-4">
-                  {product.name}
-                </h3>
-                
-                <p className="text-white/60 font-light leading-relaxed mb-8 flex-grow">
-                  {product.description}
-                </p>
+        {/* Awwwards Kinetic Editorial List */}
+        <div className="relative divide-y divide-white/10 border-y border-white/10">
+          {PRODUCTS.map((prod, index) => {
+            const isHovered = hoveredIndex === index;
+            const Icon = prod.icon;
 
-                <div className="mt-auto">
-                  <h4 className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Key Features</h4>
-                  <ul className="space-y-3 mb-8">
-                    {product.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-white/80 text-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-red-500 shrink-0 mt-0.5">
-                          <path d="M5 12L10 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+            return (
+              <Link
+                key={prod.id}
+                href={prod.link}
+                onMouseEnter={() => setHoveredIndex(index)}
+                className="group relative block py-10 sm:py-14 md:py-16 transition-all duration-300 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-hidden"
+              >
+                {/* Background Hover Flash */}
+                <div 
+                  className={`absolute inset-0 transition-opacity duration-500 pointer-events-none ${
+                    isHovered ? "opacity-100" : "opacity-0"
+                  }`}
+                  style={{
+                    background: `linear-gradient(90deg, ${prod.glowColor} 0%, transparent 80%)`
+                  }}
+                />
 
-                  <Link href="/contact" className="inline-flex items-center gap-3 text-red-500 font-bold hover:text-white transition-colors group/link">
-                    Get Early Access
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="group-hover/link:translate-x-1 transition-transform">
-                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
+                <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                  
+                  {/* Left: Index & Giant Typographic Title */}
+                  <div className="flex items-baseline gap-6 sm:gap-10">
+                    <span className="text-xs sm:text-sm font-mono text-white/30 group-hover:text-white transition-colors font-semibold">
+                      {prod.num}
+                    </span>
+
+                    <div>
+                      <div className="flex items-center gap-4">
+                        <h3 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase transition-all duration-300 ${
+                          isHovered 
+                            ? "text-white translate-x-2" 
+                            : "text-white/40 group-hover:text-white"
+                        }`}>
+                          {prod.name}
+                        </h3>
+                        
+                        <div 
+                          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                            isHovered 
+                              ? "opacity-100 scale-100 bg-white/10 border border-white/20" 
+                              : "opacity-0 scale-75"
+                          }`}
+                          style={{ color: prod.color }}
+                        >
+                          <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 mt-2 sm:mt-3">
+                        <span className="text-xs sm:text-sm font-mono uppercase tracking-wider text-white/60">
+                          {prod.category}
+                        </span>
+                        <span className="w-1 h-1 rounded-full bg-white/30" />
+                        <span className="text-xs font-mono uppercase tracking-wider text-white/40">
+                          In Dev
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Description & Action Arrow */}
+                  <div className="flex items-center justify-between lg:justify-end gap-8 lg:max-w-md">
+                    <p className="text-sm text-white/50 font-light leading-relaxed hidden sm:block">
+                      {prod.description}
+                    </p>
+
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/20 flex items-center justify-center text-white/50 group-hover:text-black group-hover:bg-white group-hover:border-white transition-all duration-300 shrink-0 transform group-hover:scale-110">
+                      <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
+                  </div>
+
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </Link>
+            );
+          })}
         </div>
 
       </div>
