@@ -79,12 +79,17 @@ export function useGeminiVoice() {
       // 1. Fetch secure URL from our backend
       console.log("[Voice Agent] Fetching WebSocket URL from /api/gemini...");
       const res = await fetch('/api/gemini');
-      const data = await res.json();
-      
-      console.log("[Voice Agent] Response from /api/gemini:", { status: res.status, data });
       if (!res.ok) {
-        throw new Error(data.error || 'Failed to fetch Gemini URL');
+        let errMsg = `Voice assistant is temporarily unavailable (${res.status})`;
+        try {
+          const errData = await res.json();
+          if (errData?.error) errMsg = errData.error;
+        } catch {
+          // ignore non-JSON parse errors
+        }
+        throw new Error(errMsg);
       }
+      const data = await res.json();
 
       const { url } = data;
       console.log("[Voice Agent] Connecting to WebSocket URL...");
@@ -119,7 +124,8 @@ CRITICAL INSTRUCTIONS:
 - NEVER state exact prices, minimum budgets, or shut down a project. Always say "it depends on the project scope" and that Leylak Tech is open to projects of any size (small, mid, or big).
 - Keep the conversation strictly to Leylak Tech and our business. NEVER suggest other platforms like Wix.
 - Do not interrogate the user. Gather information naturally. Example: greet -> ask name -> later discreetly ask for their phone number (including country code) and if they use WhatsApp -> ask about their project brief -> ask about their budget -> finally ask for email (and verify spelling before recording).
-- PROACTIVELY AUTO-NAVIGATE AND AUTO-SCROLL: You have access to tools to navigate the website, scroll, and record leads. Use them proactively! When you mention a specific page (e.g. About, Work, Products, Contact), automatically use the navigate tool to take the user there. When explaining long content or guiding the user, automatically use the scroll tool to move the page. Narrate your actions naturally (e.g., "Let me take you to our work page...", "Scrolling down so you can see...").
+- PROACTIVELY AUTO-NAVIGATE AND AUTO-SCROLL: You have access to tools to navigate the website, scroll, and record leads. Use them proactively! When you talk about a specific service, product, or page, call the navigation tool to bring the user there. Talk naturally about what is in front of them (e.g., "Here is our work page...", "Let's take a look at our mobile apps...", "Scrolling down so you can see...").
+- STRICT BAN ON ROBOTIC ANNOUNCEMENTS: NEVER say robotic status confirmations like "Navigation done", "Navigated to section", "Navigation successful", "Scroll complete", "Tool executed", or "Memory updated". Never speak like a machine executing commands. Speak warmly, smoothly, and conversationally as a human companion guiding the user.
 
 GLOBAL WEBSITE KNOWLEDGE:
 ${WEBSITE_MAP}` }]
@@ -142,11 +148,23 @@ ${WEBSITE_MAP}` }]
                 },
                 {
                   name: "navigate_to_page",
-                  description: "Navigates the user's screen to a specific page on the website. Use this when the user asks to see a page.",
+                  description: "Navigates the user's screen to a specific page on the website. Routes: '/' (Home), '/about' (About Leylak Tech), '/work' (Services Hub), '/work/web-dev' (Web Design & Development), '/work/app-dev' (Mobile App Engineering & Chili Order), '/work/software-dev' (Custom Enterprise Software), '/products' (Proprietary Products: LeySupport, GymLey, MedLey, FuelEy), '/contact' (Contact & Quotes).",
                   parameters: {
                     type: "OBJECT",
                     properties: {
-                      path: { type: "STRING", enum: ["/", "/about", "/work", "/products", "/contact"] }
+                      path: { 
+                        type: "STRING", 
+                        enum: [
+                          "/", 
+                          "/about", 
+                          "/work", 
+                          "/work/web-dev", 
+                          "/work/app-dev", 
+                          "/work/software-dev", 
+                          "/products", 
+                          "/contact"
+                        ] 
+                      }
                     },
                     required: ["path"]
                   }
@@ -223,12 +241,15 @@ ${WEBSITE_MAP}` }]
                   
                   // Natural Language Heuristic Fallback
                   const spoken = part.text.toLowerCase();
-                  if (spoken.includes("take you") || spoken.includes("head") || spoken.includes("navigat") || spoken.includes("show")) {
+                  if (spoken.includes("take you") || spoken.includes("head") || spoken.includes("navigat") || spoken.includes("show") || spoken.includes("bring you")) {
                       let targetPath = null;
-                      if (spoken.includes("about")) targetPath = "/about";
-                      else if (spoken.includes("work")) targetPath = "/work";
-                      else if (spoken.includes("product")) targetPath = "/products";
-                      else if (spoken.includes("contact")) targetPath = "/contact";
+                      if (spoken.includes("web dev") || spoken.includes("website") || spoken.includes("web design")) targetPath = "/work/web-dev";
+                      else if (spoken.includes("app dev") || spoken.includes("mobile") || spoken.includes("ios") || spoken.includes("android") || spoken.includes("chili")) targetPath = "/work/app-dev";
+                      else if (spoken.includes("software dev") || spoken.includes("custom software") || spoken.includes("backend") || spoken.includes("api") || spoken.includes("database")) targetPath = "/work/software-dev";
+                      else if (spoken.includes("product") || spoken.includes("leysupport") || spoken.includes("gymley") || spoken.includes("medley") || spoken.includes("fueley")) targetPath = "/products";
+                      else if (spoken.includes("about") || spoken.includes("who we are") || spoken.includes("story")) targetPath = "/about";
+                      else if (spoken.includes("work") || spoken.includes("portfolio") || spoken.includes("services")) targetPath = "/work";
+                      else if (spoken.includes("contact") || spoken.includes("touch") || spoken.includes("quote") || spoken.includes("reach")) targetPath = "/contact";
                       else if (spoken.includes("home")) targetPath = "/";
                       
                       if (targetPath && targetPath !== pathname) {
@@ -355,7 +376,7 @@ ${WEBSITE_MAP}` }]
              wsRef.current.send(JSON.stringify({
                clientContent: {
                  turnComplete: true,
-                 turns: [{ role: "user", parts: [{ text: `[SYSTEM: Tool 'record_lead_info' executed successfully. Memory updated.]` }] }]
+                 turns: [{ role: "user", parts: [{ text: `[SYSTEM: Contact details noted smoothly. Continue the conversation in a warm, natural human tone without saying 'lead recorded' or 'memory updated'.]` }] }]
                }
              }));
           } else {
@@ -364,7 +385,10 @@ ${WEBSITE_MAP}` }]
                  functionResponses: [{
                    id: functionCall.id,
                    name: "record_lead_info",
-                   response: { result: res.ok ? "Memory updated successfully" : "Failed to update memory", details: data }
+                   response: { 
+                     status: res.ok ? "success" : "error", 
+                     instruction: "Details noted. Continue speaking naturally to the user. Do NOT say 'memory updated' or 'lead recorded'." 
+                   }
                  }]
                }
              }));
@@ -386,7 +410,11 @@ ${WEBSITE_MAP}` }]
               functionResponses: [{
                 id: functionCall.id,
                 name: "navigate_to_page",
-                response: { result: "Navigation successful" }
+                response: { 
+                  status: "success", 
+                  current_page: path,
+                  instruction: `The screen has now smoothly changed to ${path}. Talk naturally about the content on this page. NEVER say 'Navigation done', 'Navigated to section', or any robotic confirmation. Just introduce what the user is seeing like a human host.`
+                }
               }]
             }
           }));
@@ -405,7 +433,10 @@ ${WEBSITE_MAP}` }]
               functionResponses: [{
                 id: functionCall.id,
                 name: "scroll_page",
-                response: { result: "Scroll successful" }
+                response: { 
+                  status: "success", 
+                  instruction: "Page scrolled. Seamlessly continue your thought without saying 'scroll complete' or 'scroll done'." 
+                }
               }]
             }
           }));
@@ -420,7 +451,10 @@ ${WEBSITE_MAP}` }]
               functionResponses: [{
                 id: functionCall.id,
                 name: "start_continuous_scroll",
-                response: { result: "Started scrolling" }
+                response: { 
+                  status: "success", 
+                  instruction: "Continuous tour scroll started. Narrate what is on screen naturally like a guide on a tour." 
+                }
               }]
             }
           }));
@@ -434,7 +468,10 @@ ${WEBSITE_MAP}` }]
               functionResponses: [{
                 id: functionCall.id,
                 name: "stop_continuous_scroll",
-                response: { result: "Stopped scrolling" }
+                response: { 
+                  status: "success", 
+                  instruction: "Scroll stopped. Continue talking naturally." 
+                }
               }]
             }
           }));

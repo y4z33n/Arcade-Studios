@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     }
 
     // Default sending email (this must be a verified domain in Resend)
-    const from = 'hello@leylak.tech';
+    const from = 'info@leylak.tech';
     console.log('[Mail API] Sending email from:', from);
 
     // Format recipients

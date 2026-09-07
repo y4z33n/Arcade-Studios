@@ -4,11 +4,11 @@ import Ethos from "@/components/sections/Ethos";
 import Services from "@/components/sections/Services";
 import BrandShowcase from "@/components/sections/BrandShowcase";
 import FeaturedWork from "@/components/sections/FeaturedWork";
+import MobileAppsShowcase from "@/components/sections/MobileAppsShowcase";
 import ProductsShowcase from "@/components/sections/ProductsShowcase";
 import Process from "@/components/sections/Process";
 import CTA from "@/components/sections/CTA";
 import HyperspeedBackground from "@/components/HyperspeedBackground";
-import FloatingCTA from "@/components/layout/FloatingCTA";
 import { ScrollReveal, HeroParallax } from "@/components/ui/ScrollTransitions";
 
 export const metadata: Metadata = {
@@ -50,9 +50,6 @@ export default function HomePage() {
       {/* Hyperspeed Background - Full Page */}
       <HyperspeedBackground />
       
-      {/* Floating Action Button */}
-      <FloatingCTA />
-      
       <div className="relative min-h-screen z-10">
         <Hero />
         
@@ -60,6 +57,8 @@ export default function HomePage() {
         
         <div className="flex flex-col w-full">
           <FeaturedWork />
+          
+          <MobileAppsShowcase />
           
           <ProductsShowcase />
 

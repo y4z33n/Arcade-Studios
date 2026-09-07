@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export const dynamic = 'force-dynamic';
+
+export async function GET(request: Request) {
   const API_KEY = process.env.GEMINI_API_KEY;
   
   if (!API_KEY || API_KEY === 'your_gemini_api_key_here') {

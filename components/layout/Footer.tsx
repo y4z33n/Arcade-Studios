@@ -30,13 +30,18 @@ export default function Footer() {
           >
             {/* Brand Section */}
             <div className="md:col-span-5">
-              <Link href="/" className="inline-block mb-6 relative w-40 h-10 md:h-12">
-                <Image 
-                  src="/leylak-new.png" 
-                  alt={`${SITE_CONFIG.name} Logo`} 
-                  fill 
-                  className="object-contain scale-[1.5]"
-                />
+              <Link href="/" className="inline-flex items-center gap-3.5 mb-6 group" aria-label={`${SITE_CONFIG.name} Home`}>
+                <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                  <Image 
+                    src="/logo/logo_white.png" 
+                    alt={`${SITE_CONFIG.name} Logo`} 
+                    fill 
+                    className="object-contain drop-shadow-md"
+                  />
+                </div>
+                <span className="text-2xl md:text-3xl font-bold tracking-tight text-white group-hover:text-red-400 transition-colors duration-200">
+                  Leylak
+                </span>
               </Link>
               <p className="text-white/70 text-base 3xl:text-lg leading-relaxed mb-8 max-w-sm">
                 {SITE_CONFIG.tagline}
@@ -74,9 +79,6 @@ export default function Footer() {
                 <a href="tel:+23057904684" className="text-white/50 hover:text-white/80 transition-colors text-base 3xl:text-lg">
                   +230 57904684
                 </a>
-                <a href="tel:+23055057910" className="text-white/50 hover:text-white/80 transition-colors text-base 3xl:text-lg">
-                  +230 55057910
-                </a>
                 <p className="text-white/50 text-sm 3xl:text-base leading-relaxed pt-1">
                   2nd Floor, Unity House<br />
                   Rue du Savoir, Cybercity<br />
@@ -97,12 +99,9 @@ export default function Footer() {
               <p className="text-white/50 text-sm 3xl:text-base">
                 © {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
               </p>
-              <div className="flex space-x-6 text-sm 3xl:text-base">
-                <Link href="/privacy" className="text-white/50 hover:text-white transition-colors">
+              <div>
+                <Link href="/privacy" className="text-white/50 hover:text-white transition-colors text-sm 3xl:text-base">
                   Privacy Policy
-                </Link>
-                <Link href="/terms" className="text-white/50 hover:text-white transition-colors">
-                  Terms of Service
                 </Link>
               </div>
             </div>

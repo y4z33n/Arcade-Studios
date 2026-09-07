@@ -70,17 +70,17 @@ const PROJECTS = [
     year: "2024"
   },
   {
-    id: "breathing-soul",
-    title: "Breathing Soul",
-    subtitle: "Resort Lifestyle",
-    category: "Fashion & Lifestyle",
-    client: "breathing-soul.com",
-    description: "Mindful apparel brand storefront focused on resort-inspired fits, editorial visual storytelling, and ultra-fast mobile checkouts.",
-    tags: ["Shopify", "Editorial UI", "Mobile-First", "High Conversion"],
-    image: "/pro/bs.jpg",
-    link: "https://breathing-soul.com",
-    accent: "from-emerald-600/20 via-teal-600/10 to-transparent",
-    color: "#00ffaa",
+    id: "shield-fire-safety",
+    title: "Shield Fire & Safety",
+    subtitle: "Equipments & Services",
+    category: "Safety & Industrial Equipment",
+    client: "shieldfireprotection.info",
+    description: "Certified fire protection equipment and industrial safety supplier in Mauritius since 2004, providing certified equipment, hardware, and island-wide maintenance services.",
+    tags: ["Safety Systems", "Fire Protection", "Industrial Hardware", "Maintenance"],
+    image: "/Clients/shield.jpg",
+    link: "https://www.shieldfireprotection.info/",
+    accent: "from-red-600/20 via-orange-600/10 to-transparent",
+    color: "#ff2a2a",
     year: "2024"
   },
   {

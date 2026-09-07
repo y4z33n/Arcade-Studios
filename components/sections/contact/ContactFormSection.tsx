@@ -83,7 +83,7 @@ export default function ContactFormSection() {
                   <p className="text-sm text-white/50 uppercase tracking-wider mb-2">
                     Phone / WhatsApp
                   </p>
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1.5">
                     <a
                       href="tel:+23057904684"
                       className="text-base md:text-lg 3xl:text-xl text-red-400 hover:text-red-300 transition-colors inline-block"
@@ -91,10 +91,13 @@ export default function ContactFormSection() {
                       +230 57904684
                     </a>
                     <a
-                      href="tel:+23055057910"
-                      className="text-base md:text-lg 3xl:text-xl text-red-400 hover:text-red-300 transition-colors inline-block"
+                      href="https://wa.me/23057904684"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-[#25D366] hover:text-[#25D366]/80 transition-colors font-medium"
                     >
-                      +230 55057910
+                      <span>Chat on WhatsApp</span>
+                      <span aria-hidden="true">→</span>
                     </a>
                   </div>
                 </div>

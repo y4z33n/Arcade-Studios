@@ -55,13 +55,43 @@ type Email = {
   attachments?: Attachment[];
 };
 
+function formatSenderName(from: string) {
+  if (!from) return 'Unknown Sender';
+  const match = from.match(/^"?([^"<]+)"?\s*<([^>]+)>/);
+  if (match) {
+    return match[1].trim();
+  }
+  return from.replace(/^"|"$/g, '').trim();
+}
+
+function formatSenderAddress(from: string) {
+  if (!from) return '';
+  const match = from.match(/<([^>]+)>/);
+  if (match) return match[1].trim();
+  return from.replace(/^"|"$/g, '').trim();
+}
+
+function getInitial(fromStr?: string) {
+  if (!fromStr) return 'U';
+  const name = formatSenderName(fromStr);
+  const clean = name.replace(/^["'\s]+/, '');
+  return (clean[0] || 'U').toUpperCase();
+}
+
 export default function MailClient({ initialEmails }: { initialEmails: Email[] }) {
   const [emails, setEmails] = useState<Email[]>(initialEmails);
   const [folder, setFolder] = useState<'inbox' | 'sent'>('inbox');
   const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
+  const [emailViewMode, setEmailViewMode] = useState<'html' | 'text'>('html');
   const [isComposing, setIsComposing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterAttachmentsOnly, setFilterAttachmentsOnly] = useState(false);
+
+  useEffect(() => {
+    if (selectedEmail) {
+      setEmailViewMode(selectedEmail.html_body ? 'html' : 'text');
+    }
+  }, [selectedEmail?.id]);
 
   // Compose State
   const [to, setTo] = useState('');
@@ -221,6 +251,7 @@ export default function MailClient({ initialEmails }: { initialEmails: Email[] }
   const handleReply = (email: Email) => {
     const replySubject = email.subject.startsWith('Re:') ? email.subject : `Re: ${email.subject}`;
     const formattedDate = new Date(email.created_at).toLocaleString();
+    const senderName = formatSenderName(email.from_email);
     const quotedContent = `
 <br><br>
 <hr style="border: 0; border-top: 1px solid #444; margin: 16px 0;" />
@@ -229,10 +260,15 @@ export default function MailClient({ initialEmails }: { initialEmails: Email[] }
   ${email.html_body || email.text_body.replace(/\n/g, '<br/>')}
 </blockquote>
 `;
-    setTo(email.from_email);
+    const replyTo =
+      email.folder === 'inbox'
+        ? formatSenderAddress(email.from_email) || email.from_email
+        : email.to_email;
+
+    setTo(replyTo);
     setSubject(replySubject);
     setHtmlBody(quotedContent);
-    setPlainTextBody(`\n\nOn ${formattedDate}, ${email.from_email} wrote:\n> ${email.text_body}`);
+    setPlainTextBody(`\n\nOn ${formattedDate}, ${senderName} wrote:\n> ${email.text_body}`);
     setIsComposing(true);
   };
 
@@ -298,7 +334,7 @@ To: ${email.to_email}</p>
           id: Math.random().toString(),
           created_at: new Date().toISOString(),
           folder: 'sent',
-          from_email: 'hello@leylak.tech',
+          from_email: 'info@leylak.tech',
           to_email: to,
           subject: subject || '(No Subject)',
           html_body: fullHtml,
@@ -381,7 +417,7 @@ To: ${email.to_email}</p>
             </div>
             <div>
               <span className="font-bold text-sm text-white tracking-tight block">Leylak Mail</span>
-              <span className="text-[11px] text-purple-400 font-mono">hello@leylak.tech</span>
+              <span className="text-[11px] text-purple-400 font-mono">info@leylak.tech</span>
             </div>
           </div>
 
@@ -541,7 +577,7 @@ To: ${email.to_email}</p>
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-semibold text-xs text-neutral-200 truncate pr-2">
-                      {folder === 'inbox' ? email.from_email : `To: ${email.to_email}`}
+                      {folder === 'inbox' ? formatSenderName(email.from_email) : `To: ${email.to_email}`}
                     </span>
                     <span className="text-[10px] text-neutral-500 whitespace-nowrap font-mono">
                       {dateDisplay}
@@ -598,22 +634,27 @@ To: ${email.to_email}</p>
               </div>
 
               {/* Sender & Metadata info */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-2xl bg-neutral-800/80 border border-neutral-700/50 flex items-center justify-center text-purple-400 font-bold text-sm shadow-inner">
                     {folder === 'inbox' ? (
-                      selectedEmail.from_email[0].toUpperCase()
+                      getInitial(selectedEmail.from_email)
                     ) : (
                       <User size={18} />
                     )}
                   </div>
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-bold text-sm text-neutral-200">
-                        {folder === 'inbox' ? selectedEmail.from_email : 'You (Leylak Tech)'}
+                        {folder === 'inbox' ? formatSenderName(selectedEmail.from_email) : 'You (Leylak Tech)'}
                       </span>
+                      {folder === 'inbox' && formatSenderAddress(selectedEmail.from_email) && (
+                        <span className="text-xs text-neutral-400 font-mono">
+                          &lt;{formatSenderAddress(selectedEmail.from_email)}&gt;
+                        </span>
+                      )}
                       <span className="text-xs text-neutral-500">
-                        {folder === 'inbox' ? `to ${selectedEmail.to_email}` : `to ${selectedEmail.to_email}`}
+                        to {selectedEmail.to_email}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-neutral-500 text-[11px] mt-0.5 font-mono">
@@ -622,26 +663,63 @@ To: ${email.to_email}</p>
                     </div>
                   </div>
                 </div>
+
+                {/* View Mode Switcher (if email has HTML) */}
+                {selectedEmail.html_body && (
+                  <div className="flex items-center bg-neutral-900 border border-neutral-800 rounded-xl p-1 text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => setEmailViewMode('html')}
+                      className={`px-3 py-1 rounded-lg font-medium transition-all ${
+                        emailViewMode === 'html'
+                          ? 'bg-purple-600 text-white shadow-sm'
+                          : 'text-neutral-400 hover:text-white'
+                      }`}
+                    >
+                      Formatted View
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEmailViewMode('text')}
+                      className={`px-3 py-1 rounded-lg font-medium transition-all ${
+                        emailViewMode === 'text'
+                          ? 'bg-purple-600 text-white shadow-sm'
+                          : 'text-neutral-400 hover:text-white'
+                      }`}
+                    >
+                      Plain Text
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Viewer Email Body */}
             <div className="p-8 flex-1 overflow-y-auto min-h-0" data-lenis-prevent="true">
-              <div className="max-w-4xl mx-auto bg-neutral-900/40 border border-neutral-800/80 rounded-3xl p-8 shadow-xl">
-                {selectedEmail.html_body ? (
-                  <div
-                    className="prose prose-invert max-w-none text-neutral-200 text-sm leading-relaxed prose-a:text-purple-400 prose-headings:text-white prose-pre:bg-black"
-                    dangerouslySetInnerHTML={{ __html: selectedEmail.html_body }}
-                  />
+              <div className="max-w-4xl mx-auto space-y-6">
+                {selectedEmail.html_body && emailViewMode === 'html' ? (
+                  <div className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-neutral-800/80">
+                    <iframe
+                      srcDoc={selectedEmail.html_body}
+                      title={selectedEmail.subject || 'Email content'}
+                      className="w-full min-h-[600px] border-0"
+                      sandbox="allow-same-origin allow-popups"
+                    />
+                  </div>
                 ) : (
-                  <div className="whitespace-pre-wrap text-neutral-300 text-sm leading-relaxed font-sans">
-                    {selectedEmail.text_body}
+                  <div className="bg-neutral-900/40 border border-neutral-800/80 rounded-3xl p-8 shadow-xl">
+                    <div className="whitespace-pre-wrap text-neutral-200 text-sm leading-relaxed font-sans font-normal selection:bg-purple-500 selection:text-white">
+                      {selectedEmail.text_body ||
+                        (selectedEmail.html_body
+                          ? selectedEmail.html_body.replace(/<[^>]*>?/gm, '')
+                          : 'No message content')}
+                    </div>
                   </div>
                 )}
 
                 {/* Attachments Section */}
                 {selectedEmail.attachments && selectedEmail.attachments.length > 0 && (
-                  <div className="mt-10 pt-6 border-t border-neutral-800">
+                  <div className="mt-8 pt-6 border-t border-neutral-800">
                     <div className="flex items-center gap-2 text-xs font-semibold text-neutral-400 mb-3">
                       <Paperclip size={14} className="text-purple-400" />
                       <span>{selectedEmail.attachments.length} Attachment(s)</span>

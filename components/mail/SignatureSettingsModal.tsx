@@ -144,7 +144,7 @@ export default function SignatureSettingsModal({
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="hello@leylak.tech"
+                  placeholder="info@leylak.tech"
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-white focus:border-purple-500 focus:outline-none transition-colors"
                 />
               </div>

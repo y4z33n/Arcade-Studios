@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -41,6 +41,24 @@ const WEB_PROJECTS = [
       "Service-led navigation for digital, OOH, production and events",
       "Client showcase and testimonial sections",
       "News and updates module for ongoing campaigns and announcements",
+    ],
+  },
+  {
+    slug: "shield-fire-protection",
+    title: "Shield Fire Protection",
+    subtitle: "Safety & certified industrial fire equipment supplier in Mauritius",
+    client: "Shield Fire Protection Equipments & Services Co Ltd",
+    description:
+      "Shield Fire Protection Equipments & Services Co Ltd is a safety and industrial equipment supplier based in Mauritius, operating since 2004. The company provides certified fire protection equipment, industrial hardware, and island-wide maintenance services to public sector bodies, commercial businesses, and industrial facilities.",
+    tags: ["Corporate Web", "Responsive Design", "Safety & Fire Protection", "Maintenance Services"],
+    year: "2024",
+    image: "/Clients/shield.jpg",
+    link: "https://www.shieldfireprotection.info/",
+    features: [
+      "Showcase of certified fire protection and industrial safety equipment",
+      "Island-wide certified inspection and maintenance service breakdown",
+      "Tailored safety solutions for public sector, commercial, and industrial facilities",
+      "Direct consultation and corporate inquiry quotation workflows",
     ],
   },
   {

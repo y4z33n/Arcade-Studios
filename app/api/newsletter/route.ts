@@ -18,8 +18,8 @@ export async function POST(request: NextRequest) {
 
     // Notify the team about the new subscriber
     await resend.emails.send({
-      from: "Leylak Tech <hello@leylak.tech>",
-      to: process.env.CONTACT_EMAIL ?? "hello@leylak.tech",
+      from: "Leylak Tech <info@leylak.tech>",
+      to: process.env.CONTACT_EMAIL ?? "info@leylak.tech",
       subject: `New newsletter subscriber: ${validatedData.email}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Send a welcome email to the subscriber
     await resend.emails.send({
-      from: "Leylak Tech <hello@leylak.tech>",
+      from: "Leylak Tech <info@leylak.tech>",
       to: validatedData.email,
       subject: "You're on the list — Leylak Tech",
       html: `
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
           <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
           <p style="font-size: 13px; color: #888;">
             The Leylak Tech Team<br />
-            <a href="mailto:hello@leylak.tech" style="color: #dc2626;">hello@leylak.tech</a>
+            <a href="mailto:info@leylak.tech" style="color: #dc2626;">info@leylak.tech</a>
           </p>
         </div>
       `,

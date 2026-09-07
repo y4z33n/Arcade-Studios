@@ -350,7 +350,7 @@ const LogoLoop = React.memo<LogoLoopProps>(
               '[image-rendering:-webkit-optimize-contrast]',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120',
+                'transition-transform duration-300 ease-out group-hover/item:scale-110',
               (item as any).className
             )}
             src={(item as any).src}
@@ -501,6 +501,12 @@ const LogoLoop = React.memo<LogoLoopProps>(
 LogoLoop.displayName = 'LogoLoop';
 
 const CLIENT_LOGOS: LogoItem[] = [
+  {
+    src: "/Logos Web/shield logo.png",
+    alt: "Shield Fire Protection",
+    title: "Shield Fire Protection Equipments & Services Co Ltd",
+    href: "https://www.shieldfireprotection.info/",
+  },
   {
     src: "/Logos Web/modellogo.png",
     alt: "ModelManagement.Mu",

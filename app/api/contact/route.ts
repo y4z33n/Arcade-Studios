@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
 
     // Send notification email to Leylak Tech
     await resend.emails.send({
-      from: "Leylak Tech Contact Form <hello@leylak.tech>",
-      to: process.env.CONTACT_EMAIL ?? "hello@leylak.tech",
+      from: "Leylak Tech Contact Form <info@leylak.tech>",
+      to: process.env.CONTACT_EMAIL ?? "info@leylak.tech",
       replyTo: validatedData.email,
       subject: `New enquiry from ${validatedData.name}${validatedData.company ? ` — ${validatedData.company}` : ""}`,
       html: `
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 
     // Send auto-reply to the person who submitted
     await resend.emails.send({
-      from: "Leylak Tech <hello@leylak.tech>",
+      from: "Leylak Tech <info@leylak.tech>",
       to: validatedData.email,
       subject: "We received your message — Leylak Tech",
       html: `
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
           <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
           <p style="font-size: 13px; color: #888;">
             The Leylak Tech Team<br />
-            <a href="mailto:hello@leylak.tech" style="color: #dc2626;">hello@leylak.tech</a>
+            <a href="mailto:info@leylak.tech" style="color: #dc2626;">info@leylak.tech</a>
           </p>
         </div>
       `,

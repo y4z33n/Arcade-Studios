@@ -8,9 +8,9 @@ export const SITE_CONFIG = {
   description:
     "Leylak Tech is a full-spectrum digital solutions studio. From web and app development to custom software, AI integration, and automation — we build products and offer services.",
   url: "https://leylak.tech",
-  email: "hello@leylak.tech",
+  email: "info@leylak.tech",
   location: "2nd Floor, Unity House, Rue du Savoir, Cybercity, Ebene, Mauritius 72201",
-  phone: ["+230 57904684", "+230 55057910"],
+  phone: ["+230 57904684"],
   social: {
     linkedin: "https://linkedin.com/in/kysondana",
     instagram: "https://instagram.com/kysondana",

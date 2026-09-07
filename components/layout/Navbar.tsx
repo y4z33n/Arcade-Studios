@@ -48,6 +48,7 @@ interface GlassSurfaceProps {
     | 'plus-darker'
     | 'plus-lighter';
   className?: string;
+  contentClassName?: string;
   style?: React.CSSProperties;
 }
 
@@ -81,62 +82,8 @@ interface StaggeredMenuProps {
   onMenuClose?: () => void;
 }
 
-interface GlassSurfaceProps {
-  children?: React.ReactNode;
-  width?: number | string;
-  height?: number | string;
-  borderRadius?: number;
-  borderWidth?: number;
-  brightness?: number;
-  opacity?: number;
-  blur?: number;
-  displace?: number;
-  backgroundOpacity?: number;
-  saturation?: number;
-  distortionScale?: number;
-  redOffset?: number;
-  greenOffset?: number;
-  blueOffset?: number;
-  xChannel?: 'R' | 'G' | 'B';
-  yChannel?: 'R' | 'G' | 'B';
-  mixBlendMode?:
-    | 'normal'
-    | 'multiply'
-    | 'screen'
-    | 'overlay'
-    | 'darken'
-    | 'lighten'
-    | 'color-dodge'
-    | 'color-burn'
-    | 'hard-light'
-    | 'soft-light'
-    | 'difference'
-    | 'exclusion'
-    | 'hue'
-    | 'saturation'
-    | 'color'
-    | 'luminosity'
-    | 'plus-darker'
-    | 'plus-lighter';
-  className?: string;
-  style?: React.CSSProperties;
-}
-
 const useDarkMode = () => {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    setIsDark(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
-
-  return isDark;
+  return true;
 };
 
 const GlassSurface: React.FC<GlassSurfaceProps> = ({
@@ -159,6 +106,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   yChannel = 'G',
   mixBlendMode = 'difference',
   className = '',
+  contentClassName = '',
   style = {}
 }) => {
   const uniqueId = useId().replace(/:/g, '-');
@@ -281,25 +229,10 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   }, [width, height]);
 
   const supportsSVGFilters = () => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
-      return false;
-    }
-
-    const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-    const isFirefox = /Firefox/.test(navigator.userAgent);
-
-    if (isWebkit || isFirefox) {
-      return false;
-    }
-
-    const div = document.createElement('div');
-    div.style.backdropFilter = `url(#${filterId})`;
-
-    return div.style.backdropFilter !== '';
+    return false;
   };
 
   const supportsBackdropFilter = () => {
-    // Deprecated in favor of state, keeping for backwards compatibility if used elsewhere
     if (typeof window === 'undefined') return false;
     return CSS.supports('backdrop-filter', 'blur(10px)');
   };
@@ -314,78 +247,20 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
       '--glass-saturation': String(saturation)
     } as React.CSSProperties;
 
-    if (svgSupported) {
-      return {
-        ...baseStyles,
-        background: isDarkMode ? `hsl(0 0% 0% / ${backgroundOpacity})` : `hsl(0 0% 100% / ${backgroundOpacity})`,
-        backdropFilter: `url(#${filterId}) saturate(${saturation})`,
-        boxShadow: isDarkMode
-          ? `0 0 2px 1px color-mix(in oklch, white, transparent 65%) inset,
-             0 0 10px 4px color-mix(in oklch, white, transparent 85%) inset,
-             0px 4px 16px rgba(17, 17, 26, 0.05),
-             0px 8px 24px rgba(17, 17, 26, 0.05),
-             0px 16px 56px rgba(17, 17, 26, 0.05),
-             0px 4px 16px rgba(17, 17, 26, 0.05) inset,
-             0px 8px 24px rgba(17, 17, 26, 0.05) inset,
-             0px 16px 56px rgba(17, 17, 26, 0.05) inset`
-          : `0 0 2px 1px color-mix(in oklch, black, transparent 85%) inset,
-             0 0 10px 4px color-mix(in oklch, black, transparent 90%) inset,
-             0px 4px 16px rgba(17, 17, 26, 0.05),
-             0px 8px 24px rgba(17, 17, 26, 0.05),
-             0px 16px 56px rgba(17, 17, 26, 0.05),
-             0px 4px 16px rgba(17, 17, 26, 0.05) inset,
-             0px 8px 24px rgba(17, 17, 26, 0.05) inset,
-             0px 16px 56px rgba(17, 17, 26, 0.05) inset`
-      };
-    } else {
-      if (isDarkMode) {
-        if (!backdropFilterSupported) {
-          return {
-            ...baseStyles,
-            background: 'rgba(0, 0, 0, 0.4)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`
-          };
-        } else {
-          return {
-            ...baseStyles,
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(12px) saturate(1.8) brightness(1.2)',
-            WebkitBackdropFilter: 'blur(12px) saturate(1.8) brightness(1.2)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`
-          };
-        }
-      } else {
-        if (!backdropFilterSupported) {
-          return {
-            ...baseStyles,
-            background: 'rgba(255, 255, 255, 0.4)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.3)`
-          };
-        } else {
-          return {
-            ...baseStyles,
-            background: 'rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(12px) saturate(1.8) brightness(1.1)',
-            WebkitBackdropFilter: 'blur(12px) saturate(1.8) brightness(1.1)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: `0 8px 32px 0 rgba(31, 38, 135, 0.2),
-                        0 2px 16px 0 rgba(31, 38, 135, 0.1),
-                        inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.2)`
-          };
-        }
-      }
-    }
+    return {
+      ...baseStyles,
+      background: 'rgba(12, 12, 16, 0.72)',
+      backdropFilter: 'blur(16px) saturate(1.8)',
+      WebkitBackdropFilter: 'blur(16px) saturate(1.8)',
+      border: '1px solid rgba(255, 255, 255, 0.14)',
+      boxShadow: `0 12px 40px 0 rgba(0, 0, 0, 0.55),
+                  inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+                  inset 0 -1px 0 0 rgba(0, 0, 0, 0.35)`
+    };
   };
 
   const glassSurfaceClasses =
-    'relative flex items-center justify-center overflow-hidden transition-opacity duration-[260ms] ease-out';
+    'relative flex items-center justify-center overflow-hidden transition-opacity duration-300 ease-out';
 
   const focusVisibleClasses = isDarkMode
     ? 'focus-visible:outline-2 focus-visible:outline-[#0A84FF] focus-visible:outline-offset-2'
@@ -452,7 +327,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         </defs>
       </svg>
 
-      <div className="w-full h-full flex items-center justify-center p-2 rounded-[inherit] relative z-10">
+      <div className={cn("w-full h-full flex items-center justify-center rounded-[inherit] relative z-10", contentClassName)}>
         {children}
       </div>
     </div>
@@ -891,15 +766,16 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-content-between p-[2em] bg-transparent pointer-events-none z-20"
           aria-label="Main navigation header"
         >
-          <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
+          <div className="sm-logo flex items-center select-none pointer-events-auto gap-2.5" aria-label="Logo">
             <img
-              src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
+              src={logoUrl || '/logo/logo_white.png'}
               alt="Logo"
-              className="sm-logo-img block h-8 w-auto object-contain"
+              className="sm-logo-img block h-8 w-8 object-contain"
               draggable={false}
-              width={110}
-              height={24}
+              width={32}
+              height={32}
             />
+            <span className="font-bold text-lg text-white tracking-tight">Leylak</span>
           </div>
 
           <button
@@ -1118,24 +994,33 @@ export default function Navbar() {
           backgroundOpacity={0.1}
           blur={12}
           className={cn(
-            "flex items-center rounded-full shadow-lg px-8 py-2 transition-all duration-300",
-            scrolled && !isHovered ? "gap-4" : "gap-8",
+            "rounded-full shadow-lg transition-all duration-300",
             scrolled ? "shadow-2xl" : ""
           )}
+          contentClassName={cn(
+            "flex items-center px-5 py-3 md:px-7 md:py-3.5 transition-all duration-300 min-h-[58px] md:min-h-[64px]",
+            scrolled && !isHovered ? "gap-3" : "gap-4 md:gap-6"
+          )}
         >
-          {/* Logo */}
-          <Link href="/" className="group flex items-center flex-shrink-0">
+          {/* Logo & Title */}
+          <Link href="/" className="group flex items-center gap-3 flex-shrink-0" aria-label={`${SITE_CONFIG.name} Home`}>
             <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="relative w-32 h-8 md:w-40 md:h-10 flex items-center"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-9 h-9 md:w-10 md:h-10 flex items-center justify-center"
             >
               <Image 
-                src="/leylak-new.png" 
+                src="/logo/logo_white.png" 
                 alt={`${SITE_CONFIG.name} Logo`} 
                 fill 
-                className="object-contain drop-shadow-lg scale-[1.7] md:scale-[1.8]"
+                className="object-contain drop-shadow-md"
+                priority
               />
             </motion.div>
+            <span className="text-white font-bold text-base md:text-lg tracking-tight drop-shadow select-none group-hover:text-red-400 transition-colors duration-200">
+              Leylak
+            </span>
           </Link>
 
           {/* Center Navigation - Desktop - with AnimatePresence */}
@@ -1146,32 +1031,72 @@ export default function Navbar() {
                 animate={{ opacity: 1, width: "auto" }}
                 exit={{ opacity: 0, width: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="hidden md:flex items-center space-x-1 overflow-hidden"
+                className="hidden md:flex items-center py-1 overflow-hidden"
               >
-                {NAV_LINKS.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ delay: index * 0.05, duration: 0.2 }}
+                {/* Visual Separator between Brand Identity & Nav Links */}
+                <div className="h-5 md:h-6 w-[1px] bg-white/20 mx-2 md:mx-3 flex-shrink-0" aria-hidden="true" />
+
+                {/* Primary Nav Links */}
+                <div className="flex items-center space-x-1">
+                  {NAV_LINKS.filter((link) => link.href !== "/contact").map((link, index) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <motion.div
+                        key={link.href}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ delay: index * 0.05, duration: 0.2 }}
+                      >
+                        <Link
+                          href={link.href}
+                          className={cn(
+                            "relative px-4 py-2 text-sm md:text-[15px] transition-colors font-medium group whitespace-nowrap drop-shadow",
+                            isActive
+                              ? "text-white font-semibold"
+                              : "text-white/75 hover:text-white"
+                          )}
+                        >
+                          <span className="relative z-10">{link.label}</span>
+                          <span
+                            className={cn(
+                              "absolute bottom-0 left-4 right-4 h-0.5 bg-red-500 transition-transform origin-left",
+                              isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                            )}
+                          />
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Highlighted Contact Button */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ delay: 0.15, duration: 0.2 }}
+                  className="pl-2"
+                >
+                  <Link
+                    href="/contact"
+                    className={cn(
+                      "relative inline-flex items-center justify-center px-5 py-2 text-xs md:text-sm font-semibold rounded-full transition-all duration-200 whitespace-nowrap shadow-md",
+                      pathname === "/contact"
+                        ? "bg-red-500 text-white shadow-red-500/40 ring-2 ring-red-400/50"
+                        : "bg-red-600 hover:bg-red-500 hover:brightness-110 text-white shadow-red-600/30 hover:shadow-red-600/50 active:brightness-95"
+                    )}
                   >
-                    <Link
-                      href={link.href}
-                      className="relative px-4 py-2 text-white hover:text-red-300 transition-colors font-medium group whitespace-nowrap drop-shadow"
-                    >
-                      <span className="relative z-10">{link.label}</span>
-                      <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-red-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-                    </Link>
-                  </motion.div>
-                ))}
+                    <span>Contact</span>
+                  </Link>
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
 
           {/* Hamburger Menu Button */}
           <button
-            className="p-2 text-white hover:text-red-300 transition-colors drop-shadow flex-shrink-0 md:hidden"
+            className="p-2.5 text-white hover:text-red-300 transition-colors drop-shadow flex-shrink-0 md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Open menu"
           >
@@ -1223,7 +1148,7 @@ export default function Navbar() {
         displayItemNumbering={true}
         hideHeader={true}
         isOpen={menuOpen}
-        logoUrl="/leylak-new.png"
+        logoUrl="/logo/logo_white.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#000"
         accentColor="#DC2626"

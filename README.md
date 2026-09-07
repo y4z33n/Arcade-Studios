@@ -244,7 +244,7 @@ All rights reserved © Leylak Tech
 
 ## 🤝 Support
 
-For questions or issues, contact: hello@leylak.tech
+For questions or issues, contact: info@leylak.tech
 
 ---
 
