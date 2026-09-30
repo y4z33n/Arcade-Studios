@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useReducedMotion } from "framer-motion";
 import Aurora from "@/components/Aurora";
 
@@ -47,14 +48,10 @@ export default function Hero() {
   const textX3 = useTransform(smoothMouseX, [-1, 1], [-pBaseX*4, pBaseX*4]);
   const textY3 = useTransform(smoothMouseY, [-1, 1], [-pBaseY*4, pBaseY*4]);
 
-
-
-
-
   return (
     <section 
       ref={containerRef} 
-      className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col pt-24"
+      className="relative min-h-[100svh] sm:min-h-screen bg-[#050505] overflow-hidden flex flex-col pt-16 sm:pt-24 justify-center"
     >
       {/* Aurora Background Layer (z-0) */}
       <motion.div 
@@ -74,8 +71,21 @@ export default function Hero() {
       {/* Very subtle gradient overlay to ensure text readability */}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#050505]/40 via-transparent to-[#050505] pointer-events-none" />
 
-      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 sm:px-8 lg:px-16 3xl:px-24 flex-grow flex flex-col justify-center pb-32 pt-12 md:pt-20">
+      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-16 3xl:px-24 flex-grow flex flex-col justify-center pt-4 pb-16 sm:pb-32 sm:pt-12 md:pt-20">
         
+        {/* Mobile Studio Status Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="flex sm:hidden items-center gap-2 mb-3"
+        >
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/80 text-[10px] font-mono tracking-wider uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            Digital Solutions &amp; AI Studio
+          </span>
+        </motion.div>
+
         {/* Main Headline Wrapper */}
         <motion.div style={{ opacity: textOpacity }} className="relative font-display font-bold uppercase leading-[0.85] tracking-tighter">
           
@@ -84,7 +94,7 @@ export default function Hero() {
             initial={{ clipPath: "inset(0 100% 0 0)" }}
             animate={{ clipPath: "inset(0 0% 0 0)" }}
             transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[14vw] xl:text-[150px] text-transparent relative z-0 opacity-60 ml-[2vw] sm:ml-[5vw]"
+            className="text-[13vw] sm:text-[14vw] xl:text-[150px] text-transparent relative z-0 opacity-60 ml-0 sm:ml-[5vw] select-none"
             style={{ WebkitTextStroke: "1px rgba(244, 241, 237, 0.6)" }}
           >
             <motion.div style={{ x: textX1, y: textY1 }}>IMAGINING</motion.div>
@@ -95,7 +105,7 @@ export default function Hero() {
             initial={{ x: 30, filter: "blur(15px)", opacity: 0 }}
             animate={{ x: 0, filter: "blur(0px)", opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[16vw] xl:text-[170px] text-[#D91F2A] relative z-20 -mt-[4vw] sm:-mt-[2vw] ml-[15vw] sm:ml-[22vw] drop-shadow-2xl"
+            className="text-[16vw] sm:text-[16vw] xl:text-[170px] text-[#D91F2A] relative z-20 -mt-[2vw] sm:-mt-[2vw] ml-[7vw] sm:ml-[22vw] drop-shadow-2xl select-none"
           >
             <motion.div style={{ x: textX2, y: textY2 }}>WHAT&apos;S</motion.div>
           </motion.div>
@@ -103,7 +113,7 @@ export default function Hero() {
           {/* NEXT. (Warm White) */}
           <motion.div 
             style={{ y: nextY }}
-            className="text-[20vw] xl:text-[220px] text-[#F4F1ED] relative z-40 -mt-[6vw] sm:-mt-[3vw] ml-[-4vw] sm:ml-[2vw] drop-shadow-2xl"
+            className="text-[21vw] sm:text-[20vw] xl:text-[220px] text-[#F4F1ED] relative z-40 -mt-[3vw] sm:-mt-[3vw] ml-0 sm:ml-[2vw] drop-shadow-2xl select-none"
           >
             <motion.div style={{ x: textX3, y: textY3 }} className="flex">
               {["N","E","X","T","."].map((letter, i) => (
@@ -121,17 +131,54 @@ export default function Hero() {
         </motion.div>
 
         {/* Complimentary Text on Right - Moved Up */}
-        <div className="mt-0 sm:mt-2 relative z-40 pr-[5vw] sm:pr-[8vw] flex justify-end">
+        <div className="mt-4 sm:mt-2 relative z-40 pr-0 sm:pr-[8vw] flex flex-col sm:flex-row justify-start sm:justify-end">
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 1.2, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-             className="max-w-[280px] text-right"
+             className="max-w-sm sm:max-w-[280px] text-left sm:text-right"
            >
-              <div className="w-12 h-[1px] bg-[#D91F2A] ml-auto mb-4" />
-              <p className="text-[#F4F1ED]/60 text-xs sm:text-sm font-light leading-relaxed tracking-wide">
+              <div className="w-10 sm:w-12 h-[1px] bg-[#D91F2A] mb-3 sm:mb-4 sm:ml-auto" />
+              <p className="text-[#F4F1ED]/80 sm:text-[#F4F1ED]/60 text-xs sm:text-sm font-light leading-relaxed tracking-wide">
                 Leylak Tech is an independent digital product studio crafting premium websites, mobile platforms, and AI experiences that define the future.
               </p>
+
+              {/* Mobile Quick Action Buttons */}
+              <div className="flex sm:hidden items-center gap-3 mt-5">
+                <Link
+                  href="/work"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-lg shadow-red-600/30 active:scale-95"
+                >
+                  <span>Explore Work</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 text-white/90 text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-95"
+                >
+                  <span>Contact</span>
+                </Link>
+              </div>
+
+              {/* Mobile Capabilities Tags */}
+              <div className="flex sm:hidden flex-wrap gap-1.5 mt-5 pt-4 border-t border-white/10">
+                {["Web Platforms", "Mobile Apps", "Custom AI", "Scalable Systems"].map((tag) => (
+                  <span key={tag} className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-white/60">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Mobile Scroll Indicator */}
+              <div className="flex sm:hidden items-center gap-2 mt-6 text-white/40 text-[10px] font-mono tracking-widest uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                <span>Scroll to explore</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-bounce text-red-500">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+              </div>
            </motion.div>
         </div>
       </div>

@@ -81,14 +81,6 @@ body {
   }
 }
 
-/* Better touch targets on mobile */
-@media (max-width: 768px) {
-  button, a {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
 /* Utility Csses */
 @layer utilities {
   .text-balance {

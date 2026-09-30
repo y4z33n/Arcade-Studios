@@ -943,6 +943,15 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-panel-list[data-numbering] { counter-reset: smItem; }
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 0.1em; right: 3.2em; font-size: 18px; font-weight: 400; color: var(--sm-accent, #ff0000); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
 @media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
+@media (max-width: 768px) {
+  .sm-scope .staggered-menu-panel { width: 100% !important; left: 0 !important; right: 0 !important; padding: 4.5rem 1.5rem 2rem 1.5rem !important; }
+  .sm-scope .sm-panel-item { font-size: 2.25rem !important; letter-spacing: -1px !important; padding-right: 1.2em !important; }
+  .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { font-size: 14px !important; right: 2.2em !important; }
+  .sm-scope .sm-socials { padding-top: 1.25rem !important; padding-bottom: 2rem !important; }
+  .sm-scope .sm-socials-link { font-size: 0.95rem !important; }
+  .sm-scope .sm-close-btn { top: 1.25rem !important; right: 1.25rem !important; width: 2.5rem !important; height: 2.5rem !important; }
+  .sm-scope .sm-close-btn svg { width: 32px !important; height: 32px !important; }
+}
 @media (max-width: 640px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
       `}</style>
     </div>
@@ -983,7 +992,7 @@ export default function Navbar() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-8"
+        className="fixed top-3 sm:top-6 left-0 right-0 z-50 flex justify-center px-3 sm:px-8"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -998,8 +1007,8 @@ export default function Navbar() {
             scrolled ? "shadow-2xl" : ""
           )}
           contentClassName={cn(
-            "flex items-center px-5 py-3 md:px-7 md:py-3.5 transition-all duration-300 min-h-[58px] md:min-h-[64px]",
-            scrolled && !isHovered ? "gap-3" : "gap-4 md:gap-6"
+            "flex items-center px-3.5 py-2 sm:px-5 sm:py-3 md:px-7 md:py-3.5 transition-all duration-300 min-h-[50px] sm:min-h-[58px] md:min-h-[64px]",
+            scrolled && !isHovered ? "gap-2 sm:gap-3" : "gap-2.5 sm:gap-4 md:gap-6"
           )}
         >
           {/* Logo & Title */}

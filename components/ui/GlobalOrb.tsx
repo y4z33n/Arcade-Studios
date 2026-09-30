@@ -1,17 +1,26 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useGeminiContext } from '@/components/providers/GeminiVoiceProvider';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Mic, Square, Volume2 } from 'lucide-react';
+import { menuState } from '@/lib/store';
 import Orb from './Orb';
 
 export default function GlobalOrb() {
   const { isSpeaking, isRecording, isConnected, startConversation, stopConversation, error } = useGeminiContext();
   const prefersReducedMotion = useReducedMotion();
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  if (pathname.startsWith('/mail')) {
+  useEffect(() => {
+    setMenuOpen(menuState.open);
+    const unsub = menuState.subscribe((open) => setMenuOpen(open));
+    return () => { unsub(); };
+  }, []);
+
+  if (pathname.startsWith('/mail') || menuOpen) {
     return null;
   }
 
@@ -30,7 +39,7 @@ export default function GlobalOrb() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
-        className="fixed bottom-2 md:bottom-4 inset-x-0 w-full z-[9999] flex flex-col items-center gap-3 pointer-events-none"
+        className="fixed bottom-2 md:bottom-4 inset-x-0 w-full z-[9999] flex flex-col items-center gap-1.5 md:gap-3 pointer-events-none"
       >
         <div className="relative pointer-events-auto flex items-center justify-center">
 
@@ -56,19 +65,19 @@ export default function GlobalOrb() {
               repeat: prefersReducedMotion ? 0 : Infinity, 
               ease: "easeInOut" 
             }}
-            className="absolute inset-[-20px] rounded-full blur-[15px] pointer-events-none -z-10 transition-colors duration-500 bg-[#D91F2A]/20"
+            className="absolute inset-[-12px] md:inset-[-20px] rounded-full blur-[12px] md:blur-[15px] pointer-events-none -z-10 transition-colors duration-500 bg-[#D91F2A]/20"
           />
           
           <motion.button
               onClick={handleOrbClick}
-              className={`relative flex items-center justify-center w-[80px] h-[80px] md:w-[100px] md:h-[100px] shrink-0 rounded-full overflow-hidden transition-all duration-500 group border border-white/10 bg-black/30 backdrop-blur-md hover:scale-110 cursor-pointer outline-none ${isSpeaking ? 'shadow-[0_0_40px_rgba(255,255,255,0.15)]' : isRecording ? 'shadow-[0_0_30px_rgba(220,38,38,0.4)]' : 'shadow-[0_0_30px_rgba(220,38,38,0.2)] hover:shadow-[0_0_50px_rgba(220,38,38,0.4)]'}`}
+              className={`relative flex items-center justify-center w-[60px] h-[60px] md:w-[100px] md:h-[100px] shrink-0 rounded-full overflow-hidden transition-all duration-500 group border border-white/10 bg-black/30 backdrop-blur-md hover:scale-110 cursor-pointer outline-none ${isSpeaking ? 'shadow-[0_0_40px_rgba(255,255,255,0.15)]' : isRecording ? 'shadow-[0_0_30px_rgba(220,38,38,0.4)]' : 'shadow-[0_0_30px_rgba(220,38,38,0.2)] hover:shadow-[0_0_50px_rgba(220,38,38,0.4)]'}`}
           >
               <div className="absolute inset-0 z-0 pointer-events-auto">
                 <Orb hoverIntensity={0.8} rotateOnHover={true} hue={isRecording ? 10 : 0} forceHoverState={isSpeaking || isRecording} backgroundColor="transparent" isSpeaking={isSpeaking} />
               </div>
 
-              <div className={`relative z-10 p-2 rounded-full transition-colors duration-300 pointer-events-none ${isSpeaking ? 'text-white/90 drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]' : isRecording ? 'text-red-500 drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]' : 'text-white/70 group-hover:text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]'}`}>
-                {isSpeaking ? <Volume2 size={26} /> : isRecording ? <Square size={24} fill="currentColor" /> : <Mic size={28} />}
+              <div className={`relative z-10 p-1.5 md:p-2 rounded-full transition-colors duration-300 pointer-events-none ${isSpeaking ? 'text-white/90 drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]' : isRecording ? 'text-red-500 drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]' : 'text-white/70 group-hover:text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]'}`}>
+                {isSpeaking ? <Volume2 className="w-5 h-5 md:w-6 md:h-6" /> : isRecording ? <Square className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" /> : <Mic className="w-5 h-5 md:w-7 md:h-7" />}
               </div>
           </motion.button>
         </div>

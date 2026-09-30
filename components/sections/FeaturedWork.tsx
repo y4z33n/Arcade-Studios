@@ -138,7 +138,7 @@ export default function FeaturedWork() {
   return (
     <section
       ref={containerRef}
-      className="relative py-24 md:py-36 bg-black text-white border-t border-white/10"
+      className="relative py-16 sm:py-24 md:py-36 bg-black text-white border-t border-white/10"
       style={{ contentVisibility: "auto", containIntrinsicSize: "900px" }}
     >
       {/* Dynamic Ambient Background Glow (Hardware accelerated) */}
@@ -153,24 +153,24 @@ export default function FeaturedWork() {
       <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-14 gap-6">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-600/10 border border-red-500/30 text-red-400 text-xs font-mono uppercase tracking-widest font-semibold shadow-[0_0_15px_rgba(220,38,38,0.2)]">
+            <div className="flex items-center gap-3 mb-3 sm:mb-4">
+              <span className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-red-600/10 border border-red-500/30 text-red-400 text-[11px] sm:text-xs font-mono uppercase tracking-widest font-semibold shadow-[0_0_15px_rgba(220,38,38,0.2)]">
                 <Sparkles className="w-3 h-3" />
                 Featured Portfolio
               </span>
             </div>
 
-            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.9]">
+            <h2 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.9]">
               Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-white">Works</span>
             </h2>
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
             {/* Minimalist Segmented Indicator Pills with Pure CSS Progress */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {PROJECTS.map((proj, idx) => {
                 const isActive = idx === currentIndex;
                 return (
@@ -178,12 +178,12 @@ export default function FeaturedWork() {
                     key={proj.id}
                     onClick={() => handleSelect(idx)}
                     aria-label={`Go to slide ${proj.title}`}
-                    className="py-2 cursor-pointer focus:outline-none group"
+                    className="py-2 cursor-pointer focus:outline-none group p-0 border-0 bg-transparent"
                   >
                     <div 
                       className={`h-1.5 rounded-full transition-all duration-300 overflow-hidden ${
                         isActive 
-                          ? "w-8 bg-white/20" 
+                          ? "w-6 sm:w-8 bg-white/20" 
                           : "w-2 bg-white/10 hover:bg-white/30"
                       }`}
                     >
@@ -208,29 +208,29 @@ export default function FeaturedWork() {
             <div className="flex items-center gap-2 ml-2">
               <button
                 onClick={handlePrev}
-                className="w-11 h-11 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-200 group active:scale-95 transform-gpu"
+                className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-200 group active:scale-95 transform-gpu"
                 aria-label="Previous project"
               >
-                <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-200" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-0.5 transition-transform duration-200" />
               </button>
               <button
                 onClick={handleNext}
-                className="w-11 h-11 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-200 group active:scale-95 transform-gpu"
+                className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white/80 hover:text-white transition-all duration-200 group active:scale-95 transform-gpu"
                 aria-label="Next project"
               >
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-200" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 transition-transform duration-200" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Cinematic Slider Display */}
-        <div className="relative rounded-[2rem] md:rounded-[2.5rem] bg-[#0c0c0e] border border-white/10 overflow-hidden shadow-2xl transform-gpu">
+        <div className="relative rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] bg-[#0c0c0e] border border-white/10 overflow-hidden shadow-2xl transform-gpu">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 p-6 sm:p-8 md:p-12 lg:p-14 items-center relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 p-4 sm:p-8 md:p-12 lg:p-14 items-center relative z-10">
             
             {/* Left: Project Information */}
-            <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            <div className="lg:col-span-5 flex flex-col justify-between space-y-4 sm:space-y-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentProject.id}
@@ -238,39 +238,39 @@ export default function FeaturedWork() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="space-y-6 will-change-transform"
+                  className="space-y-4 sm:space-y-6 will-change-transform"
                 >
                   {/* Category Badge & Year */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-xs font-mono uppercase tracking-widest text-red-400 font-bold px-3 py-1 rounded-full bg-red-600/10 border border-red-500/30">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-red-400 font-bold px-2.5 sm:px-3 py-1 rounded-full bg-red-600/10 border border-red-500/30">
                       {currentProject.category}
                     </span>
-                    <span className="text-xs font-mono text-white/50">
+                    <span className="text-[11px] sm:text-xs font-mono text-white/50">
                       {currentProject.year}
                     </span>
                   </div>
 
                   {/* Title & Subtitle */}
                   <div>
-                    <h3 className="text-4xl sm:text-5xl xl:text-6xl font-black text-white tracking-tighter uppercase leading-[1.05]">
+                    <h3 className="text-2xl sm:text-4xl md:text-5xl xl:text-6xl font-black text-white tracking-tighter uppercase leading-[1.05]">
                       {currentProject.title}
                     </h3>
-                    <p className="text-lg font-medium text-white/60 mt-1">
+                    <p className="text-sm sm:text-lg font-medium text-white/60 mt-1">
                       {currentProject.subtitle}
                     </p>
                   </div>
 
                   {/* Description */}
-                  <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg text-white/70 font-light leading-relaxed">
                     {currentProject.description}
                   </p>
 
                   {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-1 sm:pt-2">
                     {currentProject.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3.5 py-1.5 text-xs text-white/80 bg-white/5 border border-white/10 rounded-full font-mono"
+                        className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs text-white/80 bg-white/5 border border-white/10 rounded-full font-mono"
                       >
                         {tag}
                       </span>
@@ -278,12 +278,12 @@ export default function FeaturedWork() {
                   </div>
 
                   {/* Action CTA */}
-                  <div className="pt-4 flex items-center gap-4">
+                  <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                     <a
                       href={currentProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black hover:bg-red-600 hover:text-white font-bold rounded-full transition-all duration-200 text-sm tracking-wide shadow-lg group/btn active:scale-95 transform-gpu"
+                      className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-black hover:bg-red-600 hover:text-white font-bold rounded-full transition-all duration-200 text-sm tracking-wide shadow-lg group/btn active:scale-95 transform-gpu text-center"
                     >
                       <span>Visit Live Platform</span>
                       <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-200" />
@@ -291,7 +291,7 @@ export default function FeaturedWork() {
 
                     <Link
                       href="/work"
-                      className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-semibold transition-colors duration-200 px-4 py-2"
+                      className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white text-sm font-semibold transition-colors duration-200 px-4 py-2 text-center"
                     >
                       <span>View All Work</span>
                       <ChevronRight className="w-4 h-4" />
@@ -303,7 +303,7 @@ export default function FeaturedWork() {
 
             {/* Right: Immersive Project Visual */}
             <div className="lg:col-span-7 relative">
-              <div className="relative h-[360px] sm:h-[440px] md:h-[500px] lg:h-[520px] w-full rounded-2xl md:rounded-3xl overflow-hidden border border-white/15 bg-black/60 shadow-2xl group/card transform-gpu">
+              <div className="relative h-[240px] sm:h-[440px] md:h-[500px] lg:h-[520px] w-full rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden border border-white/15 bg-black/60 shadow-2xl group/card transform-gpu">
                 
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.div
@@ -329,23 +329,23 @@ export default function FeaturedWork() {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30 pointer-events-none" />
 
                     {/* Client URL Floating Pill */}
-                    <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20">
+                    <div className="absolute top-3 sm:top-6 right-3 sm:right-6 z-20">
                       <a
                         href={currentProject.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white/90 text-xs font-mono transition-all duration-200 hover:border-red-500"
+                        className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white/90 text-[11px] sm:text-xs font-mono transition-all duration-200 hover:border-red-500"
                       >
                         <span>{currentProject.client}</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-red-400" />
+                        <ExternalLink className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-red-400" />
                       </a>
                     </div>
 
                     {/* Bottom Floating Title Bar */}
-                    <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none z-20">
-                      <div className="backdrop-blur-md bg-black/60 px-4 py-2 rounded-2xl border border-white/10">
-                        <span className="text-xs font-mono text-white/50 block">PROJECT</span>
-                        <span className="text-sm font-bold text-white uppercase tracking-wider">
+                    <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-6 flex items-center justify-between pointer-events-none z-20">
+                      <div className="backdrop-blur-md bg-black/60 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border border-white/10">
+                        <span className="text-[10px] sm:text-xs font-mono text-white/50 block">PROJECT</span>
+                        <span className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
                           {currentProject.title}
                         </span>
                       </div>

@@ -43,17 +43,17 @@ export default function Services() {
   return (
     <section
       ref={containerRef}
-      className="relative py-24 md:py-32 bg-black text-white border-t border-white/10"
+      className="relative py-16 sm:py-24 md:py-32 bg-black text-white border-t border-white/10"
     >
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24">
         
         {/* Header */}
-        <div className="mb-16 md:mb-24">
+        <div className="mb-10 sm:mb-16 md:mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase mb-6"
+            className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase mb-3 sm:mb-6"
           >
             What <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">We Do</span>
           </motion.h2>
@@ -61,7 +61,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-lg md:text-xl text-white/60 font-light max-w-2xl"
+            className="text-sm sm:text-lg md:text-xl text-white/60 font-light max-w-2xl"
           >
             We don't do average. We offer a relentless, full-spectrum suite of digital services designed for total market dominance.
           </motion.p>
@@ -76,16 +76,16 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/30 transition-colors duration-500 flex flex-col h-full"
+              className="group relative rounded-2xl sm:rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/30 transition-colors duration-500 flex flex-col h-full"
             >
               <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 ${service.color}`} />
               
-              <div className="p-8 flex flex-col h-full relative z-10">
-                <h3 className="text-2xl md:text-3xl font-black tracking-tight uppercase mb-4 group-hover:text-white transition-colors duration-300">
+              <div className="p-5 sm:p-8 flex flex-col h-full relative z-10">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight uppercase mb-3 sm:mb-4 group-hover:text-white transition-colors duration-300">
                   {service.title}
                 </h3>
                 
-                <p className="text-sm text-white/60 font-light leading-relaxed mb-8 flex-grow">
+                <p className="text-xs sm:text-sm text-white/60 font-light leading-relaxed mb-6 sm:mb-8 flex-grow">
                   {service.description}
                 </p>
                 

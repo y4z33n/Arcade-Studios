@@ -584,24 +584,32 @@ const CLIENT_LOGOS: LogoItem[] = [
 export default function BrandShowcase() {
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <section
       ref={containerRef}
-      className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-black"
+      className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-black"
     >
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 relative" style={{ zIndex: 10 }}>
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 relative overflow-hidden" style={{ zIndex: 10 }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-10 md:mb-12 lg:mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
-          <span className="text-xs sm:text-sm 3xl:text-base text-white/60 uppercase tracking-widest mb-3 md:mb-4 block">
+          <span className="text-[11px] sm:text-sm 3xl:text-base text-white/60 uppercase tracking-widest mb-2 sm:mb-4 block font-mono">
             Trusted by leading brands
           </span>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-white leading-[0.95] px-4">
+          <h2 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-white leading-[0.95] px-2 sm:px-4">
             We've Partnered <br className="hidden md:block"/><span className="text-white/50">With Leaders</span>
           </h2>
         </motion.div>
@@ -611,20 +619,20 @@ export default function BrandShowcase() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="relative"
+          className="relative overflow-hidden w-full max-w-full"
         >
           <LogoLoop
             logos={CLIENT_LOGOS}
-            speed={80}
+            speed={isMobile ? 60 : 80}
             direction="left"
-            logoHeight={48}
-            gap={48}
+            logoHeight={isMobile ? 32 : 48}
+            gap={isMobile ? 28 : 48}
             pauseOnHover={true}
             fadeOut={true}
             fadeOutColor="rgba(0, 0, 0, 0.8)"
             scaleOnHover={true}
             ariaLabel="Partner company logos"
-            className="py-6 md:py-8"
+            className="py-4 sm:py-8"
           />
         </motion.div>
 
@@ -633,9 +641,9 @@ export default function BrandShowcase() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-center mt-8 md:mt-12"
+          className="text-center mt-6 sm:mt-12"
         >
-          <p className="text-white/60 text-sm sm:text-base 3xl:text-lg">
+          <p className="text-white/50 text-xs sm:text-base 3xl:text-lg">
             And many more innovative companies across the globe
           </p>
         </motion.div>

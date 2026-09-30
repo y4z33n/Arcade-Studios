@@ -50,12 +50,12 @@ export default function HomePage() {
       {/* Hyperspeed Background - Full Page */}
       <HyperspeedBackground />
       
-      <div className="relative min-h-screen z-10">
+      <div className="relative min-h-screen z-10 overflow-x-hidden w-full">
         <Hero />
         
         <Ethos />
         
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full overflow-x-hidden">
           <FeaturedWork />
           
           <MobileAppsShowcase />

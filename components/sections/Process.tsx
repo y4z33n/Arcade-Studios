@@ -29,18 +29,18 @@ export default function Process() {
   return (
     <section
       ref={containerRef}
-      className="relative py-24 md:py-32 bg-[#0A0A0A] text-white border-t border-white/5 overflow-hidden"
+      className="relative py-16 sm:py-24 md:py-32 bg-[#0A0A0A] text-white border-t border-white/5 overflow-hidden"
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-red-900/10 blur-[100px] rounded-full pointer-events-none" />
       <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 z-10">
         
         {/* Header */}
-        <div className="mb-16 md:mb-24 lg:mb-32 text-center">
+        <div className="mb-10 sm:mb-20 lg:mb-32 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase mb-6"
+            className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase mb-3 sm:mb-6"
           >
             How We <span className="text-red-600">Work</span>
           </motion.h2>
@@ -48,14 +48,14 @@ export default function Process() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-lg md:text-xl text-white/60 font-light max-w-2xl mx-auto"
+            className="text-sm sm:text-lg md:text-xl text-white/60 font-light max-w-2xl mx-auto"
           >
             A relentless, precision-driven process to turn your vision into a dominant digital product.
           </motion.p>
         </div>
 
         {/* Process Interactive Timeline */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-0 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-0 max-w-7xl mx-auto">
           
           {PROCESS_STEPS.map((step, idx) => {
             const isActive = activeStep === idx;
@@ -68,26 +68,32 @@ export default function Process() {
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.6, delay: idx * 0.2 }}
                 onMouseEnter={() => setActiveStep(idx)}
-                className={`relative flex-1 group cursor-pointer border-t-2 pt-8 lg:pt-12 transition-all duration-500 ${
+                onClick={() => setActiveStep(idx)}
+                className={`relative flex-1 group cursor-pointer border-t-2 pt-6 sm:pt-8 lg:pt-12 transition-all duration-500 ${
                   isActive ? "border-red-600" : "border-white/20 hover:border-white/50"
                 }`}
               >
                 {/* Step Number */}
-                <div className={`text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter transition-colors duration-500 mb-6 ${
-                  isActive ? "text-white" : "text-white/10 group-hover:text-white/30"
+                <div className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter transition-colors duration-500 mb-3 sm:mb-6 ${
+                  isActive ? "text-white" : "text-white/20 lg:text-white/10 group-hover:text-white/30"
                 }`}>
                   {step.number}
                 </div>
                 
                 {/* Step Title */}
-                <h3 className={`text-2xl md:text-3xl font-bold uppercase tracking-tight mb-4 transition-colors duration-500 ${
-                  isActive ? "text-white" : "text-white/50"
+                <h3 className={`text-lg sm:text-2xl md:text-3xl font-bold uppercase tracking-tight mb-2 sm:mb-4 transition-colors duration-500 ${
+                  isActive ? "text-white" : "text-white/80 lg:text-white/50"
                 }`}>
                   {step.title}
                 </h3>
                 
-                {/* Expanding Description */}
-                <div className="overflow-hidden">
+                {/* Mobile description - always visible */}
+                <p className="block lg:hidden text-xs sm:text-sm text-white/70 font-light leading-relaxed">
+                  {step.description}
+                </p>
+
+                {/* Desktop Expanding Description */}
+                <div className="hidden lg:block overflow-hidden">
                   <AnimatePresence>
                     {isActive && (
                       <motion.p

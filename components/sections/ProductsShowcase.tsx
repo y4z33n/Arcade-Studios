@@ -107,7 +107,7 @@ export default function ProductsShowcase() {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative py-28 md:py-40 bg-black text-white border-t border-white/10 overflow-hidden select-none"
+      className="relative py-16 sm:py-28 md:py-40 bg-black text-white border-t border-white/10 overflow-hidden select-none"
     >
       {/* Dynamic Ambient Background Aura */}
       <div 
@@ -119,30 +119,30 @@ export default function ProductsShowcase() {
       <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-12 3xl:px-24 z-10">
         
         {/* Section Header with Awwwards Editorial Layout */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 md:mb-24 gap-6">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-600/10 border border-red-500/30 text-red-400 text-xs font-mono uppercase tracking-widest font-semibold">
+            <div className="flex items-center gap-3 mb-3 sm:mb-4">
+              <span className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 rounded-full bg-red-600/10 border border-red-500/30 text-red-400 text-[11px] sm:text-xs font-mono uppercase tracking-widest font-semibold">
                 <Sparkles className="w-3 h-3" />
                 Products &amp; Labs
               </span>
-              <span className="text-xs font-mono uppercase tracking-wider text-white/40">
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-white/40">
                 [ 04 In Development ]
               </span>
             </div>
 
-            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.85]">
+            <h2 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.85]">
               Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-white">Products</span>
             </h2>
           </div>
 
-          <div className="flex flex-col items-start md:items-end gap-3 shrink-0">
-            <p className="text-sm sm:text-base text-white/50 font-light max-w-sm text-left md:text-right">
+          <div className="flex flex-col items-start md:items-end gap-2.5 sm:gap-3 shrink-0">
+            <p className="text-xs sm:text-base text-white/50 font-light max-w-sm text-left md:text-right">
               Software solutions crafted in-house to solve everyday industry bottlenecks.
             </p>
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-xs uppercase font-mono tracking-widest text-white/70 hover:text-white transition-colors group"
+              className="inline-flex items-center gap-2 text-[11px] sm:text-xs uppercase font-mono tracking-widest text-white/70 hover:text-white transition-colors group"
             >
               <span>View Product Archive</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -161,7 +161,7 @@ export default function ProductsShowcase() {
                 key={prod.id}
                 href={prod.link}
                 onMouseEnter={() => setHoveredIndex(index)}
-                className="group relative block py-10 sm:py-14 md:py-16 transition-all duration-300 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-hidden"
+                className="group relative block py-6 sm:py-14 md:py-16 transition-all duration-300 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-hidden"
               >
                 {/* Background Hover Flash */}
                 <div 
@@ -173,42 +173,42 @@ export default function ProductsShowcase() {
                   }}
                 />
 
-                <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="relative z-10 flex items-center justify-between gap-4">
                   
                   {/* Left: Index & Giant Typographic Title */}
-                  <div className="flex items-baseline gap-6 sm:gap-10">
-                    <span className="text-xs sm:text-sm font-mono text-white/30 group-hover:text-white transition-colors font-semibold">
+                  <div className="flex items-baseline gap-3 sm:gap-6 md:gap-10 min-w-0">
+                    <span className="text-xs sm:text-sm font-mono text-white/40 group-hover:text-white transition-colors font-semibold shrink-0">
                       {prod.num}
                     </span>
 
-                    <div>
-                      <div className="flex items-center gap-4">
-                        <h3 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase transition-all duration-300 ${
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2.5 sm:gap-4 flex-wrap sm:flex-nowrap">
+                        <h3 className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase transition-all duration-300 truncate ${
                           isHovered 
-                            ? "text-white translate-x-2" 
-                            : "text-white/40 group-hover:text-white"
+                            ? "text-white sm:translate-x-2" 
+                            : "text-white/80 sm:text-white/40 group-hover:text-white"
                         }`}>
                           {prod.name}
                         </h3>
                         
                         <div 
-                          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                          className={`w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg sm:rounded-2xl flex items-center justify-center transition-all duration-300 shrink-0 ${
                             isHovered 
                               ? "opacity-100 scale-100 bg-white/10 border border-white/20" 
-                              : "opacity-0 scale-75"
+                              : "opacity-80 sm:opacity-0 scale-90 sm:scale-75 bg-white/5 sm:bg-transparent"
                           }`}
                           style={{ color: prod.color }}
                         >
-                          <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                          <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3 mt-2 sm:mt-3">
-                        <span className="text-xs sm:text-sm font-mono uppercase tracking-wider text-white/60">
+                      <div className="flex items-center gap-2 sm:gap-3 mt-1 sm:mt-3">
+                        <span className="text-[11px] sm:text-xs md:text-sm font-mono uppercase tracking-wider text-white/60 truncate">
                           {prod.category}
                         </span>
-                        <span className="w-1 h-1 rounded-full bg-white/30" />
-                        <span className="text-xs font-mono uppercase tracking-wider text-white/40">
+                        <span className="w-1 h-1 rounded-full bg-white/30 shrink-0" />
+                        <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-red-400 shrink-0">
                           In Dev
                         </span>
                       </div>
@@ -216,13 +216,13 @@ export default function ProductsShowcase() {
                   </div>
 
                   {/* Right: Description & Action Arrow */}
-                  <div className="flex items-center justify-between lg:justify-end gap-8 lg:max-w-md">
-                    <p className="text-sm text-white/50 font-light leading-relaxed hidden sm:block">
+                  <div className="flex items-center justify-end gap-6 lg:max-w-md shrink-0">
+                    <p className="text-sm text-white/50 font-light leading-relaxed hidden lg:block">
                       {prod.description}
                     </p>
 
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/20 flex items-center justify-center text-white/50 group-hover:text-black group-hover:bg-white group-hover:border-white transition-all duration-300 shrink-0 transform group-hover:scale-110">
-                      <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border border-white/20 flex items-center justify-center text-white/70 group-hover:text-black group-hover:bg-white group-hover:border-white transition-all duration-300 shrink-0 transform group-hover:scale-110">
+                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </div>
                   </div>
 
