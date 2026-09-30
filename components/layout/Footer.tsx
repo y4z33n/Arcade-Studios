@@ -79,11 +79,6 @@ export default function Footer() {
                 <a href="tel:+23057904684" className="text-white/50 hover:text-white/80 transition-colors text-sm sm:text-base 3xl:text-lg">
                   +230 57904684
                 </a>
-                <p className="text-white/50 text-xs sm:text-sm 3xl:text-base leading-relaxed pt-1">
-                  2nd Floor, Unity House<br />
-                  Rue du Savoir, Cybercity<br />
-                  Ebene, Mauritius 72201
-                </p>
               </div>
             </div>
           </motion.div>

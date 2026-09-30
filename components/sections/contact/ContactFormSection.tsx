@@ -71,16 +71,6 @@ export default function ContactFormSection() {
               <div className="space-y-6">
                 <div>
                   <p className="text-sm text-white/50 uppercase tracking-wider mb-2">
-                    Location
-                  </p>
-                  <p className="text-base md:text-lg 3xl:text-xl text-white/90 leading-relaxed">
-                    2nd Floor, Unity House<br />
-                    Rue du Savoir, Cybercity<br />
-                    Ebene, Mauritius 72201
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-white/10">
-                  <p className="text-sm text-white/50 uppercase tracking-wider mb-2">
                     Phone / WhatsApp
                   </p>
                   <div className="flex flex-col gap-1.5">
